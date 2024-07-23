@@ -40,7 +40,13 @@ body > img{
 #signup_text {
     font-size: 28px;
     font-weight: 700;
-    margin:120px 0px 30px 0px;
+    margin:70px 0px 15px 0px;
+}
+
+#service_text{
+    font-size:14px;
+    margin-bottom:40px;
+    font-family:'Courier New', Courier, monospace;
 }
 
 #form {
@@ -59,7 +65,6 @@ body > img{
     border:none;
     color:gray;
     font-size:12px;
-
 }
 
 #form > input:focus{
@@ -67,8 +72,61 @@ body > img{
     outline:1px solid gray;
 }
 
+#form > label{
+    font-size:14px;
+    margin-bottom:4px;
+    font-weight: 700;
+}
+
+#form >label::after{
+    margin-left:3px;
+    content:"*";
+    color:red;
+}
+
+#id_check{
+    position:absolute;
+    top:202px;
+    right:51px;
+    width:80px;
+    height:33px;
+    background-color: rgb(160, 70, 160);
+    color:white;
+    border:none;
+    border-radius: 3px;
+    font-weight: 700;
+}
+
+#id_check:hover{
+    cursor:pointer;
+}
+
+#check_id_false{
+    font-size:11px;
+    color:red;
+    display:none;
+    position:absolute;
+    top:178px;
+    left:108px;
+}
+
+#check_id_true{
+    font-size:11px;
+    color:green;
+    display:none;
+    position:absolute;
+    top:178px;
+    left:108px;
+}
+
+#btn_box{
+    display:flex;
+    justify-content: space-between;
+    margin-top:20px;
+}
+
 #signup_btn{
-    width: 400px;
+    width: 195px;
     height:45px;
     border-radius: 5px;
     background-color: rgb(160, 70, 160);
@@ -76,4 +134,23 @@ body > img{
     font-size:14px;
     font-weight: 700;
     color:white;
+}
+
+#signup_btn:hover{
+    cursor:pointer;
+}
+
+#signup_btn_cancel{
+    width: 195px;
+    height:45px;
+    border-radius: 5px;
+    background-color: rgb(204, 204, 2);
+    border:none;
+    font-size:14px;
+    font-weight: 700;
+    color:white;
+}
+
+#signup_btn_cancel:hover{
+    cursor:pointer;
 }
