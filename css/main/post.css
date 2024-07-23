@@ -1,0 +1,99 @@
+/* 본문 영역 패딩 설정 */
+:root {
+    --board-padding: 5px;
+}
+
+
+/* 포스트 전체 영역 div */
+.post-container{
+    width: 100%;
+    border: 0px solid;
+    border-radius: 15px;
+    padding: 5px;
+    display: block;
+}
+
+/* 포스트 상단 영역 div */
+.post-profileRegion {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: var(--board-padding);
+}
+
+/* 상단영역 요소들 마진 */
+.post-profileRegion > div {
+    margin-right: 10px;
+}
+
+/* 프로필 사진 */
+.profileRegion-userProfile{
+    width: 50px;
+    height: 50px;
+    border: 1px solid black;
+    border-radius: 50%;
+}
+
+/* 본문 전체 영역 div */
+.post-mainContainer {
+    padding: var(--board-padding);
+}
+
+/* 본문 글 div */
+.mainContainer-dataRegion {
+    width: 60%;
+    margin-bottom: 10px;
+}
+
+/* 게시물 사진 영역 */
+.mainContainer-fileRegion {
+    display: flex;
+    width: 60%;
+    height: 500px;
+    border: 1px solid black;
+    border-radius: 15px;
+}
+
+
+/* 하단 영역 */
+.post-bottomContainer {
+    padding: var(--board-padding);
+    display: flex;
+    flex-direction: row;
+}
+
+.post-bottomContainer > a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.bottomContainer-buttonReion {
+    width: 80px;
+    height: 30px;
+    border: 0px solid black;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5px;
+    background-color: rgb(221, 229, 231);
+    padding: 3px
+}
+
+.bottomContainer-buttonReion:hover {
+    background-color: rgb(208, 217, 220);
+    cursor: pointer;
+}
+
+.postDivide {
+    border: 0px;
+    border-top: 1px solid lightgray;
+    width: 60%;
+}
+
+.post-A {
+    text-decoration: none;
+    color: inherit;
+}
