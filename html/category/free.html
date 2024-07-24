@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> KITA - creation </title>
+    <title> KITA - 자유! 평등! 박애! </title>
 </head>
 <link rel = "stylesheet" href ="../../css/main/banner.css">
 <link rel = "stylesheet" href ="../../css/main/leftbar.css">
 <link rel = "stylesheet" href ="../../css/main/main.css">
 <link rel = "stylesheet" href ="../../css/main/post.css">
 <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
-<script src ="" type="module" defer></script>
+<script src ="../../js/category/free.js" type="module" defer></script>
 <body>
     <!-- Header start -->
     <header role="banner">
@@ -30,11 +30,12 @@
         </div>
     </header>
     <!-- Header end -->
-
+     
     <!-- 헤더 영역 차지할 빈 영역 -->
     <div class = "banner-space"> </div>
-    
+
     <div id = "wholeDiv"> 
+
     <!-- 사이드바 차지할 빈 영역 -->
     <div class = "sidebar-space"> </div>
 
@@ -77,7 +78,7 @@
         <div class = "main-container">
             <!-- 상단 환영인사 문구 -->
             <div class="title-container">
-                <h1> Show your creativity! </h1>
+                <h1> Take a rest at KITA </h1>
             </div>
             <!-- 상단 글 작성 버튼 영역 -->
             <div class = "topBar-container">
@@ -93,10 +94,37 @@
                 </a>
             </div>
 
-            <!-- 글 작성 영역 -->
+            <!-- 게시물 들어갈 영역 -->
             <div class = "post-container">
-               
- 
+                <div class = "post-region">
+                <!-- 상단 정보 영역 -->
+                    <div class = "post-profileRegion">
+                        <!-- 유저 프로필 사진 -->
+                        <div class = "profileRegion-userProfile">
+                            <img src="">
+                        </div>
+                        <div class="profileRegion-userNickname"> <span> 닉네임 </span></div>
+                        <!-- 게시물 날짜 -->
+                        <div class = "profileRegion-date"> <span>2024-07-23</span></div>
+                    </div>
+                    <!-- 본분 영역 -->
+                    <a href="" class="post-A">
+                        <div class="post-mainContainer">
+                            <!-- 글 -->
+                            <div class="mainContainer-dataRegion"><span> 테스트용 글입니다.</span></div>
+                            <!-- 사진 or 영상 -->
+                            <div class="mainContainer-fileRegion"> <img src="" class = "mainContainer-file"></div>
+                        </div>
+                    </a>
+                    <!-- 댓글, 좋아요 영역 -->
+                    <div class = "post-bottomContainer">
+                        <!-- 댓글 -->
+                        <a href="" class="bottomContainer-comment-a"><div class = "bottomContainer-buttonReion"><span> 💬 999+ </span></div></a>
+                        <!-- 좋아요 -->
+                        <div class = "bottomContainer-buttonReion"><span> ♡ 999+</span></div>
+                    </div>
+                </div>
+                <hr class="postDivide">
             </div>
             <!-- 게시물 영역 종료 -->
              

@@ -1,8 +1,17 @@
+.bodyDiv {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+
+
 
 /* 전체 영역 */
 #wholeDiv {
     display: flex;
     flex-direction: row;
+    position: relative;
 }
 
 /* 메인 박스 */

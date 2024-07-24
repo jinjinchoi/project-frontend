@@ -48,7 +48,7 @@
 }
 
 /* 게시물 사진 영역 */
-.mainContainer-fileRegion .on {
+.mainContainer-fileRegion {
     display: flex;
     width: 60%;
     height: 500px;
@@ -56,6 +56,9 @@
     border-radius: 15px;
 }
 
+.mainContainer-fileRegion.off {
+    display: none;
+}
 
 /* 하단 영역 */
 .post-bottomContainer {
@@ -69,6 +72,7 @@
     color: inherit;
 }
 
+/* 하단 좋아요 댓글 버튼 설정 */
 .bottomContainer-buttonReion {
     width: 80px;
     height: 30px;
@@ -87,12 +91,14 @@
     cursor: pointer;
 }
 
+/* 게시물 나눠주는 hr */
 .postDivide {
     border: 0px;
     border-top: 1px solid lightgray;
     width: 60%;
 }
 
+/* 포스트 누르면 해당 게시물 들어가게 */
 .post-A {
     text-decoration: none;
     color: inherit;
