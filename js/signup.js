@@ -98,6 +98,10 @@ class SignupCheck{
         this.signupBtn.addEventListener('click', () => {
             if(this.checkTrue.style.display !== 'block'){
                 alert('아이디 중복확인을 해주세요.')
+            }else if((this.pwInput.value == '') || (this.pwInput2.value == '') || (this.nickInput.value == '') || (this.emailInput.value == '') || (this.phoneInput.value == '')){
+                alert('빈칸이 존재합니다.')
+            }else if(!this.pwReg.test(this.pwInput.value)){
+                alert('비밀번호가 조건에 맞지 않습니다.')
             }else if(this.pwInput.value !== this.pwInput2.value){
                 alert('비밀번호가 일치하지 않습니다.')
             }else if(!this.emailReg.test(this.emailInput.value)){
