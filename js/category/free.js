@@ -15,9 +15,10 @@ function getData(category) {
             if (!response.ok) {
                 throw new Error("응답 에러");
             }
-            const postData = yield response.json();
-            console.log(postData);
-            return postData;
+            const responseData = yield response.json();
+            const { postList: specifiedPost } = responseData;
+            console.dir(specifiedPost);
+            return specifiedPost;
         }
         catch (err) {
             console.log('패치 오류: ', err.message);
@@ -67,7 +68,7 @@ function displayPost(postList) {
             <!-- 글 -->
             <div class="mainContainer-dataRegion"><span> ${postData.boardContent} </span></div>
             <!-- 사진 or 영상 -->
-            <div class="mainContainer-fileRegion ${classStatus}"> <img src="${postData.boardFile}" class = "mainContainer-file ${classStatus}"> </div>
+            <div class="mainContainer-fileRegion ${classStatus}"> <img src="http://localhost:3000/${postData.boardFile}" class = "mainContainer-file ${classStatus}"> </div>
         </div>
     </a>
     <!-- 댓글, 좋아요 영역 -->

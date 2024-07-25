@@ -1,5 +1,6 @@
-/* 본문 영역 패딩 설정 */
+/* 변수 선언 */
 :root {
+    --wrightRegion-width: 700px;
     --board-padding: 5px;
 }
 
@@ -13,9 +14,13 @@
     display: block;
 }
 
+.post-region{
+    width: var(--wrightRegion-width);
+}
+
 /* 포스트 상단 영역 div */
 .post-profileRegion {
-    width: 100%;
+    width: var(--wrightRegion-width);
     height: 60px;
     display: flex;
     flex-direction: row;
@@ -38,26 +43,43 @@
 
 /* 본문 전체 영역 div */
 .post-mainContainer {
+    width: var(--wrightRegion-width);
     padding: var(--board-padding);
+    border: none;
+    border-radius: 15px;
+}
+
+.post-mainContainer:hover {
+    background-color: rgba(240, 244, 247, 0.5);
 }
 
 /* 본문 글 div */
 .mainContainer-dataRegion {
-    width: 60%;
+    width: var(--wrightRegion-width);
     margin-bottom: 10px;
+    white-space: pre-wrap;
+    word-break: normal;
 }
 
 /* 게시물 사진 영역 */
 .mainContainer-fileRegion {
     display: flex;
-    width: 60%;
+    width: 100%;
     height: 500px;
-    border: 1px solid black;
+    border: 1px solid gray;
     border-radius: 15px;
+    overflow: hidden;
 }
 
 .mainContainer-fileRegion.off {
     display: none;
+}
+
+/* 이미지 영역 설정 */
+.mainContainer-file {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 /* 하단 영역 */
@@ -95,11 +117,12 @@
 .postDivide {
     border: 0px;
     border-top: 1px solid lightgray;
-    width: 60%;
+    width: 100%;
 }
 
 /* 포스트 누르면 해당 게시물 들어가게 */
 .post-A {
+    width: inherit;
     text-decoration: none;
     color: inherit;
 }

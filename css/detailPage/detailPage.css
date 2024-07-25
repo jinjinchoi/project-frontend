@@ -1,0 +1,86 @@
+/* 변수 선언 */
+
+
+:root {
+    --wrightRegion-width: 700px;
+    --board-padding: 5px;
+}
+
+/* 디페일 페이지 전체 설정 */
+.detailContainer{
+    width: var(--wrightRegion-width);
+    padding: var(--board-padding);
+}
+
+/* 최상단 유저 정보 전체 div */
+.topProfileContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+/* 유저 프사 감싸는 div */
+.topProfileContainer-userImgContainer{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid lightgray;
+}
+
+/* 유저 닉네임 div */
+.topProfileContainer-nicknameContainer {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/* 카테고리 정보 div */
+.topProfileContainer-categoryContainer {
+    margin-left: 10px;
+}
+
+/* 본문 전체 div */
+.contentContainer {
+    width: 100%;
+}
+
+/* 제목 div */
+.contentContainer-titleContainer {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* 본문 div */
+.contentContainer-contentContainer{
+    margin-bottom: 10px;
+}
+
+/* 이미지 들어가는 div */
+.contentContainer-fileContainer {
+    width: 100%;
+    height: 500px;
+    border: 1px solid gray;
+    border-radius: 15px;
+}
+
+/* 좋아요 댓글을 감쌓을 div */
+.post-bottomContainer{
+    padding: var(--board-padding);
+    display: flex;
+    flex-direction: row;
+}
+
+/* 좋아요 댓글 버튼 div */
+.bottomContainer-buttonReion{
+    width: 80px;
+    height: 30px;
+    border: 0px solid black;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5px;
+    background-color: rgb(221, 229, 231);
+    padding: 3px
+}
+

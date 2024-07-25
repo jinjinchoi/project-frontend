@@ -15,9 +15,10 @@ function getData(category) {
             if (!response.ok) {
                 throw new Error("응답 에러");
             }
-            const postData = yield response.json();
-            console.log(postData);
-            return postData;
+            const responseData = yield response.json();
+            const { postList } = responseData;
+            console.dir(postList);
+            return postList;
         }
         catch (err) {
             console.log('패치 오류: ', err.message);
@@ -27,7 +28,6 @@ function getData(category) {
 }
 function displayPost(postList) {
     try {
-        console.dir("실행되나?");
         const dateOptions = {
             year: "numeric",
             month: 'long',
@@ -65,9 +65,9 @@ function displayPost(postList) {
     <a href="" class="post-A">
         <div class="post-mainContainer">
             <!-- 글 -->
-            <div class="mainContainer-dataRegion"><span> ${postData.boardContent} </span></div>
+            <div class="mainContainer-dataRegion"><span>${postData.boardContent} </span></div>
             <!-- 사진 or 영상 -->
-            <div class="mainContainer-fileRegion ${classStatus}"> <img src="${postData.boardFile}" class = "mainContainer-file ${classStatus}"> </div>
+            <div class="mainContainer-fileRegion ${classStatus}"> <img src="http://localhost:3000/${postData.boardFile}" class = "mainContainer-file ${classStatus}"> </div>
         </div>
     </a>
     <!-- 댓글, 좋아요 영역 -->
