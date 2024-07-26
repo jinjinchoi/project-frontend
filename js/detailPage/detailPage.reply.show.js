@@ -16,14 +16,12 @@ export function drawComment(replyData, repeat) {
     <div class="userProfileContainer">
         <div class="userProfileContainer-nicknamecontainer"> <span>${commentData.unickname} </span></div>
         <div class="userProfileContainer-dateContainer"> <span>${commentData.createdAt} </span></div>
-        <div class="userProfileContainer-repliesBtnContainer"><span> 답글 </span></div>
+        <div class="userProfileContainer-repliesBtnContainer" data-set="${commentData.id}"><span> 답글 </span></div>
         <div class="userProfileContainer-updateBtnContainer" data-set=${commentData.id}><span> 수정 </span></div>
         <div class="userProfileContainer-deleteBtnContainer" data-set=${commentData.id}><span> 삭제 </span></div>
     </div>
     <!-- 댓글 내용  -->
-    <div class="replyContainer">
-        <span>${commentData.replyContent}</span>
-    </div>
+    <div class="replyContainer"><span>${commentData.replyContent}</span></div>
 </div>
 `;
         commentContainer.innerHTML = commentHTMLSyntax;

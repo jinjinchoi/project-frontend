@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
     const category = params.get('category');
     const id = params.get('id');
     const parsedId = Number(id);
-    console.log(parsedId);
     try {
         const detailPageData = yield getData(category, parsedId);
         drawPostRegion(detailPageData.wholeContents.content);
@@ -24,4 +23,8 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
     catch (err) {
         console.log("controller Error: ", err);
     }
+    const toView = document.querySelector("#topBar-toView");
+    toView.href = `../category/${category}.html`;
+    const toWrite = document.querySelector("#toBar-toWrite");
+    toWrite.href = `../write/${category}BoardWrite.html`;
 }));

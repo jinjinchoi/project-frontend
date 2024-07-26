@@ -15,3 +15,4 @@ export async function getData(category:string, boardId:number) : Promise<IDetail
     return null;
 }
 
+  

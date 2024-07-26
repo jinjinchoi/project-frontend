@@ -10,9 +10,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const category = params.get('category');
     const id = params.get('id');
     const parsedId : number = Number(id);
-    
-    console.log(parsedId);
-
 
     try {
         const detailPageData : IDetailPageResponseData = await getData(category, parsedId);
@@ -22,6 +19,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.log("controller Error: ", err);
     }
     
+    // 상단 to게시물 버튼 활성화
+    const toView = document.querySelector("#topBar-toView") as HTMLAnchorElement;
+    toView.href = `../category/${category}.html`;
 
+    // 상단 to작성 버튼 활성화
+    const toWrite = document.querySelector("#toBar-toWrite") as HTMLAnchorElement;
+    toWrite.href = `../write/${category}BoardWrite.html`;
 
 })

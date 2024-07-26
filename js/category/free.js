@@ -28,7 +28,6 @@ function getData(category) {
 }
 function displayPost(postList) {
     try {
-        console.dir("실행되나?");
         const dateOptions = {
             year: "numeric",
             month: 'long',

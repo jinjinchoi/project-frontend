@@ -11,6 +11,7 @@ document.querySelector("#bottom-file").addEventListener("change", (e) => {
     }
 })
 
+// 업로드하기
 document.querySelector(".wright-form").addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -38,3 +39,5 @@ document.querySelector(".wright-form").addEventListener("submit", async (e) => {
         console.log("patch 전송오류: ", err);
     }
 });
+
+// 상단 버튼 눌렀을 때 이동

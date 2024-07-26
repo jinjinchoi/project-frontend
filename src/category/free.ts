@@ -21,7 +21,6 @@ async function getData(category:string): Promise<IBoard[]> {
 // 게시물 그리는 함수
 function displayPost(postList : IBoard[]) : void{
     try {
-        console.dir("실행되나?");
         const dateOptions : Intl.DateTimeFormatOptions = {
             year: "numeric",
             month: 'long',

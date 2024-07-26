@@ -22,13 +22,8 @@ export function drawPostRegion(postData) {
 <div class = "contentContainer-titleContainer">
     <h3>${postData.boardTitle}</h3>
 </div>
-<div class="contentContainer-contentContainer">
-    <span>${postData.boardContent}</span>
-</div>
+<div class="contentContainer-contentContainer"><span>${postData.boardContent}</span></div>
 <!-- 이미지 들어가는 div -->
-<div class = "contentContainer-fileContainer">
-    <img src="${postData.boardFile}">
-</div>
 
 <!-- 댓글, 좋아요 버튼 영역 -->
 <div class = "post-bottomContainer">
@@ -41,4 +36,14 @@ export function drawPostRegion(postData) {
 `;
     profileDiv.innerHTML = profileHTMLSyntax;
     contentDiv.innerHTML = postHTMLSyntax;
+    if (postData.boardFile) {
+        const fileContainer = document.createElement('div');
+        fileContainer.classList.add("contentContainer-fileContainer");
+        const imgTag = document.createElement('img');
+        imgTag.classList.add("contentContainer-img");
+        document.querySelector('.contentContainer-contentContainer').insertAdjacentElement('afterend', fileContainer);
+        fileContainer.append(imgTag);
+        const src = `http://localhost:3000/${postData.boardFile}`;
+        imgTag.src = src;
+    }
 }

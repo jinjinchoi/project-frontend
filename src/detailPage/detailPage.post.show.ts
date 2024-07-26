@@ -36,13 +36,8 @@ export function drawPostRegion(postData : IBoard) : void {
 <div class = "contentContainer-titleContainer">
     <h3>${postData.boardTitle}</h3>
 </div>
-<div class="contentContainer-contentContainer">
-    <span>${postData.boardContent}</span>
-</div>
+<div class="contentContainer-contentContainer"><span>${postData.boardContent}</span></div>
 <!-- 이미지 들어가는 div -->
-<div class = "contentContainer-fileContainer">
-    <img src="${postData.boardFile}" class ="contentContainer-img">
-</div>
 
 <!-- 댓글, 좋아요 버튼 영역 -->
 <div class = "post-bottomContainer">
@@ -53,6 +48,11 @@ export function drawPostRegion(postData : IBoard) : void {
 </div>
 
 `
+
+    profileDiv.innerHTML = profileHTMLSyntax;
+    contentDiv.innerHTML = postHTMLSyntax;
+
+
     // 파일이 있을 경우 표시
     if(postData.boardFile)
     {
@@ -64,12 +64,9 @@ export function drawPostRegion(postData : IBoard) : void {
 
         document.querySelector('.contentContainer-contentContainer').insertAdjacentElement('afterend', fileContainer);
         fileContainer.append(imgTag);
-        
+
         const src : string = `http://localhost:3000/${postData.boardFile}`;
         imgTag.src = src;
 
     }
-
-    profileDiv.innerHTML = profileHTMLSyntax;
-    contentDiv.innerHTML = postHTMLSyntax;
 }
