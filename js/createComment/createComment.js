@@ -17,8 +17,9 @@ document.querySelector(".commentInputContainer-form").addEventListener('submit',
     formData.forEach((value, key) => {
         data[key] = value;
     });
+    console.log("data: ", data);
     try {
-        const response = yield fetch(`http://localhost:3000/board/${category}/${id}`, {
+        const response = yield fetch(`http://localhost:3000/board/${category}/${id}/replyCreate`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -29,7 +30,7 @@ document.querySelector(".commentInputContainer-form").addEventListener('submit',
         });
         console.log(yield response.json());
         if (!response.ok) {
-            throw new Error("응답 오류" + response.statusText);
+            throw new Error("응답 오류" + response);
         }
         else {
             window.location.reload();

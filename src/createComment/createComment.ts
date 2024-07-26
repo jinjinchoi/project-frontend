@@ -13,6 +13,8 @@ document.querySelector(".commentInputContainer-form").addEventListener('submit',
         data[key] = value;
     });
 
+    console.log("data: ", data);
+
     try {
         const response = await fetch(`http://localhost:3000/board/${category}/${id}/replyCreate`, {
             method: 'POST',
