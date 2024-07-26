@@ -45,6 +45,12 @@
     color: gray
 }
 
+/* 조회수 div */
+.topProfileContainer-viewContainer {
+    margin-left: 10px;
+    color: gray
+}
+
 /* ud Div */
 .topProfileContainer-UDContainer {
     display: flex;
