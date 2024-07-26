@@ -64,8 +64,9 @@ export function drawPostRegion(postData : IBoard) : void {
 
         document.querySelector('.contentContainer-contentContainer').insertAdjacentElement('afterend', fileContainer);
         fileContainer.append(imgTag);
-
-        imgTag.src = postData.boardFile;
+        
+        const src : string = `http://localhost:3000/${postData.boardFile}`;
+        imgTag.src = src;
 
     }
 
