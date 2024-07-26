@@ -53,6 +53,13 @@
     background-color: rgba(240, 244, 247, 0.5);
 }
 
+/* 제목 */
+.mainContainer-titleRegion {
+    width: var(--wrightRegion-width);
+    word-break: normal;
+    margin-bottom: 5px;
+}
+
 /* 본문 글 div */
 .mainContainer-dataRegion {
     width: var(--wrightRegion-width);

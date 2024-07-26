@@ -10,7 +10,7 @@
 <link rel = "stylesheet" href ="../../css/category/main.css">
 <link rel = "stylesheet" href ="../../css/detailPage/detailPage.css">
 <link rel = "stylesheet" href ="../../css/detailPage/comment.css">
-<script src ="" type="module" defer></script>
+<script src ="../../js/detailPage/detailPage.controller.js" type="module" defer></script>
 <body>
     <!-- Header start -->
     <header role="banner">
@@ -95,99 +95,25 @@
 
             <!-- 상세페이지 영역 -->
             <div class="detailContainer">
-
-                <!-- 최상단 유저 정보 영역 -->
-                <div class="topProfileContainer">
-                    <div class="topProfileContainer-userImgContainer"> <img src="" class="topProfileContainer-userImgContainer-img"> </div> <!-- 프로필 사진 -->
-                    <div class="topProfileContainer-nicknameContainer"><span>닉네임</span></div>
-                    <div clasas="topProfileContainer-dateContainer"><span>2024년 7월 25일 19:55</span></div>
-                    <div class="topProfileContainer-categoryContainer"><span>카테고리</li></div>
-                </div>
-
-                <!-- 게시물 내용 들어갈 컨테이너 -->
-                <div class="contentContainer">
-                    <div class = "contentContainer-titleContainer">
-                        <h3>제목이 들어갈 부분입니다.</h3>
-                    </div>
-                    <div class="contentContainer-contentContainer">
-                        <span>본문 내용이 들어갈 부분입니다.</span>
-                    </div>
-                    <!-- 이미지 들어가는 div -->
-                    <div class = "contentContainer-fileContainer">
-                        <img src="">
-                    </div>
+                <!-- 작성자 프로필과 글 내용 들어갈 부분 -->
+                <div class="onlyPostContainer">
                     
-                    <!-- 댓글, 좋아요 버튼 영역 -->
-                    <div class = "post-bottomContainer">
-                        <!-- 댓글 -->
-                        <div class = "bottomContainer-buttonReion"><span> 💬 999+ </span></div>
-                        <!-- 좋아요 -->
-                        <div class = "bottomContainer-buttonReion"><span> ♡ 999+</span></div>
-                    </div>
                 </div>
-                <!-- 게시물 영역 종료 -->
-
-                <!-- 댓글 영역  -->
+                <!-- 입력창 들어가는 부분 -->
+                <div class="commentInputContainer">
+                    <form class="commentInputContainer-form">
+                        <textarea class="commentInputContainer-textarea" placeholder="Believe Pride"></textarea>
+                        <button type="submit" class="commentInputContainer-submitBtn"> 작성 </button>
+                    </form>
+                </div>
+              
+                    
+                <!-- 댓글 들어갈 부분 -->
                 <div class="commentContainer">
-                    <!-- 댓글 입력 영역 -->
-                    <div class="commentInputContainer">
-                        <form class="commentInputContainer-form">
-                            <textarea class="commentInputContainer-textarea" placeholder="말은 당신의 얼굴입니다."></textarea>
-                        </form>
-                    </div>
-                        
-
-                    <!-- 유저 프사와 닉네임 댓글 내용 담는 영역-->
-                    <div class="commentContainer-frofileAndContent">
-                        <!-- 유저 정보 영역 -->
-                        <div class="userImgContainer"> <img src="" class="userProfileContainer-userImgContainer-img"></div>
-                        <div class="entireUserInfo">
-                            <div class="userProfileContainer">
-                                <div class="userProfileContainer-nicknamecontainer"> <span> 닉네임 </span></div>
-                                <div class="userProfileContainer-dateContainer"> <span> 2024년 7월 25일 20:13 </span></div>
-                            </div>
-                            <!-- 댓글 내용  -->
-                            <div class="replyContainer">
-                                <span> 이곳에 댓글 내용이 들어갑니다.</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 대댓글 -->
-                    <div class="commentContainer-frofileAndContent-repeat">
-                        <!-- 유저 정보 영역 -->
-                        <div class="userImgContainer"> <img src="" class="userProfileContainer-userImgContainer-img"></div>
-                        <div class="entireUserInfo">
-                            <div class="userProfileContainer">
-                                <div class="userProfileContainer-nicknamecontainer"> <span> 닉네임 </span></div>
-                                <div class="userProfileContainer-dateContainer"> <span> 2024년 7월 25일 20:13 </span></div>
-                            </div>
-                            <!-- 댓글 내용  -->
-                            <div class="replyContainer">
-                                <span> 이곳에 댓글 내용이 들어갑니다.</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-
-                    <!-- 유저 프사와 닉네임 댓글 내용 담는 영역-->
-                    <div class="commentContainer-frofileAndContent">
-                        <!-- 유저 정보 영역 -->
-                        <div class="userImgContainer"> <img src="" class="userProfileContainer-userImgContainer-img"></div>
-                        <div class="entireUserInfo">
-                            <div class="userProfileContainer">
-                                <div class="userProfileContainer-nicknamecontainer"> <span> 닉네임 </span></div>
-                                <div class="userProfileContainer-dateContainer"> <span> 2024년 7월 25일 20:13 </span></div>
-                            </div>
-                            <!-- 댓글 내용  -->
-                            <div class="replyContainer">
-                                <span> 이곳에 댓글 내용이 들어갑니다.</span>
-                            </div>
-                        </div>
-                    </div>
-                    
 
                 </div>
+
+            </div>
 
         </div>
      </main>

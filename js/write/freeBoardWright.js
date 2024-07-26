@@ -30,12 +30,10 @@ document.querySelector(".wright-form").addEventListener("submit", (e) => __await
             body: formData,
         });
         if (response.ok) {
-            const result = yield response.json();
             window.location.href = "../category/free.html";
         }
         else {
             console.log("서버 오류: ", response.status);
-            console.log(response);
             alert("서버 오류 발생, 다시 시도해주세요.");
         }
     }

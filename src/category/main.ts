@@ -1,56 +1,56 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-function getData(category) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            console.log("category: ", category);
-            const response = yield fetch(`http://localhost:3000/board`);
-            if (!response.ok) {
-                throw new Error("응답 에러");
-            }
-            const responseData = yield response.json();
-            const { postList } = responseData;
-            console.dir(postList);
-            return postList;
-        }
-        catch (err) {
-            console.log('패치 오류: ', err.message);
-        }
-        return [];
-    });
-}
-function displayPost(postList) {
+import { IBoard, IResponseData } from "interface/boardAndReply.interface"
+
+// 게시물 요청하는 함수
+async function getData(category:string): Promise<IBoard[]> {
     try {
-        const dateOptions = {
+        console.log("category: ", category);
+        const response = await fetch(`http://localhost:3000/board`);
+        if(!response.ok) {
+            throw new Error("응답 에러")
+        }
+        const responseData : IResponseData  = await response.json();
+        const { postList }  = responseData;
+        console.dir(postList);
+        return postList;
+    } catch (err) {
+        console.log('패치 오류: ', err.message)
+    }
+    return [];
+}
+
+// 게시물 그리는 함수
+function displayPost(postList : IBoard[]) : void{
+    try {
+        const dateOptions : Intl.DateTimeFormatOptions = {
             year: "numeric",
             month: 'long',
             day: 'numeric',
+            
         };
-        const timeOptions = {
+        const timeOptions : Intl.DateTimeFormatOptions = {
             hour: '2-digit',
             minute: '2-digit',
             hour12: false
         };
-        for (const postData of postList) {
+
+        for(const postData of postList) {
+            // 날짜 형식 '2024년 7월 24일' 로 변경
             const storedDate = new Date(postData.createdAt.replace(' ', 'T'));
             const koreanDate = storedDate.toLocaleDateString('ko-KR', dateOptions);
             const koreanTime = storedDate.toLocaleTimeString('ko-KR', timeOptions);
-            const formattedDate = `${koreanDate} ${koreanTime}`;
+            const formattedDate =  `${koreanDate} ${koreanTime}`;
+
+
             const postRigion = document.createElement('div');
             postRigion.classList.add("post-region");
             document.querySelector(".post-container").append(postRigion);
-            let classStatus = '';
-            if (!postData.boardFile) {
-                classStatus = 'off';
+
+            let classStatus:string ='';
+            if(!postData.boardFile) {
+                 classStatus = 'off';
             }
-            const htmlContext = `
+
+            const htmlContext =  `
     <!-- 상단 정보 영역 -->
     <div class = "post-profileRegion">
         <!-- 유저 프로필 사진 -->
@@ -59,7 +59,7 @@ function displayPost(postList) {
         </div>
         <div class="profileRegion-userNickname"> <span> ${postData.unickname} </span></div>
         <!-- 게시물 날짜 -->
-        <div class = "profileRegion-date"> <span>${formattedDate}</span></div>
+        <div class = "profileRegion-date"> <span>${formattedDate }</span></div>
     </div>
     <!-- 본분 영역 -->
     <a href="../detailpage/detailpage.html?category=${postData.categories}&id=${postData.id}" class="post-A">
@@ -80,22 +80,24 @@ function displayPost(postList) {
     </div>
 <hr class="postDivide">
 <!-- 게시물 영역 종료 -->
-`;
+`
+            
             postRigion.innerHTML = htmlContext;
         }
-    }
-    catch (err) {
+    } catch (err) {
         console.log(err.message);
     }
 }
-document.addEventListener('DOMContentLoaded', () => __awaiter(void 0, void 0, void 0, function* () {
+
+document.addEventListener('DOMContentLoaded', async () => {
     try {
-        const postInfo = yield getData("");
-        console.log("postInfo: ", postInfo);
+        const postInfo:IBoard[] = await getData("");
+        console.log("postInfo: ", postInfo)
         displayPost(postInfo);
-    }
-    catch (err) {
+    } catch(err) {
         console.log(err.message);
     }
-}));
-export { getData, displayPost };
+
+})
+
+export {getData, displayPost}
