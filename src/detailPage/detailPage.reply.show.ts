@@ -1,4 +1,5 @@
 import { IReply } from "interface/boardAndReply.interface";
+import { addBtnEvent } from "../commentManager/replyController"
 
 export function drawComment (replyData : IReply[], repeat : boolean) : void {
     const commentRegion = document.querySelector(".commentContainer");
@@ -10,7 +11,8 @@ export function drawComment (replyData : IReply[], repeat : boolean) : void {
         } else {
             commentContainer.classList.add('commentContainer-frofileAndContent-repeat');
         }
-
+        
+        commentContainer.setAttribute('data-set', `${commentData.id}`)
         commentRegion.append(commentContainer);
 
 
@@ -31,6 +33,10 @@ export function drawComment (replyData : IReply[], repeat : boolean) : void {
 </div>
 `
         commentContainer.innerHTML = commentHTMLSyntax;
+        
+        // 답글 버튼 이벤트리스너 추가
+        const updateBtn = commentContainer.querySelector(".userProfileContainer-repliesBtnContainer") as HTMLDivElement;
+        addBtnEvent(updateBtn);
 
         if(Array.isArray(commentData.replies) && commentData.replies.length > 0) {
             drawComment(commentData.replies, true);

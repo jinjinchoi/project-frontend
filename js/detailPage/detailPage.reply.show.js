@@ -1,3 +1,4 @@
+import { addBtnEvent } from "../commentManager/replyController.js";
 export function drawComment(replyData, repeat) {
     const commentRegion = document.querySelector(".commentContainer");
     for (const commentData of replyData) {
@@ -8,6 +9,7 @@ export function drawComment(replyData, repeat) {
         else {
             commentContainer.classList.add('commentContainer-frofileAndContent-repeat');
         }
+        commentContainer.setAttribute('data-set', `${commentData.id}`);
         commentRegion.append(commentContainer);
         const commentHTMLSyntax = `
 <!-- 유저 정보 영역 -->
@@ -25,6 +27,8 @@ export function drawComment(replyData, repeat) {
 </div>
 `;
         commentContainer.innerHTML = commentHTMLSyntax;
+        const updateBtn = commentContainer.querySelector(".userProfileContainer-repliesBtnContainer");
+        addBtnEvent(updateBtn);
         if (Array.isArray(commentData.replies) && commentData.replies.length > 0) {
             drawComment(commentData.replies, true);
         }

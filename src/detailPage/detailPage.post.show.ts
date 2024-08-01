@@ -25,7 +25,7 @@ export function drawPostRegion(postData : IBoard) : void {
     <div class="topProfileContainer-categoryContainer"><span>${postData.categories}</span></div>
     <div class="topProfileContainer-viewContainer"><span>조회수 ${postData.boardView}</span></div>
     <div class="topProfileContainer-UDContainer">
-        <a href="" class="UDContainer-updateA"><div class="UDContainer-updateContainer"><span>수정</span></div></a>
+        <a href="../update/${postData.categories}BoardUpdate.html?category=${postData.categories}&id=${postData.id}" class="UDContainer-updateA" data-set= "${postData.id}"><div class="UDContainer-updateContainer"><span>수정</span></div></a>
         <div class="UDContainer-deleteContainer" data-set="${postData.id}"><span>삭제</span></div>
     </div>
 </div>

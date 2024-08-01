@@ -18,6 +18,15 @@
     position: relative;
 }
 
+/* 답글 입력창 */
+.replyInputContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    position: relative;
+}
+
 /* 댓글 입력창(placeHolder) */
 .commentInputContainer-textarea {
     resize: vertical;

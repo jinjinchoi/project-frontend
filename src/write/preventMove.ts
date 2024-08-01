@@ -9,6 +9,7 @@ document.querySelector(".topBar-button-a").addEventListener('click', (e) => {
 })
 
 
+
 // 페이지 닫을 때 경고
 document.addEventListener('beforeunload', (e : BeforeUnloadEvent) => {
     if(!preventMove())

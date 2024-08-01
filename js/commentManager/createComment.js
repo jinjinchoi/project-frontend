@@ -17,7 +17,6 @@ document.querySelector(".commentInputContainer-form").addEventListener('submit',
     formData.forEach((value, key) => {
         data[key] = value;
     });
-    console.log("data: ", data);
     try {
         const response = yield fetch(`http://localhost:3000/board/${category}/${id}/replyCreate`, {
             method: 'POST',
