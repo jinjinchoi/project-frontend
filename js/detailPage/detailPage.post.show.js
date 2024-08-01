@@ -1,3 +1,4 @@
+import { deleteBoard } from "../delete/detailPage.delete.js";
 export function drawPostRegion(postData) {
     const detailContainer = document.querySelector(".onlyPostContainer");
     const profileDiv = document.createElement("div");
@@ -37,6 +38,14 @@ export function drawPostRegion(postData) {
 `;
     profileDiv.innerHTML = profileHTMLSyntax;
     contentDiv.innerHTML = postHTMLSyntax;
+    profileDiv.querySelector(".UDContainer-deleteContainer").addEventListener("click", () => {
+        if (confirm("정말로 삭제하시겠습니까?")) {
+            deleteBoard(postData.uid, String(postData.id), postData.categories);
+        }
+        else {
+            return;
+        }
+    });
     if (postData.boardFile) {
         const fileContainer = document.createElement('div');
         fileContainer.classList.add("contentContainer-fileContainer");

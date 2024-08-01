@@ -7,35 +7,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-export function updateExecute(replyId, e) {
+export function deleteBoard(uid, boardId, category) {
     return __awaiter(this, void 0, void 0, function* () {
-        const params = new URLSearchParams(window.location.search);
-        const category = params.get('category');
-        const id = params.get('id');
-        const formData = new FormData(e.target);
-        formData.append("id", replyId);
-        const data = {};
-        formData.forEach((value, key) => {
-            data[key] = value;
-        });
         try {
-            const response = yield fetch(`http://localhost:3000/board/${category}/${id}/replyUpdate`, {
-                method: 'PATCH',
+            const response = yield fetch(`http://localhost:3000/board/${category}/${boardId}/postDelete`, {
+                method: 'DELETE',
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                     "userToken": `testID`,
                 },
-                body: JSON.stringify(data),
             });
-            if (!response.ok) {
-                throw new Error("응답 오류" + response);
+            if (response.ok) {
+                window.location.href = `../category/${category}.html`;
             }
             else {
-                window.location.reload();
+                console.log("서버 오류: ", response.status);
+                alert("서버 오류 발생, 다시 시도해주세요.");
             }
         }
         catch (err) {
-            console.log("댓글 수정 로직 오류: ", err);
+            console.log("patch 오류: ", err);
         }
     });
 }

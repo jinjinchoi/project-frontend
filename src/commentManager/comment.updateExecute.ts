@@ -21,7 +21,6 @@ export async function updateExecute (replyId : string, e : SubmitEvent) {
             },
             body : JSON.stringify(data),
         })
-        console.log(await response.json())
         if(!response.ok) {
             throw new Error("응답 오류" + response);
         } else {

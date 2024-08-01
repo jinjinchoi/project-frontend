@@ -1,3 +1,4 @@
+import { deleteBoard } from "../delete/detailPage.delete";
 import { IBoard } from "interface/boardAndReply.interface";
 
 
@@ -52,6 +53,15 @@ export function drawPostRegion(postData : IBoard) : void {
 
     profileDiv.innerHTML = profileHTMLSyntax;
     contentDiv.innerHTML = postHTMLSyntax;
+
+    // 삭제 구현
+    profileDiv.querySelector(".UDContainer-deleteContainer").addEventListener("click", () =>{
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            deleteBoard(postData.uid, String(postData.id), postData.categories);
+        } else {
+            return;
+        }
+    })
 
 
     // 파일이 있을 경우 표시

@@ -26,3 +26,5 @@ export function addUpdateEvent(updateBtn : HTMLDivElement, content : string) : v
         updateRender(replyId, content);
     })
 }
+
+// 삭제 버튼에 이벤트 리스너 추가
