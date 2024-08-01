@@ -80,11 +80,12 @@ class SignupCheck{
     constructor(){
         this.checkTrue = document.querySelector('#check_id_true')
         this.signupBtn = document.querySelector('#signup_btn')
+        this.idInput = document.querySelector('#uid')
         this.pwInput = document.querySelector('#upw')
         this.pwInput2 = document.querySelector('#check_upw')
-        this.nickInput = document.querySelector('#uNickname')
-        this.emailInput = document.querySelector('#uEmail')
-        this.phoneInput = document.querySelector('#uPhone')
+        this.nickInput = document.querySelector('#unickname')
+        this.emailInput = document.querySelector('#uemail')
+        this.phoneInput = document.querySelector('#uphone')
 
         this.nickReg = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,8}$/;
         this.emailReg =  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -95,7 +96,7 @@ class SignupCheck{
     }
 
     event(){
-        this.signupBtn.addEventListener('click', () => {
+        this.signupBtn.addEventListener('click',async () => {
             if(this.checkTrue.style.display !== 'block'){
                 alert('아이디 중복확인을 해주세요.')
             }else if((this.pwInput.value == '') || (this.pwInput2.value == '') || (this.nickInput.value == '') || (this.emailInput.value == '') || (this.phoneInput.value == '')){
@@ -109,6 +110,9 @@ class SignupCheck{
             }else if(!this.phoneReg.test(this.phoneInput.value)){
                 alert('휴대폰 번호를 다시 입력해주세요.')
             }else if((this.checkTrue.style.display === 'block') && (this.pwReg.test(this.pwInput.value)) && (this.pwInput.value === this.pwInput2.value) && (this.nickReg.test(this.nickInput.value)) && (this.emailReg.test(this.emailInput.value)) && (this.phoneReg.test(this.phoneInput.value))){
+                await axios.post("http://localhost:3000/users/signup",{uid:this.idInput.value, unickname:this.nickInput.value, upw:this.pwInput.value, uemail:this.emailInput.value, uphone:this.phoneInput.value}).then((res) => {
+                    console.log(res.data);
+                }) 
                 alert('회원가입에 성공했습니다.')
             }
         })

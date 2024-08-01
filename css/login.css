@@ -37,6 +37,11 @@ body > img{
     position:relative;
 }
 
+#error_message{
+    position:absolute;
+    top:180px;
+}
+
 #login_text {
     font-size: 28px;
     font-weight: 700;
@@ -85,10 +90,6 @@ body > img{
     font-size:14px;
     color:white;
     font-weight: 700;
-}
-
-.login_btn:hover{
-    cursor:pointer;
 }
 
 .login_btnOn:hover{

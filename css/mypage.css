@@ -296,6 +296,7 @@
     cursor:pointer;
     background-color: antiquewhite;
     transition:0.3s;
+    border-radius:0 0 9px 0;
 }
 
 #phone_title{
@@ -333,4 +334,30 @@
     top:40px;
     right:25px;
     transform:rotate(133deg);
+}
+
+#okBtn{
+    width:55px;
+    height:23px;
+    font-weight: 700;
+    position:absolute;
+    top:720px;
+    right:592px;
+}
+
+#okBtn:hover{
+    cursor:pointer;
+}
+
+#cancelBtn{
+    width:55px;
+    height:23px;
+    font-weight: 700;
+    position:absolute;
+    top:720px;
+    right:530px;
+}
+
+#cancelBtn:hover{
+    cursor:pointer;
 }
