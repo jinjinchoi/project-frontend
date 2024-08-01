@@ -1,4 +1,3 @@
-
 import { IDetailPageResponseData } from "interface/boardAndReply.interface";
 import { getData } from "./detailPage.getData";
 import { drawPostRegion } from "./detailPage.post.show";

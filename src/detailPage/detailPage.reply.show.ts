@@ -1,5 +1,5 @@
 import { IReply } from "interface/boardAndReply.interface";
-import { addBtnEvent } from "../commentManager/replyController"
+import { addBtnEvent, addUpdateEvent } from "../commentManager/comment.eventControll"
 
 export function drawComment (replyData : IReply[], repeat : boolean) : void {
     const commentRegion = document.querySelector(".commentContainer");
@@ -29,14 +29,19 @@ export function drawComment (replyData : IReply[], repeat : boolean) : void {
         <div class="userProfileContainer-deleteBtnContainer" data-set=${commentData.id}><span> 삭제 </span></div>
     </div>
     <!-- 댓글 내용  -->
-    <div class="replyContainer"><span>${commentData.replyContent}</span></div>
+    <div class="replyContainer" data-set="${commentData.id}"><span class = "replyContainer-span" data-set="${commentData.id}">${commentData.replyContent}</span></div>
 </div>
 `
         commentContainer.innerHTML = commentHTMLSyntax;
         
         // 답글 버튼 이벤트리스너 추가
-        const updateBtn = commentContainer.querySelector(".userProfileContainer-repliesBtnContainer") as HTMLDivElement;
-        addBtnEvent(updateBtn);
+        const replyBtn = commentContainer.querySelector(".userProfileContainer-repliesBtnContainer") as HTMLDivElement;
+        addBtnEvent(replyBtn);
+
+        // 댓글 수정 버튼 이벤트 리스너 추가
+        const updateBtn = commentContainer.querySelector(`.userProfileContainer-updateBtnContainer`) as HTMLDivElement;
+        addUpdateEvent(updateBtn, commentData.replyContent);
+
 
         if(Array.isArray(commentData.replies) && commentData.replies.length > 0) {
             drawComment(commentData.replies, true);

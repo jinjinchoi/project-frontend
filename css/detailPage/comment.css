@@ -135,3 +135,25 @@
 .userProfileContainer-deleteBtnContainer:hover {
     cursor: pointer;
 }
+
+
+/* ///////////////// */
+/* 수정 영역 */
+.commentUpdateContainer-textarea {
+    resize: vertical;
+    width: 518px;
+    height: 50px;
+    padding: 10px;
+    font-size: 16px; 
+}
+
+/* 수정 submit 버튼 */
+.commentInputContainer-updateBtn {
+    width: 80px;
+    height: 72px;
+    margin-left: 10px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    background-color: white;
+    position: absolute;
+}

@@ -1,4 +1,4 @@
-import { addBtnEvent } from "../commentManager/replyController.js";
+import { addBtnEvent, addUpdateEvent } from "../commentManager/comment.eventControll.js";
 export function drawComment(replyData, repeat) {
     const commentRegion = document.querySelector(".commentContainer");
     for (const commentData of replyData) {
@@ -23,12 +23,14 @@ export function drawComment(replyData, repeat) {
         <div class="userProfileContainer-deleteBtnContainer" data-set=${commentData.id}><span> 삭제 </span></div>
     </div>
     <!-- 댓글 내용  -->
-    <div class="replyContainer"><span>${commentData.replyContent}</span></div>
+    <div class="replyContainer" data-set="${commentData.id}"><span class = "replyContainer-span" data-set="${commentData.id}">${commentData.replyContent}</span></div>
 </div>
 `;
         commentContainer.innerHTML = commentHTMLSyntax;
-        const updateBtn = commentContainer.querySelector(".userProfileContainer-repliesBtnContainer");
-        addBtnEvent(updateBtn);
+        const replyBtn = commentContainer.querySelector(".userProfileContainer-repliesBtnContainer");
+        addBtnEvent(replyBtn);
+        const updateBtn = commentContainer.querySelector(`.userProfileContainer-updateBtnContainer`);
+        addUpdateEvent(updateBtn, commentData.replyContent);
         if (Array.isArray(commentData.replies) && commentData.replies.length > 0) {
             drawComment(commentData.replies, true);
         }
