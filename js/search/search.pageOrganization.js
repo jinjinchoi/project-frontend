@@ -12,6 +12,8 @@ import { displayPost } from "./search.render.js";
 document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, void 0, function* () {
     const params = new URLSearchParams(window.location.search);
     const searchedWord = params.get('word');
+    if (searchedWord == null)
+        return;
     const postList = yield getSpecifiableData(searchedWord);
     displayPost(postList);
 }));
