@@ -26,11 +26,19 @@ const HTMLSyntex : string =
     const replySpan = document.querySelector(`.replyContainer-span[data-set="${replyId}"]`) as HTMLSpanElement
     replySpan.style.display = "none";
 
+     // 이미 열려있는 수정창 있으면 삭제
+     const existingUpdateDiv = document.querySelector(".replyUpdateContainer");
+     if(existingUpdateDiv) {
+        existingUpdateDiv.remove();
+     }
+
     const updateDiv = document.createElement("div");
     updateDiv.classList.add("replyUpdateContainer");
     updateDiv.setAttribute("data-set", replyId);
 
     updateDiv.innerHTML = HTMLSyntex;
+
+   
 
 
     const replyContainer = document.querySelector(`.replyContainer[data-set="${replyId}"]`);

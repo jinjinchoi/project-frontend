@@ -24,7 +24,13 @@ export function addUpdateEvent(updateBtn : HTMLDivElement, content : string) : v
         const target = e.currentTarget as HTMLDivElement;
         const replyId = target.getAttribute('data-set');
 
-        updateRender(replyId, content);
+        const verifyOpen = document.querySelector(`.replyUpdateContainer[data-set="${replyId}"]`)
+
+        if(verifyOpen) {
+            verifyOpen.remove();
+        } else {
+            updateRender(replyId, content);
+        }
     })
 }
 
@@ -38,7 +44,6 @@ export function addRemoveEvent(removeBtn : HTMLDivElement ,category : string, bo
         deleteComment(category, boardId, replyId)
 
     })
-
-
-
 }
+
+
