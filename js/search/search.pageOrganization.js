@@ -9,11 +9,33 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { getSpecifiableData } from "./search.getdata.js";
 import { displayPost } from "./search.render.js";
+import { throttle } from "../category/throttle.js";
+const params = new URLSearchParams(window.location.search);
+const searchedWord = params.get('word');
 document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, void 0, function* () {
-    const params = new URLSearchParams(window.location.search);
-    const searchedWord = params.get('word');
     if (searchedWord == null)
         return;
     const postList = yield getSpecifiableData(searchedWord);
     displayPost(postList);
 }));
+let isLoading = false;
+function addPost() {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (isLoading)
+            return;
+        const pageBottom = window.innerHeight + window.scrollY >= document.documentElement.offsetHeight;
+        if (pageBottom) {
+            isLoading = true;
+            try {
+                const postList = yield getSpecifiableData(searchedWord);
+                if (postList) {
+                    displayPost(postList);
+                }
+            }
+            finally {
+                isLoading = false;
+            }
+        }
+    });
+}
+window.addEventListener('scroll', throttle(addPost, 200));

@@ -7,15 +7,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+let loadedAllContents = false;
+let offset = 0;
+const LIMIT = 10;
 export function getSpecifiableData(word) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const response = yield fetch(`http://localhost:3000/board/logic/search?word=${word}`);
+            if (loadedAllContents)
+                return;
+            const response = yield fetch(`http://localhost:3000/board/logic/search?word=${word}&limit=${LIMIT}&offset=${offset}`);
             if (!response.ok) {
                 throw new Error("응답 에러");
             }
             const responseData = yield response.json();
             const { postList: specifiedPost } = responseData;
+            console.log("offset =", offset);
+            if (specifiedPost.length === 0) {
+                loadedAllContents = true;
+                return [];
+            }
+            offset += LIMIT;
             return specifiedPost;
         }
         catch (err) {
