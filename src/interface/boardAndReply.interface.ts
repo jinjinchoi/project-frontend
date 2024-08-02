@@ -26,7 +26,8 @@ export interface IReply {
     createdAt:string,
     updatedAt:string,
     deletedAt:string,
-    replies?:Array<IReply>
+    replies?:Array<IReply>,
+    isDeleted: boolean,
 }
 
 // 게시물 목록 응답 인터페이스

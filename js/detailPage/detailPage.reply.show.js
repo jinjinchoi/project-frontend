@@ -1,4 +1,4 @@
-import { addBtnEvent, addUpdateEvent } from "../commentManager/comment.eventControll.js";
+import { addBtnEvent, addRemoveEvent, addUpdateEvent } from "../commentManager/comment.eventControll.js";
 export function drawComment(replyData, repeat) {
     const commentRegion = document.querySelector(".commentContainer");
     for (const commentData of replyData) {
@@ -27,10 +27,21 @@ export function drawComment(replyData, repeat) {
 </div>
 `;
         commentContainer.innerHTML = commentHTMLSyntax;
-        const replyBtn = commentContainer.querySelector(".userProfileContainer-repliesBtnContainer");
-        addBtnEvent(replyBtn);
-        const updateBtn = commentContainer.querySelector(`.userProfileContainer-updateBtnContainer`);
-        addUpdateEvent(updateBtn, commentData.replyContent);
+        if (commentData.isDeleted) {
+            commentContainer.querySelector(".userProfileContainer-repliesBtnContainer").remove();
+            commentContainer.querySelector(".userProfileContainer-updateBtnContainer").remove();
+            commentContainer.querySelector(".userProfileContainer-deleteBtnContainer").remove();
+            const text = commentContainer.querySelector(".replyContainer-span");
+            text.style.color = "lightgray";
+        }
+        if (!commentData.isDeleted) {
+            const replyBtn = commentContainer.querySelector(".userProfileContainer-repliesBtnContainer");
+            addBtnEvent(replyBtn);
+            const updateBtn = commentContainer.querySelector(`.userProfileContainer-updateBtnContainer`);
+            addUpdateEvent(updateBtn, commentData.replyContent);
+            const deleteBtn = commentContainer.querySelector(`.userProfileContainer-deleteBtnContainer`);
+            addRemoveEvent(deleteBtn, commentData.category, String(commentData.boardId), String(commentData.id), commentData.uid);
+        }
         if (Array.isArray(commentData.replies) && commentData.replies.length > 0) {
             drawComment(commentData.replies, true);
         }

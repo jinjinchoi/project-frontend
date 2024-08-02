@@ -1,3 +1,4 @@
+import { deleteComment } from "./comment.delete";
 import { renderReplyInputDOM } from "./comment.inputRender";
 import { updateRender } from "./comment.updateRender";
 
@@ -28,3 +29,16 @@ export function addUpdateEvent(updateBtn : HTMLDivElement, content : string) : v
 }
 
 // 삭제 버튼에 이벤트 리스너 추가
+export function addRemoveEvent(removeBtn : HTMLDivElement ,category : string, boardId : string, replyId : string, uid:string) : void {
+    removeBtn.addEventListener("click", () => {
+        if(!confirm("정말로 삭제하시겠습니까?"))
+            return;
+        // 아이디 비교 필요
+        
+        deleteComment(category, boardId, replyId)
+
+    })
+
+
+
+}

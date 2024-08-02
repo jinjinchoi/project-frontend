@@ -1,3 +1,4 @@
+import { deleteComment } from "./comment.delete.js";
 import { renderReplyInputDOM } from "./comment.inputRender.js";
 import { updateRender } from "./comment.updateRender.js";
 export function addBtnEvent(replyButton) {
@@ -18,5 +19,12 @@ export function addUpdateEvent(updateBtn, content) {
         const target = e.currentTarget;
         const replyId = target.getAttribute('data-set');
         updateRender(replyId, content);
+    });
+}
+export function addRemoveEvent(removeBtn, category, boardId, replyId, uid) {
+    removeBtn.addEventListener("click", () => {
+        if (!confirm("정말로 삭제하시겠습니까?"))
+            return;
+        deleteComment(category, boardId, replyId);
     });
 }
