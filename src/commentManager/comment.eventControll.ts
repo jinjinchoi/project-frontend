@@ -27,6 +27,8 @@ export function addUpdateEvent(updateBtn : HTMLDivElement, content : string) : v
         const verifyOpen = document.querySelector(`.replyUpdateContainer[data-set="${replyId}"]`)
 
         if(verifyOpen) {
+            const text = document.querySelector(`.replyContainer-span[data-set="${replyId}"]`) as HTMLSpanElement;
+            text.style.display = "block";
             verifyOpen.remove();
         } else {
             updateRender(replyId, content);

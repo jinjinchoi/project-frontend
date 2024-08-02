@@ -18,7 +18,15 @@ export function addUpdateEvent(updateBtn, content) {
     updateBtn.addEventListener("click", (e) => {
         const target = e.currentTarget;
         const replyId = target.getAttribute('data-set');
-        updateRender(replyId, content);
+        const verifyOpen = document.querySelector(`.replyUpdateContainer[data-set="${replyId}"]`);
+        if (verifyOpen) {
+            const text = document.querySelector(`.replyContainer-span[data-set="${replyId}"]`);
+            text.style.display = "block";
+            verifyOpen.remove();
+        }
+        else {
+            updateRender(replyId, content);
+        }
     });
 }
 export function addRemoveEvent(removeBtn, category, boardId, replyId, uid) {
