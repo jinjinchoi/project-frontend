@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> KITA - 새로운 길을 찾아서 </title>
+    <title> KITA - 창작, 개척, 끝을 향한 여정 </title>
 </head>
 <link rel = "stylesheet" href ="../../css/category/banner.css">
 <link rel = "stylesheet" href ="../../css/category/leftbar.css">
 <link rel = "stylesheet" href ="../../css/category/main.css">
 <link rel = "stylesheet" href ="../../css/write/postWrite.css">
-<script src ="../../js/update/updatePage.update.js" type="module" defer></script>
-<!-- <script src ="../../js/write/preventMove.js" type="module" defer></script> -->
+<script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+<script src ="../../js/write/jmtBoardWright.js" type="module" defer></script>
+<script src ="../../js/write/preventMove.js" type="module" defer></script>
 <body>
     <!-- Header start -->
     <header role="banner">
@@ -18,7 +19,7 @@
             <a href="../category/main.html"><h2>KITA</h2><div class = "banner-logo-region"></div></a>
             <div class = "banner-searchBar-container">
                 <!-- 검색 영역 (추후 action 추가) -->
-                <form action="" method="post">
+                <form action="" method="post" name = "term">
                     <label for="banner-searchInput" class="banner-label">
                         <input type="text" placeholder="정보를 찾아 멋진 여행을 떠나세요!" class = "banner-search-input">
                     </label>
@@ -81,7 +82,7 @@
             </div>
             <!-- 상단 글 작성 버튼 영역 -->
             <div class = "topBar-container">
-                <a href="../category/free.html" class = "topBar-button-a">
+                <a href="../category/jmt.html" class = "topBar-button-a">
                     <div class = "topBar-button">
                         <span> 게시물</span>
                     </div>
@@ -113,7 +114,7 @@
                </div>
             </div>
             <!-- 게시물 영역 종료 -->
-
+             
 
         </div>
      </main>

@@ -1,25 +1,7 @@
-import { IBoard, IResponseData } from "interface/boardAndReply.interface"
-
-// 게시물 요청하는 함수
-async function getData(category:string): Promise<IBoard[]> {
-    try {
-        // console.log("category: ", category);
-        const response = await fetch(`http://localhost:3000/board`);
-        if(!response.ok) {
-            throw new Error("응답 에러")
-        }
-        const responseData : IResponseData  = await response.json();
-        const { postList }  = responseData;
-        // console.dir(postList);
-        return postList;
-    } catch (err) {
-        console.log('패치 오류: ', err.message)
-    }
-    return [];
-}
+import { IBoard } from "interface/boardAndReply.interface";
 
 // 게시물 그리는 함수
-function displayPost(postList : IBoard[]) : void{
+export function displayPost(postList : IBoard[]) : void {
     try {
         const dateOptions : Intl.DateTimeFormatOptions = {
             year: "numeric",
@@ -88,16 +70,3 @@ function displayPost(postList : IBoard[]) : void{
         console.log(err.message);
     }
 }
-
-document.addEventListener('DOMContentLoaded', async () => {
-    try {
-        const postInfo:IBoard[] = await getData("");
-        console.log("postInfo: ", postInfo)
-        displayPost(postInfo);
-    } catch(err) {
-        console.log(err.message);
-    }
-
-})
-
-export {getData, displayPost}

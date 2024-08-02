@@ -10,14 +10,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 function getData(category) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            console.log("category: ", category);
             const response = yield fetch(`http://localhost:3000/board/free`);
             if (!response.ok) {
                 throw new Error("응답 에러");
             }
             const responseData = yield response.json();
             const { postList: specifiedPost } = responseData;
-            console.dir(specifiedPost);
             return specifiedPost;
         }
         catch (err) {

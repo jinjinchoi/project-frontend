@@ -4,14 +4,14 @@ import { IBoard, IResponseData } from "interface/boardAndReply.interface"
 async function getData(category:string): Promise<IBoard[]> {
     try {
         // console.log("category: ", category);
-        const response = await fetch(`http://localhost:3000/board`);
+        const response = await fetch(`http://localhost:3000/board/jmt`);
         if(!response.ok) {
             throw new Error("응답 에러")
         }
         const responseData : IResponseData  = await response.json();
-        const { postList }  = responseData;
-        // console.dir(postList);
-        return postList;
+        const { postList : specifiedPost }  = responseData;
+        // console.dir(specifiedPost);
+        return specifiedPost;
     } catch (err) {
         console.log('패치 오류: ', err.message)
     }
@@ -62,11 +62,11 @@ function displayPost(postList : IBoard[]) : void{
         <div class = "profileRegion-date"> <span>${formattedDate }</span></div>
     </div>
     <!-- 본분 영역 -->
-    <a href="../detailpage/detailpage.html?category=${postData.categories}&id=${postData.id}" class="post-A">
+    <a href="../detailpage/detailpage.html?category=jmt&id=${postData.id}" class="post-A">
         <div class="post-mainContainer">
             <!-- 글 -->
             <div class="mainContainer-titleRegion"><h3>${postData.boardTitle}</h3></div>
-            <div class="mainContainer-dataRegion"><span>${postData.boardContent}</span></div>
+            <div class="mainContainer-dataRegion"><span>${postData.boardContent} </span></div>
             <!-- 사진 or 영상 -->
             <div class="mainContainer-fileRegion ${classStatus}"> <img src="http://localhost:3000/${postData.boardFile}" class = "mainContainer-file ${classStatus}"> </div>
         </div>
@@ -91,7 +91,7 @@ function displayPost(postList : IBoard[]) : void{
 
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        const postInfo:IBoard[] = await getData("");
+        const postInfo:IBoard[] = await getData("jmt");
         console.log("postInfo: ", postInfo)
         displayPost(postInfo);
     } catch(err) {
@@ -99,5 +99,3 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
 })
-
-export {getData, displayPost}

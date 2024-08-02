@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> KITA - 새로운 길을 찾아서 </title>
+    <title> KITA - Best WebSite </title>
 </head>
 <link rel = "stylesheet" href ="../../css/category/banner.css">
 <link rel = "stylesheet" href ="../../css/category/leftbar.css">
 <link rel = "stylesheet" href ="../../css/category/main.css">
-<link rel = "stylesheet" href ="../../css/write/postWrite.css">
-<script src ="../../js/update/updatePage.update.js" type="module" defer></script>
-<!-- <script src ="../../js/write/preventMove.js" type="module" defer></script> -->
+<link rel = "stylesheet" href ="../../css/category/post.css">
+<script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+<script src ="../../js/category/main.js" type="module" defer></script>
 <body>
+<div class = "bodyDiv">
     <!-- Header start -->
     <header role="banner">
         <div class = "banner-contanier">
-            <a href="../category/main.html"><h2>KITA</h2><div class = "banner-logo-region"></div></a>
+            <a href=""><h2>KITA</h2><div class = "banner-logo-region"></div></a>
             <div class = "banner-searchBar-container">
                 <!-- 검색 영역 (추후 action 추가) -->
-                <form action="" method="post">
+                <form action="" method="post" name = "term">
                     <label for="banner-searchInput" class="banner-label">
                         <input type="text" placeholder="정보를 찾아 멋진 여행을 떠나세요!" class = "banner-search-input">
                     </label>
@@ -33,8 +34,10 @@
 
     <!-- 헤더 영역 차지할 빈 영역 -->
     <div class = "banner-space"> </div>
+
     
     <div id = "wholeDiv"> 
+        
     <!-- 사이드바 차지할 빈 영역 -->
     <div class = "sidebar-space"> </div>
 
@@ -51,10 +54,10 @@
                    <a href="../category/free.html" class = "leftBar-category-a"> <span> 자유게시판 </span> </a>
                 </div>
                 <div class="leftBar-category-container">
-                    <a href="../category/jmt.html" class = "leftBar-category-a"> <span> 맛집 추천 </span> </a>
+                    <a href="./jmt.html" class = "leftBar-category-a"> <span> 맛집 추천 </span> </a>
                 </div>
                 <div class="leftBar-category-container">
-                    <a href="../category/review.html" class = "leftBar-category-a"> <span> 불편 · 불만 </span> </a>
+                    <a href="./review.html" class = "leftBar-category-a"> <span> 불편 · 불만 </span> </a>
                 </div>
             </div>
             <hr class = "leftBar-hr">
@@ -77,11 +80,11 @@
         <div class = "main-container">
             <!-- 상단 환영인사 문구 -->
             <div class="title-container">
-                <h1> Show your creativity! </h1>
+                <h1> Welcome to KITA!!</h1>
             </div>
             <!-- 상단 글 작성 버튼 영역 -->
-            <div class = "topBar-container">
-                <a href="../category/free.html" class = "topBar-button-a">
+            <!-- <div class = "topBar-container">
+                <a href="" class = "topBar-button-a">
                     <div class = "topBar-button">
                         <span> 게시물</span>
                     </div>
@@ -91,32 +94,47 @@
                         <span> 글작성 </span>
                     </div>
                 </a>
-            </div>
+            </div> -->
 
-            <!-- 글 작성 영역 -->
+            <!-- 게시물 들어갈 영역 -->
             <div class = "post-container">
-               <div class = "wright-container">
-                <form action="" class="wright-form">
-                    <div class ="wright-titleRegion">
-                        <input type="text" class="titleRegion-input" placeholder="제목을 입력하세요" name="boardTitle" required>
+                <div class = "post-region">
+                <!-- 상단 정보 영역 -->
+                    <div class = "post-profileRegion">
+                        <!-- 유저 프로필 사진 -->
+                        <div class = "profileRegion-userProfile">
+                            <img src="">
+                        </div>
+                        <div class="profileRegion-userNickname"> <span> 닉네임 </span></div>
+                        <!-- 게시물 날짜 -->
+                        <div class = "profileRegion-date"> <span>2024-07-23</span></div>
                     </div>
-                    <div class="wright-contentRegion">
-                        <textarea class="contentRegion-textarea" placeholder="내용을 입력하세요" name="boardContent"></textarea>
+                    <!-- 본문 영역 -->
+                    <a href="" class="post-A">
+                        <div class="post-mainContainer">
+                            <!-- 글 -->
+                            <div class="mainContainer-titleRegion"><h3>제목입니다.</h3></div>
+                            <div class="mainContainer-dataRegion"><span>테스트용 글입니다.</span></div>
+                            <!-- 사진 or 영상 -->
+                            <div class="mainContainer-fileRegion"> <img src="" class = "mainContainer-file"></div>
+                        </div>
+                    </a>
+                    <!-- 댓글, 좋아요 영역 -->
+                    <div class = "post-bottomContainer">
+                        <!-- 댓글 -->
+                        <a href="" class="bottomContainer-comment-a"><div class = "bottomContainer-buttonReion"><span> 💬 999+ </span></div></a>
+                        <!-- 좋아요 -->
+                        <div class = "bottomContainer-buttonReion"><span> ♡ 999+</span></div>
                     </div>
-                    <div class="wright-bottom">
-                        <p class="bottom-fileName"></p>
-                        <label for="bottom-file" class="bottom-label">파일첨부</label>
-                        <input type="file" accept="img/*" name = "boardFile" id="bottom-file">
-                        <button type="submit" class="bottom-submit"> 작성 </button>
-                    </div>
-                </form>
-               </div>
+                </div>
+                <hr class="postDivide">
             </div>
             <!-- 게시물 영역 종료 -->
-
+             
 
         </div>
      </main>
     </div>
+</div>
 </body>
 </html>
