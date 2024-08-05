@@ -42,6 +42,8 @@ export function displayPost(postList : IBoard[]) : void {
         <div class="profileRegion-userNickname"> <span> ${postData.unickname} </span></div>
         <!-- 게시물 날짜 -->
         <div class = "profileRegion-date"> <span>${formattedDate }</span></div>
+        <!-- 카테고리 -->
+        <div class = "profileRegion-category"> <span>${postData.categories }</span></div>
     </div>
     <!-- 본분 영역 -->
     <a href="../detailpage/detailpage.html?category=${postData.categories}&id=${postData.id}" class="post-A">
@@ -50,7 +52,7 @@ export function displayPost(postList : IBoard[]) : void {
             <div class="mainContainer-titleRegion"><h3>${postData.boardTitle}</h3></div>
             <div class="mainContainer-dataRegion"><span>${postData.boardContent}</span></div>
             <!-- 사진 or 영상 -->
-            <div class="mainContainer-fileRegion ${classStatus}"> <img src="http://localhost:3000/${postData.boardFile}" class = "mainContainer-file ${classStatus}"> </div>
+            <div class="mainContainer-fileRegion ${classStatus}"> <img src="" class = "mainContainer-file ${classStatus}"> </div>
         </div>
     </a>
     <!-- 댓글, 좋아요 영역 -->
@@ -65,7 +67,17 @@ export function displayPost(postList : IBoard[]) : void {
 `
             
             postRigion.innerHTML = htmlContext;
+
+            // 이미지가 존재하면 추가
+            const imgTag = postRigion.querySelector(".mainContainer-file") as HTMLImageElement;
+            if (!postData.boardFile) {
+                imgTag.src = ""
+            } else {
+                imgTag.src = `http://localhost:3000/${postData.boardFile}`
+            }
         }
+
+        
     } catch (err) {
         console.log(err.message);
     }

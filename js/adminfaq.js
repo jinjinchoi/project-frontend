@@ -69,7 +69,6 @@ modifyBtn.onclick = () => {
 }
 
 // // 글 작성, 수정 취소
-
 const cancelBtn = document.querySelectorAll(".cancelBtn");
 const cancelBtnArray = [...cancelBtn];
 for (const cancel of cancelBtnArray) {
@@ -81,4 +80,3 @@ for (const cancel of cancelBtnArray) {
     }
   }
 }
-

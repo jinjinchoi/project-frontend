@@ -1,14 +1,13 @@
 // 글 전체 목록 페이지 보여주기
 const Data = async () => {
   const res = await axios.get('http://localhost:3000/faq')
-  return faqData(res);
+  return res;
 }
-// 데이터를 받아오는 부분
-const pageData = Data();
 
+const faqDataFn = faqData(Data());
 
-function faqData(res){
-  const { data } = res;
+async function faqData(res){
+  const { data } = await res;
 
   for (let i = 0; i < data.length; i++) {
     let { faqTitle, faqContent, id } = data[i];
@@ -39,6 +38,66 @@ function faqData(res){
     listCreate.append(h3title, pcontent, modifyBtn, deleteBtn);
     faqBoard.append(listCreate);
   }
+  // 글 검색기능
+  const searchFrm = document.querySelector("#searchFrm");
+  const {faqSearch} = searchFrm;
+
+  // 검색 요청
+  searchFrm.onsubmit = async (e) => {
+    e.preventDefault();
+
+    if(faqSearch.value === ""){alert("검색어를 입력해주세요."); return;}
+    const res = await axios.get(`http://localhost:3000/faq/q`,
+      {params : {q : faqSearch.value}}
+    );
+    const data = res.data;
+    const faqBoard = document.querySelector('.faq-board');
+    faqBoard.innerHTML = "";
+    
+    for (let i = 0; i < data.length; i++) {
+      let { faqTitle, faqContent, id } = data[i];
+  
+      const listCreate = document.createElement("div");
+      const h3title = document.createElement("h3");
+      const pcontent = document.createElement("p");
+      const deleteBtn = document.createElement("button");
+      const modifyBtn = document.createElement('a')
+  
+      listCreate.classList.add("faq-list");
+      h3title.classList.add("faq-title");
+      pcontent.classList.add("faq-content");
+      deleteBtn.classList.add("deleteBtn");
+  
+      h3title.innerHTML = data[i].faqTitle;
+      pcontent.innerHTML = data[i].faqContent;
+      deleteBtn.innerHTML = "삭제";
+      modifyBtn.innerHTML = "수정";
+  
+      modifyBtn.href = `../../html/faq/adminfaq.html?modify=${data[i].id}`
+      
+      // dataset.id 에 id값 부여
+      deleteBtn.dataset.id = data[i].id;
+  
+      listCreate.append(h3title, pcontent, modifyBtn, deleteBtn);
+      faqBoard.append(listCreate);
+    }
+
+    const totalBoardData = data.length;
+
+    const viewListData = 5; // 보여줄 글 개수
+    const totalViewPage = Math.ceil(totalBoardData / viewListData); // 전체 페이지
+
+    let bool = false;
+    pageNationData(bool, res);
+    
+    // 글 배열 반환
+    const faqList = document.querySelectorAll('.faq-board > div');
+    const faqBoardArray = Array.from(faqList);
+    
+    return faqBoardArray;
+  }
+
+
 
   // 삭제 버튼
   const deleteBtn = document.querySelectorAll(".deleteBtn");  
@@ -82,60 +141,58 @@ const page_ol = document.querySelector(".page-nation > ol");
 // 버튼 생성
 // 페이지네이션 화살표
 let pageIndex = 0;
+let pageViewIndex = 0;
 
 // 전체 글 수, 전체 보여줄 글 갯수, 보여줄 페이지 갯수
-function pageNationData(listArray){
-  listArray.then(res =>
-    { 
-      const totalBoardData = res.length;
-      const viewListData = 5; // 보여줄 글 개수
-      const totalViewPage = Math.ceil(totalBoardData / viewListData); // 전체 페이지
-      const viewPageData = 3;
+async function pageNationData(bool, fn){
+    const res = bool ? await Data() : fn;
 
-      displayRow(res, 0);
+    const totalBoardData = res.data.length;
 
-      // 클릭시 보여줄 페이지
-      const page_list = pageNationInit(totalViewPage, pageIndex);
-      // 페이지 처음 체크
-      page_list[0].classList.add('page-checked');
+    const viewListData = 5; // 보여줄 글 개수
+    const totalViewPage = Math.ceil(totalBoardData / viewListData); // 전체 페이지
 
-      for (const pageBtn of page_list) {
-        // 체크되지 않는 페이지 초기화
-        for (let i = 1; i < page_list.length; i++) {
+    displayRow(0);
+
+    // 클릭시 보여줄 페이지
+    const page_list = pageNationInit(totalViewPage, pageIndex);
+    // 페이지 처음 체크
+    page_list[0].classList.add('page-checked');
+
+    for (const pageBtn of page_list) {
+      // 체크되지 않는 페이지 초기화
+      for (let i = 1; i < page_list.length; i++) {
+        page_list[i].classList.add('page-not-checked');
+      }
+
+      // A태그 클릭시 게시물 이동
+      pageBtn.onclick = (e) => {
+        e.preventDefault();
+
+        // 보여줄 list
+        const pageNum = e.target.innerHTML - 1;
+        displayRow(pageNum);
+
+        // 버튼 클릭시 클래스 추가 삭제
+        for (let i = 0; i < page_list.length; i++) {
+          page_list[i].classList.remove('page-checked');
           page_list[i].classList.add('page-not-checked');
         }
-
-        // A태그 클릭시 게시물 이동
-        pageBtn.onclick = (e) => {
-          e.preventDefault();
-
-          // 보여줄 list
-          const pageNum = e.target.innerHTML - 1;
-          displayRow(res, pageNum);
-
-          // 버튼 클릭시 클래스 추가 삭제
-          for (let i = 0; i < page_list.length; i++) {
-            page_list[i].classList.remove('page-checked');
-            page_list[i].classList.add('page-not-checked');
-          }
-          e.target.classList.remove('page-not-checked');
-          e.target.classList.add('page-checked');
-        }
+        e.target.classList.remove('page-not-checked');
+        e.target.classList.add('page-checked');
       }
     }
-  );
+  return res;
 }
 
 // 글 내용 보여주기
-function displayRow(res, idx){
-  const totalBoardData = res.length; // 게시글 총 개수
+async function displayRow(idx){
+  const res = await faqDataFn;
   const start = idx * 5;
   const end =  start + 5;
 
-  const RES = res;
-
   // 전체 글 사라지게 만들기
-  for (const list of RES) {
+  for (const list of res) {
     list.style.display = "none";
   }
 
@@ -149,6 +206,14 @@ function displayRow(res, idx){
 
 function pageNationInit(totalViewPage, idx){
   // 글 페이지 생성
+   // 다음 이전 화살표
+   const nextBtn = document.querySelector(".next");
+   const prevBtn = document.querySelector(".prev");
+  if(totalViewPage < 4){
+    nextBtn.style.display = "none";
+    prevBtn.style.display = "none";
+  }
+  
   for (let i = 1; i <= totalViewPage; i++) {
     const page_li = document.createElement("li");
     const page_a = document.createElement("a");
@@ -166,25 +231,33 @@ function pageNationInit(totalViewPage, idx){
   for(let i = 0; i < page_li_array.length; i++){
     page_li_array[i].style.display = "none";
   }
+
   let start = idx * 3;
   let end = 3 + start;
 
   const viewPage = Math.ceil(pageArray.length / 3);
 
-  // 다음 이전 화살표
-  const nextBtn = document.querySelector(".next");
-  const prevBtn = document.querySelector(".prev");
-
   let viewNum = page_li_array.slice(start, end);
+
   for (const num of viewNum) {
     num.style.display = 'block'
   }
   prevBtn.style.display = "none";
   nextBtn.onclick = function(e){
-    prevBtn.style.display = "block";
+    prevBtn.style.display = "flex";
     pageIndex++
+    let pageActive = pageViewIndex += 3
+    displayRow(pageActive);
+    pageArray.forEach((item, index) => {
+      item.classList.remove("page-checked");
+      item.classList.add("page-not-checked");
+    });
+    pageArray[pageActive].classList.remove("page-not-checked");
+    pageArray[pageActive].classList.add("page-checked");
+    
     let start = pageIndex * 3;
     let end = 3 + start;
+
     for(let i = 0; i < page_li_array.length; i++){
       page_li_array[i].style.display = "none";
     }
@@ -201,6 +274,16 @@ function pageNationInit(totalViewPage, idx){
     pageIndex--
     let start = pageIndex * 3;
     let end = 3 + start;
+    let pageActive = pageViewIndex -= 3
+    displayRow(pageActive);
+
+    pageArray.forEach((item, index) => {
+      item.classList.remove("page-checked");
+      item.classList.add("page-not-checked");
+    });
+    pageArray[pageActive].classList.remove("page-not-checked");
+    pageArray[pageActive].classList.add("page-checked");
+
     for(let i = 0; i < page_li_array.length; i++){
       page_li_array[i].style.display = "none";
     }
@@ -209,19 +292,13 @@ function pageNationInit(totalViewPage, idx){
       num.style.display = 'block'
     }
     if(pageIndex === 0){
-      nextBtn.style.display = "block";
+      nextBtn.style.display = "flex"; 
       e.target.style.display = "none";
     }
   }
-
-
-  
-
-
-  
-
   return pageArray; // 페이지 버튼 반환
 }
 
-// 페이지네이션 
-pageNationData(pageData);
+// 페이지네이션
+let bool = true;
+pageNationData(true, 1);
