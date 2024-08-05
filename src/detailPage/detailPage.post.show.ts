@@ -5,6 +5,24 @@ import { IBoard } from "interface/boardAndReply.interface";
 
 // 본문과 프로필 영역 그린다.
 export function drawPostRegion(postData : IBoard) : void {
+
+    const dateOptions : Intl.DateTimeFormatOptions = {
+        year: "numeric",
+        month: 'long',
+        day: 'numeric',
+        
+    };
+    const timeOptions : Intl.DateTimeFormatOptions = {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+    };
+
+    const storedDate = new Date(postData.createdAt.replace(' ', 'T'));
+    const koreanDate = storedDate.toLocaleDateString('ko-KR', dateOptions);
+    const koreanTime = storedDate.toLocaleTimeString('ko-KR', timeOptions);
+    const formattedDate =  `${koreanDate} ${koreanTime}`;
+
     const detailContainer  = document.querySelector(".onlyPostContainer")
 
     // 프로필 영역 div 생성
@@ -23,7 +41,7 @@ export function drawPostRegion(postData : IBoard) : void {
 <div class="topProfileContainer">
     <div class="topProfileContainer-userImgContainer"> <img src="" class="topProfileContainer-userImgContainer-img"> </div> <!-- 프로필 사진 -->
     <div class="topProfileContainer-nicknameContainer"><span>${postData.unickname}</span></div>
-    <div clasas="topProfileContainer-dateContainer"><span>${postData.createdAt}</span></div>
+    <div clasas="topProfileContainer-dateContainer"><span>${formattedDate}</span></div>
     <div class="topProfileContainer-categoryContainer"><span>${postData.categories}</span></div>
     <div class="topProfileContainer-viewContainer"><span>조회수 ${postData.boardView}</span></div>
     <div class="topProfileContainer-UDContainer">
