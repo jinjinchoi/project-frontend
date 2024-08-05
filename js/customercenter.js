@@ -87,39 +87,14 @@ async function faqData(res){
     const viewListData = 5; // 보여줄 글 개수
     const totalViewPage = Math.ceil(totalBoardData / viewListData); // 전체 페이지
 
-    displayRow(0);
-
-    // 클릭시 보여줄 페이지
-    const page_list = pageNationInit(totalViewPage, pageIndex);
-    // 페이지 처음 체크
-    page_list[0].classList.add('page-checked');
-
-    for (const pageBtn of page_list) {
-      // 체크되지 않는 페이지 초기화
-      for (let i = 1; i < page_list.length; i++) {
-        page_list[i].classList.add('page-not-checked');
-      }
-
-      // A태그 클릭시 게시물 이동
-      pageBtn.onclick = (e) => {
-        e.preventDefault();
-
-        // 보여줄 list
-        const pageNum = e.target.innerHTML - 1;
-        displayRow(pageNum);
-
-        // 버튼 클릭시 클래스 추가 삭제
-        for (let i = 0; i < page_list.length; i++) {
-          page_list[i].classList.remove('page-checked');
-          page_list[i].classList.add('page-not-checked');
-        }
-        e.target.classList.remove('page-not-checked');
-        e.target.classList.add('page-checked');
-      }
-    }
+    let bool = false;
+    pageNationData(bool, res);
     
-    pageNationData()
+    // 글 배열 반환
+    const faqList = document.querySelectorAll('.faq-board > div');
+    const faqBoardArray = Array.from(faqList);
     
+    return faqBoardArray;
   }
 
 
@@ -169,8 +144,10 @@ let pageIndex = 0;
 let pageViewIndex = 0;
 
 // 전체 글 수, 전체 보여줄 글 갯수, 보여줄 페이지 갯수
-async function pageNationData(){
-    const res = await Data();
+async function pageNationData(bool, fn){
+    const res = bool ? await Data() : fn;
+    console.log(res);
+    console.log(res.data.length)
 
     const totalBoardData = res.data.length;
 
@@ -313,7 +290,7 @@ function pageNationInit(totalViewPage, idx){
       num.style.display = 'block'
     }
     if(pageIndex === 0){
-      nextBtn.style.display = "flex";
+      nextBtn.style.display = "flex"; 
       e.target.style.display = "none";
     }
   }
@@ -321,4 +298,5 @@ function pageNationInit(totalViewPage, idx){
 }
 
 // 페이지네이션
-pageNationData();
+let bool = true;
+pageNationData(true, 1);
