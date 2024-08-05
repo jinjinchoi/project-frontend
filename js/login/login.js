@@ -38,17 +38,18 @@ class LoginBtn {
         this.loginBtn = document.querySelector('.login_btn')
         this.error = document.querySelector('#error_message')
 
-        this.event()
+    this.event()
     }
 
     event(){
         this.loginBtn.addEventListener('click', async () => {
         try{
-            const response = await axios.post("http://localhost:3000/auth/login", {uid:this.idInput.value, upw:this.pwInput.value})
-            // if(response.status=?){
-            //     location.href="메인"
-            // }
-            console.log(response);
+            const response = await axios.post("http://localhost:3000/auth/login", {uid:this.idInput.value, upw:this.pwInput.value},{
+                withCredential:true
+            })
+            if(( response.status==200 ) || ( response.status==201 )){
+                // location.href="../html/mypage.html"
+            }
         }catch(err){
             if (err.response && err.response.status === 401) {
                 this.error.textContent = '아이디 또는 비밀번호가 일치하지 않습니다.';

@@ -122,7 +122,7 @@
     transform:rotate(133deg);
 } */
 
-#upw_box{
+#umessage_box{
     display:flex;
     width:840px;
     height:45px;
@@ -132,26 +132,26 @@
     position:relative;
 }
 
-#upw_box:hover{
+#umessage_box:hover{
     cursor:pointer;
     background-color: antiquewhite;
     transition:0.3s;
 }
 
-#upw_title{
+#umessage_title{
     width:170px;
     font-size:12px;
     font-weight: 500;
     color:#444746;
 }
 
-#upw_content{
+#umessage_content{
     width:510px;
     font-size:14px;
     color:#444746;
 }
 
-#upw_arrow::after{
+#umessage_arrow::after{
     content:"";
     position: absolute;
     border:1px solid #444746;
@@ -164,7 +164,7 @@
     transform:rotate(43deg);
 }
 
-#upw_arrow::before{
+#umessage_arrow::before{
     content:"";
     position: absolute;
     border:1px solid #444746;

@@ -66,7 +66,7 @@ class SignupCancel{
     event(){
         this.cancel.addEventListener('click', () => {
             if(confirm('취소하시겠습니까?') == true){
-                window.location.href = '../login/login.html'; 
+                window.location.href = './login.html'; 
             }
         })
     }
