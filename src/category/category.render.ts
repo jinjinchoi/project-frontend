@@ -57,7 +57,7 @@ export function displayPost(postList : IBoard[]) : void{
         <!-- 댓글 -->
         <a href="" class="bottomContainer-comment-a"><div class = "bottomContainer-buttonReion"><span> 💬 ${postData.numberOfComment} </span></div></a>
         <!-- 좋아요 -->
-        <div class = "bottomContainer-buttonReion"><span> ♡ ${postData.boardLike}</span></div>
+        <div class = "bottomContainer-buttonReion" id = "bottomContainer-buttonReion-${postData.id}"><span> ♡ ${postData.boardLike}</span></div>
     </div>
 <hr class="postDivide">
 <!-- 게시물 영역 종료 -->
@@ -74,10 +74,15 @@ export function displayPost(postList : IBoard[]) : void{
                 imgTag.src = `http://localhost:3000/${postData.boardFile}`
             }
 
-
+            // 댓글 버튼 누를시 댓글 창으로 바로 이동
             postRigion.querySelector(".bottomContainer-comment-a").addEventListener("click", (e) => {
                 e.preventDefault();
                 window.location.href = `../detailpage/detailpage.html?category=${postData.categories}&id=${postData.id}#commentContainer`;
+            })
+
+            // 좋아요 버튼 누를시 좋아요 버튼이 있는 쪽으로 이동
+            postRigion.querySelector(`#bottomContainer-buttonReion-${postData.id}`).addEventListener("click", () => {
+                window.location.href = `../detailpage/detailpage.html?category=${postData.categories}&id=${postData.id}#bottomContainer-buttonReion`;
             })
         }
     } catch (err) {

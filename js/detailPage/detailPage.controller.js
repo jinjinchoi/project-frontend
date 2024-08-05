@@ -13,12 +13,6 @@ import { drawComment } from "./detailPage.reply.show.js";
 import { DoYouLike } from "../like/like.getIsLike.js";
 import { colorPainting, removePainting } from "../like/like.fillButton.js";
 document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, void 0, function* () {
-    const hash = window.location.hash;
-    if (hash) {
-        const hashName = hash.substring(1);
-        const hashElement = document.querySelector(`.${hashName}`);
-        hashElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
     const params = new URLSearchParams(window.location.search);
     const category = params.get('category');
     const id = params.get('id');
@@ -33,6 +27,13 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
         }
         else {
             removePainting();
+        }
+        const hash = window.location.hash;
+        if (hash) {
+            const hashName = hash.substring(1);
+            const hashElement = document.querySelector(`.${hashName}`);
+            hashElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            window.location.hash = '';
         }
     }
     catch (err) {

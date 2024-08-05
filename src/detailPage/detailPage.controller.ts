@@ -6,15 +6,6 @@ import { DoYouLike } from "../like/like.getIsLike";
 import { colorPainting, removePainting } from "../like/like.fillButton";
 
 document.addEventListener("DOMContentLoaded", async () => {
-
-    // 해시값 불러오기
-    const hash = window.location.hash;
-    if(hash) {
-        const hashName = hash.substring(1);
-        const hashElement = document.querySelector(`.${hashName}`)
-        hashElement.scrollIntoView({behavior : 'smooth', block : 'start'});
-    }
-
     // 파라미터값 불러오기
     const params = new URLSearchParams(window.location.search);
     const category = params.get('category');
@@ -33,6 +24,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
         else {
             removePainting();
+        }
+
+         // 해시값 불러오기
+        const hash = window.location.hash;
+        if (hash) {
+            const hashName = hash.substring(1);
+            const hashElement = document.querySelector(`.${hashName}`)
+            hashElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            window.location.hash = ''
         }
 
     } catch(err) {
