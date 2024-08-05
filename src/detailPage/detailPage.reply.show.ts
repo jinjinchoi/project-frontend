@@ -1,4 +1,4 @@
-import { IReply } from "interface/boardAndReply.interface";
+import { IReply } from "../interface/boardAndReply.interface";
 import { addBtnEvent, addRemoveEvent, addUpdateEvent } from "../commentManager/comment.eventControll"
 
 export function drawComment (replyData : IReply[], repeat : boolean) : void {

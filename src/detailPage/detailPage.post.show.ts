@@ -1,4 +1,4 @@
-import { likeImplement } from "like/like.implement";
+import { likeImplement } from "../like/like.implement";
 import { deleteBoard } from "../delete/detailPage.delete";
 import { IBoard } from "interface/boardAndReply.interface";
 
@@ -47,7 +47,7 @@ export function drawPostRegion(postData : IBoard) : void {
     <!-- 댓글 -->
     <div class = "bottomContainer-buttonReion"><span> 💬 ${postData.numberOfComment} </span></div>
     <!-- 좋아요 -->
-    <div class = "bottomContainer-buttonReion"><span> ♡ ${postData.boardLike}</span></div>
+    <div class = "bottomContainer-buttonReion" id = "bottomContainer-like"><span> ♡ ${postData.boardLike}</span></div>
 </div>
 
 `
@@ -65,7 +65,7 @@ export function drawPostRegion(postData : IBoard) : void {
     })
 
     // 좋아요 기능 구현
-    profileDiv.querySelector(".bottomContainer-buttonReion").addEventListener("click", () => {
+    contentDiv.querySelector("#bottomContainer-like").addEventListener("click", () => {
         likeImplement(postData.categories, postData.id);
     })
 

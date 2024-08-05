@@ -1,3 +1,4 @@
+import { likeImplement } from "../like/like.implement.js";
 import { deleteBoard } from "../delete/detailPage.delete.js";
 export function drawPostRegion(postData) {
     const detailContainer = document.querySelector(".onlyPostContainer");
@@ -32,7 +33,7 @@ export function drawPostRegion(postData) {
     <!-- 댓글 -->
     <div class = "bottomContainer-buttonReion"><span> 💬 ${postData.numberOfComment} </span></div>
     <!-- 좋아요 -->
-    <div class = "bottomContainer-buttonReion"><span> ♡ ${postData.boardLike}</span></div>
+    <div class = "bottomContainer-buttonReion" id = "bottomContainer-like"><span> ♡ ${postData.boardLike}</span></div>
 </div>
 
 `;
@@ -46,8 +47,9 @@ export function drawPostRegion(postData) {
             return;
         }
     });
-
-    // 파일 있으면 보여주는 부분
+    contentDiv.querySelector("#bottomContainer-like").addEventListener("click", () => {
+        likeImplement(postData.categories, postData.id);
+    });
     if (postData.boardFile) {
         const fileContainer = document.createElement('div');
         fileContainer.classList.add("contentContainer-fileContainer");

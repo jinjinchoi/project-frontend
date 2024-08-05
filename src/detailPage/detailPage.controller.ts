@@ -2,6 +2,8 @@ import { IDetailPageResponseData } from "interface/boardAndReply.interface";
 import { getData } from "./detailPage.getData";
 import { drawPostRegion } from "./detailPage.post.show";
 import { drawComment } from "./detailPage.reply.show";
+import { DoYouLike } from "../like/like.getIsLike";
+import { colorPainting, removePainting } from "../like/like.fillButton";
 
 document.addEventListener("DOMContentLoaded", async () => {
     const params = new URLSearchParams(window.location.search);
@@ -14,8 +16,18 @@ document.addEventListener("DOMContentLoaded", async () => {
         const detailPageData : IDetailPageResponseData = await getData(category, parsedId);
         drawPostRegion(detailPageData.wholeContents.content);
         drawComment(detailPageData.wholeContents.reply, false);
+
+        // 좋아요 색칠하기
+        const checkIsLike : boolean = await DoYouLike(parsedId, category, "testId");
+        if(checkIsLike) {
+            colorPainting();
+        }
+        else {
+            removePainting();
+        }
+
     } catch(err) {
-        console.log("controller Error: ", err);
+        console.log("detailPage controller Error: ", err);
     }
     
     // 상단 to게시물 버튼 활성화

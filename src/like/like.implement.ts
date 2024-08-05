@@ -1,10 +1,10 @@
-import { ILikeResponseMessage } from "interface/like.interface";
+import { ILikeResponseMessage } from "../interface/like.interface";
 import { colorPainting, removePainting } from "./like.fillButton";
 
 // 좋아요 실행 함수
 export async function likeImplement (category : string, boardId : number, userToken? : string) : Promise<void> {
     try {
-        const resonse = await fetch(`http://localhost:3000/board/${category}/${boardId}`, {
+        const resonse = await fetch(`http://localhost:3000/board/${category}/${boardId}/LikeUpdate`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -22,6 +22,8 @@ export async function likeImplement (category : string, boardId : number, userTo
         } else {
             removePainting();
         }
+
+        window.location.reload();
 
 
     } catch (err) {

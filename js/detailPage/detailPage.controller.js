@@ -10,6 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { getData } from "./detailPage.getData.js";
 import { drawPostRegion } from "./detailPage.post.show.js";
 import { drawComment } from "./detailPage.reply.show.js";
+import { DoYouLike } from "../like/like.getIsLike.js";
+import { colorPainting, removePainting } from "../like/like.fillButton.js";
 document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, void 0, function* () {
     const params = new URLSearchParams(window.location.search);
     const category = params.get('category');
@@ -19,9 +21,16 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
         const detailPageData = yield getData(category, parsedId);
         drawPostRegion(detailPageData.wholeContents.content);
         drawComment(detailPageData.wholeContents.reply, false);
+        const checkIsLike = yield DoYouLike(parsedId, category, "testId");
+        if (checkIsLike) {
+            colorPainting();
+        }
+        else {
+            removePainting();
+        }
     }
     catch (err) {
-        console.log("controller Error: ", err);
+        console.log("detailPage controller Error: ", err);
     }
     const toView = document.querySelector("#topBar-toView");
     toView.href = `../category/${category}.html`;
