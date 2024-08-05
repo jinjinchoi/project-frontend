@@ -32,8 +32,6 @@ export function displayPost(postList) {
         <div class="profileRegion-userNickname"> <span> ${postData.unickname} </span></div>
         <!-- 게시물 날짜 -->
         <div class = "profileRegion-date"> <span>${formattedDate}</span></div>
-        <!-- 카테고리 -->
-        <div class = "profileRegion-category"> <span>${postData.categories}</span></div>
     </div>
     <!-- 본분 영역 -->
     <a href="../detailpage/detailpage.html?category=${postData.categories}&id=${postData.id}" class="post-A">
@@ -50,7 +48,7 @@ export function displayPost(postList) {
         <!-- 댓글 -->
         <a href="" class="bottomContainer-comment-a"><div class = "bottomContainer-buttonReion"><span> 💬 ${postData.numberOfComment} </span></div></a>
         <!-- 좋아요 -->
-        <div class = "bottomContainer-buttonReion"><span> ♡ ${postData.boardLike}</span></div>
+        <div class = "bottomContainer-buttonReion" id = "bottomContainer-buttonReion-${postData.id}"><span> ♡ ${postData.boardLike}</span></div>
     </div>
 <hr class="postDivide">
 <!-- 게시물 영역 종료 -->
@@ -63,6 +61,13 @@ export function displayPost(postList) {
             else {
                 imgTag.src = `http://localhost:3000/${postData.boardFile}`;
             }
+            postRigion.querySelector(".bottomContainer-comment-a").addEventListener("click", (e) => {
+                e.preventDefault();
+                window.location.href = `../detailpage/detailpage.html?category=${postData.categories}&id=${postData.id}#commentContainer`;
+            });
+            postRigion.querySelector(`#bottomContainer-buttonReion-${postData.id}`).addEventListener("click", () => {
+                window.location.href = `../detailpage/detailpage.html?category=${postData.categories}&id=${postData.id}#bottomContainer-buttonReion`;
+            });
         }
     }
     catch (err) {

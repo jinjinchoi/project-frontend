@@ -1,10 +1,30 @@
-import { IReply } from "interface/boardAndReply.interface";
+import { IReply } from "../interface/boardAndReply.interface";
 import { addBtnEvent, addRemoveEvent, addUpdateEvent } from "../commentManager/comment.eventControll"
 
 export function drawComment (replyData : IReply[], repeat : boolean) : void {
     const commentRegion = document.querySelector(".commentContainer");
 
+    const dateOptions : Intl.DateTimeFormatOptions = {
+        year: "numeric",
+        month: 'long',
+        day: 'numeric',
+        
+    };
+    const timeOptions : Intl.DateTimeFormatOptions = {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+    };
+
+    // rander 시작
     for(const commentData of replyData) {
+
+        const storedDate = new Date(commentData.createdAt.replace(' ', 'T'));
+        const koreanDate = storedDate.toLocaleDateString('ko-KR', dateOptions);
+        const koreanTime = storedDate.toLocaleTimeString('ko-KR', timeOptions);
+        const formattedDate =  `${koreanDate} ${koreanTime}`;
+    
+
         const commentContainer = document.createElement("div");
         if(!repeat) {
             commentContainer.classList.add('commentContainer-frofileAndContent');
@@ -23,7 +43,7 @@ export function drawComment (replyData : IReply[], repeat : boolean) : void {
 <div class="entireUserInfo">
     <div class="userProfileContainer">
         <div class="userProfileContainer-nicknamecontainer"> <span>${commentData.unickname} </span></div>
-        <div class="userProfileContainer-dateContainer"> <span>${commentData.createdAt} </span></div>
+        <div class="userProfileContainer-dateContainer"> <span>${formattedDate} </span></div>
         <div class="userProfileContainer-repliesBtnContainer" data-set="${commentData.id}"><span> 답글 </span></div>
         <div class="userProfileContainer-updateBtnContainer" data-set=${commentData.id}><span> 수정 </span></div>
         <div class="userProfileContainer-deleteBtnContainer" data-set=${commentData.id}><span> 삭제 </span></div>
