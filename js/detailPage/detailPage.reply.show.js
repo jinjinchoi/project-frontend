@@ -1,7 +1,21 @@
 import { addBtnEvent, addRemoveEvent, addUpdateEvent } from "../commentManager/comment.eventControll.js";
 export function drawComment(replyData, repeat) {
     const commentRegion = document.querySelector(".commentContainer");
+    const dateOptions = {
+        year: "numeric",
+        month: 'long',
+        day: 'numeric',
+    };
+    const timeOptions = {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+    };
     for (const commentData of replyData) {
+        const storedDate = new Date(commentData.createdAt.replace(' ', 'T'));
+        const koreanDate = storedDate.toLocaleDateString('ko-KR', dateOptions);
+        const koreanTime = storedDate.toLocaleTimeString('ko-KR', timeOptions);
+        const formattedDate = `${koreanDate} ${koreanTime}`;
         const commentContainer = document.createElement("div");
         if (!repeat) {
             commentContainer.classList.add('commentContainer-frofileAndContent');
@@ -17,7 +31,7 @@ export function drawComment(replyData, repeat) {
 <div class="entireUserInfo">
     <div class="userProfileContainer">
         <div class="userProfileContainer-nicknamecontainer"> <span>${commentData.unickname} </span></div>
-        <div class="userProfileContainer-dateContainer"> <span>${commentData.createdAt} </span></div>
+        <div class="userProfileContainer-dateContainer"> <span>${formattedDate} </span></div>
         <div class="userProfileContainer-repliesBtnContainer" data-set="${commentData.id}"><span> 답글 </span></div>
         <div class="userProfileContainer-updateBtnContainer" data-set=${commentData.id}><span> 수정 </span></div>
         <div class="userProfileContainer-deleteBtnContainer" data-set=${commentData.id}><span> 삭제 </span></div>

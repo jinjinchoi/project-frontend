@@ -38,17 +38,17 @@ class LoginBtn {
         this.loginBtn = document.querySelector('.login_btn')
         this.error = document.querySelector('#error_message')
 
-    this.event()
+        this.event()
     }
 
     event(){
         this.loginBtn.addEventListener('click', async () => {
         try{
-            const response = await axios.post("http://localhost:3000/auth/login", {uid:this.idInput.value, upw:this.pwInput.value},{
-                withCredential:true
-            })
+            const response = await axios.post("http://localhost:3000/auth/login",
+                { uid: this.idInput.value, upw: this.pwInput.value },
+                { withCredentials: true })
             if(( response.status==200 ) || ( response.status==201 )){
-                // location.href="../html/mypage.html"
+                location.href="../../html/category/main.html"
             }
         }catch(err){
             if (err.response && err.response.status === 401) {

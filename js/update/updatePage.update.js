@@ -28,6 +28,17 @@ document.querySelector("#bottom-file").addEventListener("change", (e) => {
 document.querySelector(".wright-form").addEventListener("submit", (e) => __awaiter(void 0, void 0, void 0, function* () {
     e.preventDefault();
     const formData = new FormData(e.target);
+    formData.forEach((value, key) => {
+        if (value instanceof File) {
+            console.log(`Key: ${key}`);
+            console.log(`Name: ${value.name}`);
+            console.log(`Size: ${value.size}`);
+            console.log(`Type: ${value.type}`);
+        }
+        else {
+            console.log(`${key}: ${value}`);
+        }
+    });
     try {
         const response = yield fetch(`http://localhost:3000/board/free/${id}/postUpdate`, {
             method: 'PATCH',

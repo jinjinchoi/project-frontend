@@ -132,7 +132,8 @@
     justify-content: center;
     margin-right: 5px;
     background-color: rgb(221, 229, 231);
-    padding: 3px
+    padding: 3px;
+    cursor: pointer;
 }
 
 /* 최하단 공백 추가 */

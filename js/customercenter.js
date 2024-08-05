@@ -146,8 +146,6 @@ let pageViewIndex = 0;
 // 전체 글 수, 전체 보여줄 글 갯수, 보여줄 페이지 갯수
 async function pageNationData(bool, fn){
     const res = bool ? await Data() : fn;
-    console.log(res);
-    console.log(res.data.length)
 
     const totalBoardData = res.data.length;
 
@@ -193,7 +191,6 @@ async function displayRow(idx){
   const start = idx * 5;
   const end =  start + 5;
 
-  
   // 전체 글 사라지게 만들기
   for (const list of res) {
     list.style.display = "none";
@@ -209,6 +206,14 @@ async function displayRow(idx){
 
 function pageNationInit(totalViewPage, idx){
   // 글 페이지 생성
+   // 다음 이전 화살표
+   const nextBtn = document.querySelector(".next");
+   const prevBtn = document.querySelector(".prev");
+  if(totalViewPage < 4){
+    nextBtn.style.display = "none";
+    prevBtn.style.display = "none";
+  }
+  
   for (let i = 1; i <= totalViewPage; i++) {
     const page_li = document.createElement("li");
     const page_a = document.createElement("a");
@@ -226,14 +231,11 @@ function pageNationInit(totalViewPage, idx){
   for(let i = 0; i < page_li_array.length; i++){
     page_li_array[i].style.display = "none";
   }
+
   let start = idx * 3;
   let end = 3 + start;
 
   const viewPage = Math.ceil(pageArray.length / 3);
-
-  // 다음 이전 화살표
-  const nextBtn = document.querySelector(".next");
-  const prevBtn = document.querySelector(".prev");
 
   let viewNum = page_li_array.slice(start, end);
 

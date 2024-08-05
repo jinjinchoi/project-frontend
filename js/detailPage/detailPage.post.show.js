@@ -1,5 +1,20 @@
+import { likeImplement } from "../like/like.implement.js";
 import { deleteBoard } from "../delete/detailPage.delete.js";
 export function drawPostRegion(postData) {
+    const dateOptions = {
+        year: "numeric",
+        month: 'long',
+        day: 'numeric',
+    };
+    const timeOptions = {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+    };
+    const storedDate = new Date(postData.createdAt.replace(' ', 'T'));
+    const koreanDate = storedDate.toLocaleDateString('ko-KR', dateOptions);
+    const koreanTime = storedDate.toLocaleTimeString('ko-KR', timeOptions);
+    const formattedDate = `${koreanDate} ${koreanTime}`;
     const detailContainer = document.querySelector(".onlyPostContainer");
     const profileDiv = document.createElement("div");
     profileDiv.classList.add("topProfileContainer");
@@ -11,7 +26,7 @@ export function drawPostRegion(postData) {
 <div class="topProfileContainer">
     <div class="topProfileContainer-userImgContainer"> <img src="" class="topProfileContainer-userImgContainer-img"> </div> <!-- 프로필 사진 -->
     <div class="topProfileContainer-nicknameContainer"><span>${postData.unickname}</span></div>
-    <div clasas="topProfileContainer-dateContainer"><span>${postData.createdAt}</span></div>
+    <div clasas="topProfileContainer-dateContainer"><span>${formattedDate}</span></div>
     <div class="topProfileContainer-categoryContainer"><span>${postData.categories}</span></div>
     <div class="topProfileContainer-viewContainer"><span>조회수 ${postData.boardView}</span></div>
     <div class="topProfileContainer-UDContainer">
@@ -32,7 +47,7 @@ export function drawPostRegion(postData) {
     <!-- 댓글 -->
     <div class = "bottomContainer-buttonReion"><span> 💬 ${postData.numberOfComment} </span></div>
     <!-- 좋아요 -->
-    <div class = "bottomContainer-buttonReion"><span> ♡ ${postData.boardLike}</span></div>
+    <div class = "bottomContainer-buttonReion" id = "bottomContainer-like"><span> ♡ ${postData.boardLike}</span></div>
 </div>
 
 `;
@@ -45,6 +60,9 @@ export function drawPostRegion(postData) {
         else {
             return;
         }
+    });
+    contentDiv.querySelector("#bottomContainer-like").addEventListener("click", () => {
+        likeImplement(postData.categories, postData.id);
     });
     if (postData.boardFile) {
         const fileContainer = document.createElement('div');
