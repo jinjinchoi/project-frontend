@@ -40,7 +40,7 @@ export function displayPost(postList) {
             <div class="mainContainer-titleRegion"><h3>${postData.boardTitle}</h3></div>
             <div class="mainContainer-dataRegion"><span>${postData.boardContent}</span></div>
             <!-- 사진 or 영상 -->
-            <div class="mainContainer-fileRegion ${classStatus}"> <img src="http://localhost:3000/${postData.boardFile}" class = "mainContainer-file ${classStatus}"> </div>
+            <div class="mainContainer-fileRegion ${classStatus}"> <img src="" class = "mainContainer-file ${classStatus}"> </div>
         </div>
     </a>
     <!-- 댓글, 좋아요 영역 -->
@@ -54,6 +54,13 @@ export function displayPost(postList) {
 <!-- 게시물 영역 종료 -->
 `;
             postRigion.innerHTML = htmlContext;
+            const imgTag = postRigion.querySelector(".mainContainer-file");
+            if (!postData.boardFile) {
+                imgTag.src = "";
+            }
+            else {
+                imgTag.src = `http://localhost:3000/${postData.boardFile}`;
+            }
             postRigion.querySelector(".bottomContainer-comment-a").addEventListener("click", (e) => {
                 e.preventDefault();
                 window.location.href = `../detailpage/detailpage.html?category=${postData.categories}&id=${postData.id}#commentContainer`;

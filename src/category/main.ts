@@ -8,7 +8,7 @@ const LIMIT : number = 10;
 // 게시물 요청하는 함수
 async function getData(): Promise<IBoard[]> {
     try {
-
+        console.log(`http://localhost:3000/board?limit=${LIMIT}&offset=${offset}`)
         const response = await fetch(`http://localhost:3000/board?limit=${LIMIT}&offset=${offset}`);
         if(!response.ok) {
             throw new Error("응답 에러")

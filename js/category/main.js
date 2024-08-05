@@ -14,6 +14,7 @@ const LIMIT = 10;
 function getData() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            console.log(`http://localhost:3000/board?limit=${LIMIT}&offset=${offset}`);
             const response = yield fetch(`http://localhost:3000/board?limit=${LIMIT}&offset=${offset}`);
             if (!response.ok) {
                 throw new Error("응답 에러");
