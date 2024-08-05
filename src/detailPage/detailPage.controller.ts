@@ -6,8 +6,17 @@ import { DoYouLike } from "../like/like.getIsLike";
 import { colorPainting, removePainting } from "../like/like.fillButton";
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const params = new URLSearchParams(window.location.search);
 
+    // 해시값 불러오기
+    const hash = window.location.hash;
+    if(hash) {
+        const hashName = hash.substring(1);
+        const hashElement = document.querySelector(`.${hashName}`)
+        hashElement.scrollIntoView({behavior : 'smooth', block : 'start'});
+    }
+
+    // 파라미터값 불러오기
+    const params = new URLSearchParams(window.location.search);
     const category = params.get('category');
     const id = params.get('id');
     const parsedId : number = Number(id);
