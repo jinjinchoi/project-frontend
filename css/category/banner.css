@@ -1,0 +1,35 @@
+/* 상단 배너영역 비우기 */
+.banner-space {
+    width: 100%;
+    height: 30px;
+    padding: 20px;
+}
+
+
+/* 배너 div 설정 */
+.banner-contanier {
+    width: calc(100vw - 40px);
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    border-bottom: 1px solid lightgray;
+    padding: 20px;
+    position: fixed;
+    z-index: 999;
+    background-color: white;
+}
+
+
+
+
+.banner-search-input{
+    border: 0px;
+    border-radius: 20px;
+    background-color: rgb(247, 223, 255);
+    width: 500px;
+    height: 10px;
+    display: inline-flex;
+    padding: 15px;
+}
