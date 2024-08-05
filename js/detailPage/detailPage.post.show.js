@@ -46,6 +46,8 @@ export function drawPostRegion(postData) {
             return;
         }
     });
+
+    // 파일 있으면 보여주는 부분
     if (postData.boardFile) {
         const fileContainer = document.createElement('div');
         fileContainer.classList.add("contentContainer-fileContainer");

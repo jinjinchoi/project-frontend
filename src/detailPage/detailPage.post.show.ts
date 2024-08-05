@@ -1,3 +1,4 @@
+import { likeImplement } from "like/like.implement";
 import { deleteBoard } from "../delete/detailPage.delete";
 import { IBoard } from "interface/boardAndReply.interface";
 
@@ -61,6 +62,11 @@ export function drawPostRegion(postData : IBoard) : void {
         } else {
             return;
         }
+    })
+
+    // 좋아요 기능 구현
+    profileDiv.querySelector(".bottomContainer-buttonReion").addEventListener("click", () => {
+        likeImplement(postData.categories, postData.id);
     })
 
 
