@@ -75,6 +75,13 @@
     margin-left:70px;
 }
 
+#pf_img > img {
+    width:60px;
+    height:60px;
+    overflow:hidden;
+    border-radius:40px;
+}
+
 #uid_box{
     display:flex;
     width:840px;
@@ -356,6 +363,11 @@
     position:absolute;
     top:720px;
     right:530px;
+}
+
+#cancelBtn > a{
+    color:black;
+    text-decoration-line: none;
 }
 
 #cancelBtn:hover{
