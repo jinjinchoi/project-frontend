@@ -188,7 +188,7 @@ async function pageNationData(bool, fn){
 }
 
 // 글 내용 보여주기
-async function displayRow(idx){
+async function displayRow(id){
   const res = await faqDataFn;
   const start = idx * 5;
   const end =  start + 5;
