@@ -20,6 +20,16 @@ document.querySelector("#bottom-file").addEventListener("change", (e) => {
 document.querySelector(".wright-form").addEventListener("submit", (e) => __awaiter(this, void 0, void 0, function* () {
     e.preventDefault();
     const formData = new FormData(e.target);
+    const textAreaValue = formData.get('boardContent');
+    const inputValue = formData.get('boardTitle');
+    if (inputValue.trim() === '') {
+        alert("제목을 입력해주세요");
+        return;
+    }
+    if (textAreaValue.trim() === '') {
+        alert("내용을 입력해주세요");
+        return;
+    }
     try {
         const response = yield fetch("http://localhost:3000/board/review/postCreate", {
             method: 'POST',
