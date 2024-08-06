@@ -8,6 +8,12 @@ document.querySelector(".commentInputContainer-form").addEventListener('submit',
     const id = params.get('id');
 
     const formData = new FormData(e.target as HTMLFormElement);
+    const replyData = formData.get('replyContent') as String
+    if(replyData.trim() === '') {
+        alert('댓글 내용을 입력해주세요')
+        return;
+    }
+
     const data = {};
 
     formData.forEach((value, key) => {
