@@ -344,20 +344,25 @@
 }
 
 #okBtn{
-    width:55px;
+    width:70px;
     height:23px;
     font-weight: 700;
     position:absolute;
     top:720px;
-    right:592px;
+    right:610px;
 }
 
 #okBtn:hover{
     cursor:pointer;
 }
 
+#okBtn > a{
+    color:black;
+    text-decoration-line: none;
+}
+
 #cancelBtn{
-    width:55px;
+    width:70px;
     height:23px;
     font-weight: 700;
     position:absolute;

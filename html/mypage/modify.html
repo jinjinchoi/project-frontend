@@ -12,16 +12,19 @@
 <body>
     <div id="wrap">
         <div id="modify_box">
-            <form id="form">
-                <div id="form_img">
-                    <img src="">
-                </div>
+            <form id="form" enctype="multipart/form-data">
+                <label for="uprofile_input">
+                    <div id="form_img">
+                        <img id="user_img" src="">
+                    </div>
+                </label>
+                <input type="file" accept="img/*" name="profile" id="uprofile_input">
                 <input  id="upw_input" placeholder="비밀번호">
                 <input  id="unick_input" placeholder="닉네임">
                 <input  id="uemail_input" placeholder="이메일">
                 <input  id="uphone_input" placeholder="휴대폰 번호">
                 <div id="btn_box">
-                    <button id="okBtn">완료</button>
+                    <button type="button" id="okBtn">완료</button>
                     <button id="cancelBtn">취소</button>
                 </div>
             </form>
