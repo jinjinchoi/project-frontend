@@ -1,4 +1,4 @@
-import { IResponseData } from "interface/boardAndReply.interface";
+import { IResponseData } from "../interface/boardAndReply.interface";
 
 let loadedAllContents = false
 
@@ -6,11 +6,12 @@ let offset : number = 0;
 const LIMIT : number = 10;
 
 export async function getSpecifiableData (word : string) {
+
     try {
         if(loadedAllContents)
             return;
 
-        const response = await fetch(`http://localhost:3000/board/logic/search?word=${word}&limit=${LIMIT}&offset=${offset}`);
+        const response = await fetch(`http://localhost:3000/board/logic/search/implement?word=${word}&limit=${LIMIT}&offset=${offset}`);
         if(!response.ok) {
             throw new Error("응답 에러")
         }
