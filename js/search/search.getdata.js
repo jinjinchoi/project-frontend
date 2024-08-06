@@ -15,7 +15,7 @@ export function getSpecifiableData(word) {
         try {
             if (loadedAllContents)
                 return;
-            const response = yield fetch(`http://localhost:3000/board/logic/search?word=${word}&limit=${LIMIT}&offset=${offset}`);
+            const response = yield fetch(`http://localhost:3000/board/logic/search/implement?word=${word}&limit=${LIMIT}&offset=${offset}`);
             if (!response.ok) {
                 throw new Error("응답 에러");
             }
