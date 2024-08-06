@@ -1,4 +1,4 @@
-import { IResponseData } from "interface/boardAndReply.interface";
+import { IResponseData } from "../interface/boardAndReply.interface";
 
 let loadedAllContents = false
 
