@@ -11,6 +11,9 @@
 <link rel = "stylesheet" href ="../../css/category/post.css">
 <script src ="../../js/search/search.input.js" type="module" defer></script>
 <script src ="../../js/category/review.js" type="module" defer></script>
+<script src ="../../js/loginLogic/loginLogic.controller.js" type="module" defer></script>
+<script src ="../../js/category/category.Acontroll.js" type="module" defer></script>
+
 <body>
 <div class = "bodyDiv">
     <!-- Header start -->
@@ -25,11 +28,13 @@
                     </label>
                 </form>
             </div>
-            <a href = "../../html/login/login.html" class = "banner-login-a">
-                <div class="banner-login-button">
-                    <span> Log in</span>
-                </div>
-            </a>
+            <div class= "banner-userUI">
+                <a href = "../../html/login/login.html" class = "banner-login-a">
+                    <div class="banner-login-button">
+                        <span> Log in</span>
+                    </div>
+                </a>
+            </div>
         </div>
     </header>
     <!-- Header end -->
@@ -91,7 +96,7 @@
                         <span> 게시물</span>
                     </div>
                 </a>
-                <a href="../write/reviewBoardWrite.html" class = "topBar-button-a">
+                <a href="../write/reviewBoardWrite.html" class = "topBar-button-a" id = "topBar-writeBtn">
                     <div class = "topBar-button">
                         <span> 글작성 </span>
                     </div>

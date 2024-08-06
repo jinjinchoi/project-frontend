@@ -3,6 +3,7 @@ import { deleteBoard } from "../delete/detailPage.delete";
 import { IBoard } from "interface/boardAndReply.interface";
 import { ICookieUserInfo } from "interface/cookie.interface";
 import { getUserIdAndNickName } from "../loginLogic/loginLogic.getUserInfo";
+import { isLogin } from "../loginLogic/loginLogic.isLogin";
 
 
 // 본문과 프로필 영역 그린다.
@@ -72,26 +73,29 @@ export async function drawPostRegion(postData : IBoard) : Promise<void> {
     contentDiv.innerHTML = postHTMLSyntax;
 
     // 내 글만 수정, 삭제 글자 뜨게
-    const userInfo: ICookieUserInfo = await getUserIdAndNickName();
-    if (userInfo.uid === postData.uid) {
-        // 수정 페이지 및 삭제 버튼 생성
-        const updateDiv = document.createElement("div") as HTMLDivElement;
-        updateDiv.classList.add('topProfileContainer-UDContainer');
-        updateDiv.innerHTML =
-`
+    if (await isLogin()) {
+        const userInfo: ICookieUserInfo = await getUserIdAndNickName();
+
+        if (userInfo.uid === postData.uid) {
+            // 수정 페이지 및 삭제 버튼 생성
+            const updateDiv = document.createElement("div") as HTMLDivElement;
+            updateDiv.classList.add('topProfileContainer-UDContainer');
+            updateDiv.innerHTML =
+                `
 <a href="../update/${postData.categories}BoardUpdate.html?category=${postData.categories}&id=${postData.id}" class="UDContainer-updateA" data-set= "${postData.id}"><div class="UDContainer-updateContainer"><span>수정</span></div></a>
 <div class="UDContainer-deleteContainer" data-set="${postData.id}"><span>삭제</span></div>
 `
-        profileDiv.querySelector(".topProfileContainer").append(updateDiv);
+            profileDiv.querySelector(".topProfileContainer").append(updateDiv);
 
-        // 삭제 구현
-        profileDiv.querySelector(".UDContainer-deleteContainer").addEventListener("click", () => {
-            if (confirm("정말로 삭제하시겠습니까?")) {
-                deleteBoard(postData.uid, String(postData.id), postData.categories);
-            } else {
-                return;
-            }
-        })
+            // 삭제 구현
+            profileDiv.querySelector(".UDContainer-deleteContainer").addEventListener("click", () => {
+                if (confirm("정말로 삭제하시겠습니까?")) {
+                    deleteBoard(postData.uid, String(postData.id), postData.categories);
+                } else {
+                    return;
+                }
+            })
+        }
     }
 
     // 좋아요 기능 구현

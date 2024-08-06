@@ -32,7 +32,6 @@ document.querySelector(".wright-form").addEventListener("submit", (e) => __await
         return;
     }
     const userInfo = yield getUserIdAndNickName();
-    console.log(userInfo.uid);
     try {
         const response = yield fetch("http://localhost:3000/board/free/postCreate", {
             method: 'POST',

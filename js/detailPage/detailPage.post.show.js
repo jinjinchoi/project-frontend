@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { likeImplement } from "../like/like.implement.js";
 import { deleteBoard } from "../delete/detailPage.delete.js";
 import { getUserIdAndNickName } from "../loginLogic/loginLogic.getUserInfo.js";
+import { isLogin } from "../loginLogic/loginLogic.isLogin.js";
 export function drawPostRegion(postData) {
     return __awaiter(this, void 0, void 0, function* () {
         const dateOptions = {
@@ -60,24 +61,26 @@ export function drawPostRegion(postData) {
 `;
         profileDiv.innerHTML = profileHTMLSyntax;
         contentDiv.innerHTML = postHTMLSyntax;
-        const userInfo = yield getUserIdAndNickName();
-        if (userInfo.uid === postData.uid) {
-            const updateDiv = document.createElement("div");
-            updateDiv.classList.add('topProfileContainer-UDContainer');
-            updateDiv.innerHTML =
-                `
+        if (yield isLogin()) {
+            const userInfo = yield getUserIdAndNickName();
+            if (userInfo.uid === postData.uid) {
+                const updateDiv = document.createElement("div");
+                updateDiv.classList.add('topProfileContainer-UDContainer');
+                updateDiv.innerHTML =
+                    `
 <a href="../update/${postData.categories}BoardUpdate.html?category=${postData.categories}&id=${postData.id}" class="UDContainer-updateA" data-set= "${postData.id}"><div class="UDContainer-updateContainer"><span>수정</span></div></a>
 <div class="UDContainer-deleteContainer" data-set="${postData.id}"><span>삭제</span></div>
 `;
-            profileDiv.querySelector(".topProfileContainer").append(updateDiv);
-            profileDiv.querySelector(".UDContainer-deleteContainer").addEventListener("click", () => {
-                if (confirm("정말로 삭제하시겠습니까?")) {
-                    deleteBoard(postData.uid, String(postData.id), postData.categories);
-                }
-                else {
-                    return;
-                }
-            });
+                profileDiv.querySelector(".topProfileContainer").append(updateDiv);
+                profileDiv.querySelector(".UDContainer-deleteContainer").addEventListener("click", () => {
+                    if (confirm("정말로 삭제하시겠습니까?")) {
+                        deleteBoard(postData.uid, String(postData.id), postData.categories);
+                    }
+                    else {
+                        return;
+                    }
+                });
+            }
         }
         contentDiv.querySelector("#bottomContainer-like").addEventListener("click", () => {
             likeImplement(postData.categories, postData.id);
