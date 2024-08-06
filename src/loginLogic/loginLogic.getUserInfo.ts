@@ -8,13 +8,16 @@ export async function getUserIdAndNickName() {
             credentials : 'include',
         });
 
-        if(!response.ok)
-            throw new Error("리스폰스 응답 에러");
+        if(!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`Error ${response.status}: ${errorData.message}`)
+        }
 
         const data : ICookieUserInfo = await response.json();
 
         return data;
     } catch (err) {
+        alert("인증 오류가 발생하였습니다. 다시 시도해주세요.")
         console.error("쿠키 유저 정보 획득 오류: ", err.message);
     }
 

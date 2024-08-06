@@ -1,3 +1,6 @@
+import { ICookieUserInfo } from "interface/cookie.interface";
+import { getUserIdAndNickName } from "loginLogic/loginLogic.getUserInfo";
+
 // 파일 업로드시 파일명 보여주는 함수
 document.querySelector("#bottom-file").addEventListener("change", (e) => {
     const uploadedFile = e.target as HTMLInputElement;
@@ -27,12 +30,14 @@ document.querySelector(".wright-form").addEventListener("submit", async (e) => {
         return;
     }
 
+    const userInfo : ICookieUserInfo = await getUserIdAndNickName();
+
     try {
         const response = await fetch("http://localhost:3000/board/review/postCreate", {
             method: 'POST',
             headers: {
-                "userToken": `testID`,
-                "unickname": "user"
+                "userToken": userInfo.uid,
+                "unickname": userInfo.unickname,
             },
             body: formData,
         });
