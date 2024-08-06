@@ -16,6 +16,16 @@ document.querySelector(".wright-form").addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target as HTMLFormElement);
+    const textAreaValue = formData.get('boardContent') as string;
+    const inputValue = formData.get('boardTitle') as string;
+    if(inputValue.trim() === '') {
+        alert("제목을 입력해주세요")
+        return;
+    }
+    if(textAreaValue.trim() === '') {
+        alert("내용을 입력해주세요")
+        return;
+    }
 
     try {
         const response = await fetch("http://localhost:3000/board/jmt/postCreate", {

@@ -6,6 +6,7 @@ let offset : number = 0;
 const LIMIT : number = 10;
 
 export async function getSpecifiableData (word : string) {
+
     try {
         if(loadedAllContents)
             return;
