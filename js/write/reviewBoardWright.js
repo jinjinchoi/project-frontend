@@ -7,6 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import { getUserIdAndNickName } from "../loginLogic/loginLogic.getUserInfo.js";
 document.querySelector("#bottom-file").addEventListener("change", (e) => {
     const uploadedFile = e.target;
     const file = uploadedFile.files[0];
@@ -17,7 +18,7 @@ document.querySelector("#bottom-file").addEventListener("change", (e) => {
         document.querySelector(".bottom-fileName").textContent = "";
     }
 });
-document.querySelector(".wright-form").addEventListener("submit", (e) => __awaiter(this, void 0, void 0, function* () {
+document.querySelector(".wright-form").addEventListener("submit", (e) => __awaiter(void 0, void 0, void 0, function* () {
     e.preventDefault();
     const formData = new FormData(e.target);
     const textAreaValue = formData.get('boardContent');
@@ -30,12 +31,13 @@ document.querySelector(".wright-form").addEventListener("submit", (e) => __await
         alert("내용을 입력해주세요");
         return;
     }
+    const userInfo = yield getUserIdAndNickName();
     try {
         const response = yield fetch("http://localhost:3000/board/review/postCreate", {
             method: 'POST',
             headers: {
-                "userToken": `testID`,
-                "unickname": "user"
+                "userToken": userInfo.uid,
+                "unickname": userInfo.unickname,
             },
             body: formData,
         });

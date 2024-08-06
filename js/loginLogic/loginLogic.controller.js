@@ -13,10 +13,8 @@ import { drawMyPageAndLogout } from "./loginLogic.render.js";
 document.addEventListener('DOMContentLoaded', () => __awaiter(void 0, void 0, void 0, function* () {
     if (yield isLogin()) {
         drawMyPageAndLogout();
-        console.log("1");
     }
     else {
         alreadyLogout();
-        console.log("2");
     }
 }));

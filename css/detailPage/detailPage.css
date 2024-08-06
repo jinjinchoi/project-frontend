@@ -57,6 +57,12 @@
     flex-direction: row;
 }
 
+/* 수정버튼 a태그 효과 삭제 */
+.UDContainer-updateA{
+    text-decoration: none;
+    color: inherit;
+}
+
 
 /* 게시물 수정 div */
 .UDContainer-updateContainer {

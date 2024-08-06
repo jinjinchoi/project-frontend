@@ -2,7 +2,7 @@ import { likeImplement } from "../like/like.implement";
 import { deleteBoard } from "../delete/detailPage.delete";
 import { IBoard } from "interface/boardAndReply.interface";
 import { ICookieUserInfo } from "interface/cookie.interface";
-import { getUserIdAndNickName } from "loginLogic/loginLogic.getUserInfo";
+import { getUserIdAndNickName } from "../loginLogic/loginLogic.getUserInfo";
 
 
 // 본문과 프로필 영역 그린다.

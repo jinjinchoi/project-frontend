@@ -1,5 +1,5 @@
 import { ICookieUserInfo } from "interface/cookie.interface";
-import { getUserIdAndNickName } from "loginLogic/loginLogic.getUserInfo";
+import { getUserIdAndNickName } from "../loginLogic/loginLogic.getUserInfo";
 
 // 파일 업로드시 파일명 보여주는 함수
 document.querySelector("#bottom-file").addEventListener("change", (e) => {
