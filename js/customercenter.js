@@ -205,15 +205,7 @@ async function displayRow(idx){
 }
 
 function pageNationInit(totalViewPage, idx){
-  // 글 페이지 생성
-   // 다음 이전 화살표
-   const nextBtn = document.querySelector(".next");
-   const prevBtn = document.querySelector(".prev");
-  if(totalViewPage < 4){
-    nextBtn.style.display = "none";
-    prevBtn.style.display = "none";
-  }
-  
+
   for (let i = 1; i <= totalViewPage; i++) {
     const page_li = document.createElement("li");
     const page_a = document.createElement("a");
@@ -232,8 +224,25 @@ function pageNationInit(totalViewPage, idx){
     page_li_array[i].style.display = "none";
   }
 
-  let start = idx * 3;
-  let end = 3 + start;
+  // 글 페이지 생성
+  // 다음 이전 화살표
+  const nextBtn = document.querySelector(".next");
+  const prevBtn = document.querySelector(".prev");
+  
+  // 페이지 개수
+  let maxPage = 3;
+  if(totalViewPage <= 3){
+    nextBtn.style.display = "none";
+    prevBtn.style.display = "none";
+    if(totalViewPage <= 2){
+      maxPage = 1;
+    } else if(totalViewPage <= 1){
+      maxPage = 0;
+    }
+  }
+  
+  let start = idx * maxPage;
+  let end = maxPage + start;
 
   const viewPage = Math.ceil(pageArray.length / 3);
 
