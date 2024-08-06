@@ -1,9 +1,10 @@
+import { ICookieUserInfo } from "interface/cookie.interface";
 import { deleteComment } from "./comment.delete";
 import { renderReplyInputDOM } from "./comment.inputRender";
 import { updateRender } from "./comment.updateRender";
 
 // 답글 버튼에 이벤트 리스너 추가
-export function addBtnEvent(replyButton : HTMLDivElement) : void {
+export function addBtnEvent(replyButton : HTMLDivElement, userToken : ICookieUserInfo) : void {
     replyButton.addEventListener("click", (e)=>{
         const target = e.currentTarget as HTMLDivElement;
         const replyId = target.getAttribute('data-set')
@@ -12,14 +13,14 @@ export function addBtnEvent(replyButton : HTMLDivElement) : void {
         if(verifyOpen) {
             verifyOpen.remove();
         } else {
-            renderReplyInputDOM(replyId);
+            renderReplyInputDOM(replyId, userToken);
         }
 
     })
 }
 
 // 수정 버튼에 이벤트 리스너 추가
-export function addUpdateEvent(updateBtn : HTMLDivElement, content : string) : void {
+export function addUpdateEvent(updateBtn : HTMLDivElement, content : string, userToken : ICookieUserInfo) : void {
     updateBtn.addEventListener("click", (e) => {
         const target = e.currentTarget as HTMLDivElement;
         const replyId = target.getAttribute('data-set');
@@ -31,7 +32,7 @@ export function addUpdateEvent(updateBtn : HTMLDivElement, content : string) : v
             text.style.display = "block";
             verifyOpen.remove();
         } else {
-            updateRender(replyId, content);
+            updateRender(replyId, content, userToken);
         }
     })
 }
@@ -41,9 +42,7 @@ export function addRemoveEvent(removeBtn : HTMLDivElement ,category : string, bo
     removeBtn.addEventListener("click", () => {
         if(!confirm("정말로 삭제하시겠습니까?"))
             return;
-        // 아이디 비교 필요
-        
-        deleteComment(category, boardId, replyId)
+        deleteComment(category, boardId, replyId, uid);
 
     })
 }

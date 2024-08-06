@@ -19,6 +19,8 @@ document.querySelector(".wright-form").addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target as HTMLFormElement);
+
+    // 공백 방지용
     const textAreaValue = formData.get('boardContent') as string;
     const inputValue = formData.get('boardTitle') as string;
     if(inputValue.trim() === '') {

@@ -81,10 +81,10 @@ export function drawPostRegion(postData) {
                     }
                 });
             }
+            contentDiv.querySelector("#bottomContainer-like").addEventListener("click", () => {
+                likeImplement(postData.categories, postData.id, userInfo);
+            });
         }
-        contentDiv.querySelector("#bottomContainer-like").addEventListener("click", () => {
-            likeImplement(postData.categories, postData.id);
-        });
         if (postData.boardFile) {
             const fileContainer = document.createElement('div');
             fileContainer.classList.add("contentContainer-fileContainer");

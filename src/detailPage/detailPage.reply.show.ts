@@ -1,7 +1,10 @@
 import { IReply } from "../interface/boardAndReply.interface";
 import { addBtnEvent, addRemoveEvent, addUpdateEvent } from "../commentManager/comment.eventControll"
+import { isLogin } from "../loginLogic/loginLogic.isLogin";
+import { ICookieUserInfo } from "interface/cookie.interface";
+import { getUserIdAndNickName } from "../loginLogic/loginLogic.getUserInfo";
 
-export function drawComment (replyData : IReply[], repeat : boolean) : void {
+export async function drawComment (replyData : IReply[], repeat : boolean) : Promise<void> {
     const commentRegion = document.querySelector(".commentContainer");
 
     const dateOptions : Intl.DateTimeFormatOptions = {
@@ -66,20 +69,39 @@ export function drawComment (replyData : IReply[], repeat : boolean) : void {
         }
 
         if (!commentData.isDeleted) {
-            // 답글 버튼 이벤트 리스너 추가
-            const replyBtn = commentContainer.querySelector(".userProfileContainer-repliesBtnContainer") as HTMLDivElement;
-            addBtnEvent(replyBtn);
+            // 로그인 시에만 답글 버튼 보이게
+            if (await isLogin()) {
+                // 쿠키에서 유저 정보 불러오기
+                const userInfo: ICookieUserInfo = await getUserIdAndNickName();
+                
+                // 답글 버튼 이벤트 리스너 추가
+                const replyBtn = commentContainer.querySelector(".userProfileContainer-repliesBtnContainer") as HTMLDivElement;
+                addBtnEvent(replyBtn, userInfo);
 
-            // 댓글 수정 버튼 이벤트 리스너 추가
-            const updateBtn = commentContainer.querySelector(`.userProfileContainer-updateBtnContainer`) as HTMLDivElement;
-            addUpdateEvent(updateBtn, commentData.replyContent);
+                // 쿠키에서 유저 정보 불러오기
+                if(userInfo.uid === commentData.uid) {
+                    // 댓글 수정 버튼 이벤트 리스너 추가
+                    const updateBtn = commentContainer.querySelector(`.userProfileContainer-updateBtnContainer`) as HTMLDivElement;
+                    addUpdateEvent(updateBtn, commentData.replyContent, userInfo);
 
-            // 댓글 삭제 버튼 이벤트 리스너 추가
-            const deleteBtn = commentContainer.querySelector(`.userProfileContainer-deleteBtnContainer`) as HTMLDivElement;
-            addRemoveEvent(deleteBtn, commentData.category, String(commentData.boardId), String(commentData.id), commentData.uid);
+                    // 댓글 삭제 버튼 이벤트 리스너 추가
+                    const deleteBtn = commentContainer.querySelector(`.userProfileContainer-deleteBtnContainer`) as HTMLDivElement;
+                    addRemoveEvent(deleteBtn, commentData.category, String(commentData.boardId), String(commentData.id), commentData.uid);
+                } else {
+                    commentContainer.querySelector(".userProfileContainer-updateBtnContainer").remove();
+                    commentContainer.querySelector(".userProfileContainer-deleteBtnContainer").remove();
+                }
+            } else {
+                commentContainer.querySelector(".userProfileContainer-repliesBtnContainer").remove();
+                commentContainer.querySelector(".userProfileContainer-updateBtnContainer").remove();
+                commentContainer.querySelector(".userProfileContainer-deleteBtnContainer").remove();
+            }
         }
 
-        
+        // 대댓글이면 답글버튼 삭제
+        if(repeat) {
+            commentContainer.querySelector(".userProfileContainer-repliesBtnContainer").remove();
+        }
 
         if(Array.isArray(commentData.replies) && commentData.replies.length > 0) {
             drawComment(commentData.replies, true);

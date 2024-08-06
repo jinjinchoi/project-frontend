@@ -1,5 +1,8 @@
 // 본문 댓글 다는 로직
 
+import { ICookieUserInfo } from "interface/cookie.interface";
+import { getUserIdAndNickName } from "../loginLogic/loginLogic.getUserInfo";
+
 document.querySelector(".commentInputContainer-form").addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -14,6 +17,9 @@ document.querySelector(".commentInputContainer-form").addEventListener('submit',
         return;
     }
 
+    // 쿠키에서 유저 정보 가져옴
+    const userInfo : ICookieUserInfo = await getUserIdAndNickName();
+
     const data = {};
 
     formData.forEach((value, key) => {
@@ -25,8 +31,8 @@ document.querySelector(".commentInputContainer-form").addEventListener('submit',
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json',
-                "userToken" : `testID`,
-                "unickname" : `user`
+                "userToken" : userInfo.uid,
+                "unickname" : userInfo.unickname
             },
             body : JSON.stringify(data),
         })

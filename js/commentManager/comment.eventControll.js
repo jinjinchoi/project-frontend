@@ -1,7 +1,7 @@
 import { deleteComment } from "./comment.delete.js";
 import { renderReplyInputDOM } from "./comment.inputRender.js";
 import { updateRender } from "./comment.updateRender.js";
-export function addBtnEvent(replyButton) {
+export function addBtnEvent(replyButton, userToken) {
     replyButton.addEventListener("click", (e) => {
         const target = e.currentTarget;
         const replyId = target.getAttribute('data-set');
@@ -10,11 +10,11 @@ export function addBtnEvent(replyButton) {
             verifyOpen.remove();
         }
         else {
-            renderReplyInputDOM(replyId);
+            renderReplyInputDOM(replyId, userToken);
         }
     });
 }
-export function addUpdateEvent(updateBtn, content) {
+export function addUpdateEvent(updateBtn, content, userToken) {
     updateBtn.addEventListener("click", (e) => {
         const target = e.currentTarget;
         const replyId = target.getAttribute('data-set');
@@ -25,7 +25,7 @@ export function addUpdateEvent(updateBtn, content) {
             verifyOpen.remove();
         }
         else {
-            updateRender(replyId, content);
+            updateRender(replyId, content, userToken);
         }
     });
 }
@@ -33,6 +33,6 @@ export function addRemoveEvent(removeBtn, category, boardId, replyId, uid) {
     removeBtn.addEventListener("click", () => {
         if (!confirm("정말로 삭제하시겠습니까?"))
             return;
-        deleteComment(category, boardId, replyId);
+        deleteComment(category, boardId, replyId, uid);
     });
 }

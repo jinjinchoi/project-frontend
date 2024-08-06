@@ -72,7 +72,7 @@ export async function drawPostRegion(postData : IBoard) : Promise<void> {
     profileDiv.innerHTML = profileHTMLSyntax;
     contentDiv.innerHTML = postHTMLSyntax;
 
-    // 내 글만 수정, 삭제 글자 뜨게
+    // 로그인시에만 되는 기능 구현
     if (await isLogin()) {
         const userInfo: ICookieUserInfo = await getUserIdAndNickName();
 
@@ -96,13 +96,12 @@ export async function drawPostRegion(postData : IBoard) : Promise<void> {
                 }
             })
         }
+
+        // 좋아요 기능 구현
+        contentDiv.querySelector("#bottomContainer-like").addEventListener("click", () => {
+            likeImplement(postData.categories, postData.id, userInfo);
+        })
     }
-
-    // 좋아요 기능 구현
-    contentDiv.querySelector("#bottomContainer-like").addEventListener("click", () => {
-        likeImplement(postData.categories, postData.id);
-    })
-
 
     // 파일이 있을 경우 표시
     if(postData.boardFile)

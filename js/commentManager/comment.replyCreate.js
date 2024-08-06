@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-export function sendReply(e, parentId) {
+export function sendReply(e, parentId, userToken) {
     return __awaiter(this, void 0, void 0, function* () {
         e.preventDefault();
         const params = new URLSearchParams(window.location.search);
@@ -24,8 +24,8 @@ export function sendReply(e, parentId) {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    "userToken": `testID`,
-                    "unickname": `user`
+                    "userToken": userToken.uid,
+                    "unickname": userToken.unickname,
                 },
                 body: JSON.stringify(data),
             });

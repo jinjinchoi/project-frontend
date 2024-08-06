@@ -14,7 +14,7 @@ export function deleteComment(category, boardId, replyId, userToken) {
                 method: 'DELETE',
                 headers: {
                     "Content-Type": "application/json",
-                    "userToken": `testID`,
+                    "userToken": userToken,
                 },
             });
             if (response.ok) {

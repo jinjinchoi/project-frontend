@@ -15,7 +15,7 @@ export function likeImplement(category, boardId, userToken) {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "userToken": "testId",
+                    "userToken": userToken.uid,
                 }
             });
             if (!resonse.ok)

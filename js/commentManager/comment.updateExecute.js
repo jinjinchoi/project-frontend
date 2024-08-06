@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-export function updateExecute(replyId, e) {
+export function updateExecute(replyId, e, userToken) {
     return __awaiter(this, void 0, void 0, function* () {
         const params = new URLSearchParams(window.location.search);
         const category = params.get('category');
@@ -23,7 +23,7 @@ export function updateExecute(replyId, e) {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
-                    "userToken": `testID`,
+                    "userToken": userToken.uid,
                 },
                 body: JSON.stringify(data),
             });

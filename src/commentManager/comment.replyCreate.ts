@@ -1,6 +1,8 @@
 //  댓글에 답글 다는 로직
 
-export async function sendReply(e : SubmitEvent, parentId : string) {
+import { ICookieUserInfo } from "interface/cookie.interface";
+
+export async function sendReply(e : SubmitEvent, parentId : string, userToken : ICookieUserInfo) {
     e.preventDefault();
 
     const params = new URLSearchParams(window.location.search);
@@ -21,8 +23,8 @@ export async function sendReply(e : SubmitEvent, parentId : string) {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json',
-                "userToken" : `testID`,
-                "unickname" : `user`
+                "userToken" : userToken.uid,
+                "unickname" : userToken.unickname,
             },
             body : JSON.stringify(data),
         })

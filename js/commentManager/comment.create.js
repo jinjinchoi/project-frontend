@@ -7,7 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-document.querySelector(".commentInputContainer-form").addEventListener('submit', (e) => __awaiter(this, void 0, void 0, function* () {
+import { getUserIdAndNickName } from "../loginLogic/loginLogic.getUserInfo.js";
+document.querySelector(".commentInputContainer-form").addEventListener('submit', (e) => __awaiter(void 0, void 0, void 0, function* () {
     e.preventDefault();
     const params = new URLSearchParams(window.location.search);
     const category = params.get('category');
@@ -18,6 +19,7 @@ document.querySelector(".commentInputContainer-form").addEventListener('submit',
         alert('댓글 내용을 입력해주세요');
         return;
     }
+    const userInfo = yield getUserIdAndNickName();
     const data = {};
     formData.forEach((value, key) => {
         data[key] = value;
@@ -27,8 +29,8 @@ document.querySelector(".commentInputContainer-form").addEventListener('submit',
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                "userToken": `testID`,
-                "unickname": `user`
+                "userToken": userInfo.uid,
+                "unickname": userInfo.unickname
             },
             body: JSON.stringify(data),
         });

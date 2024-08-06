@@ -1,31 +1,43 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 import { addBtnEvent, addRemoveEvent, addUpdateEvent } from "../commentManager/comment.eventControll.js";
+import { isLogin } from "../loginLogic/loginLogic.isLogin.js";
+import { getUserIdAndNickName } from "../loginLogic/loginLogic.getUserInfo.js";
 export function drawComment(replyData, repeat) {
-    const commentRegion = document.querySelector(".commentContainer");
-    const dateOptions = {
-        year: "numeric",
-        month: 'long',
-        day: 'numeric',
-    };
-    const timeOptions = {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
-    };
-    for (const commentData of replyData) {
-        const storedDate = new Date(commentData.createdAt.replace(' ', 'T'));
-        const koreanDate = storedDate.toLocaleDateString('ko-KR', dateOptions);
-        const koreanTime = storedDate.toLocaleTimeString('ko-KR', timeOptions);
-        const formattedDate = `${koreanDate} ${koreanTime}`;
-        const commentContainer = document.createElement("div");
-        if (!repeat) {
-            commentContainer.classList.add('commentContainer-frofileAndContent');
-        }
-        else {
-            commentContainer.classList.add('commentContainer-frofileAndContent-repeat');
-        }
-        commentContainer.setAttribute('data-set', `${commentData.id}`);
-        commentRegion.append(commentContainer);
-        const commentHTMLSyntax = `
+    return __awaiter(this, void 0, void 0, function* () {
+        const commentRegion = document.querySelector(".commentContainer");
+        const dateOptions = {
+            year: "numeric",
+            month: 'long',
+            day: 'numeric',
+        };
+        const timeOptions = {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        };
+        for (const commentData of replyData) {
+            const storedDate = new Date(commentData.createdAt.replace(' ', 'T'));
+            const koreanDate = storedDate.toLocaleDateString('ko-KR', dateOptions);
+            const koreanTime = storedDate.toLocaleTimeString('ko-KR', timeOptions);
+            const formattedDate = `${koreanDate} ${koreanTime}`;
+            const commentContainer = document.createElement("div");
+            if (!repeat) {
+                commentContainer.classList.add('commentContainer-frofileAndContent');
+            }
+            else {
+                commentContainer.classList.add('commentContainer-frofileAndContent-repeat');
+            }
+            commentContainer.setAttribute('data-set', `${commentData.id}`);
+            commentRegion.append(commentContainer);
+            const commentHTMLSyntax = `
 <!-- 유저 정보 영역 -->
 <div class="userImgContainer"> <img src="" class="userProfileContainer-userImgContainer-img"></div>
 <div class="entireUserInfo">
@@ -40,24 +52,42 @@ export function drawComment(replyData, repeat) {
     <div class="replyContainer" data-set="${commentData.id}"><span class = "replyContainer-span" data-set="${commentData.id}">${commentData.replyContent}</span></div>
 </div>
 `;
-        commentContainer.innerHTML = commentHTMLSyntax;
-        if (commentData.isDeleted) {
-            commentContainer.querySelector(".userProfileContainer-repliesBtnContainer").remove();
-            commentContainer.querySelector(".userProfileContainer-updateBtnContainer").remove();
-            commentContainer.querySelector(".userProfileContainer-deleteBtnContainer").remove();
-            const text = commentContainer.querySelector(".replyContainer-span");
-            text.style.color = "lightgray";
+            commentContainer.innerHTML = commentHTMLSyntax;
+            if (commentData.isDeleted) {
+                commentContainer.querySelector(".userProfileContainer-repliesBtnContainer").remove();
+                commentContainer.querySelector(".userProfileContainer-updateBtnContainer").remove();
+                commentContainer.querySelector(".userProfileContainer-deleteBtnContainer").remove();
+                const text = commentContainer.querySelector(".replyContainer-span");
+                text.style.color = "lightgray";
+            }
+            if (!commentData.isDeleted) {
+                if (yield isLogin()) {
+                    const userInfo = yield getUserIdAndNickName();
+                    const replyBtn = commentContainer.querySelector(".userProfileContainer-repliesBtnContainer");
+                    addBtnEvent(replyBtn, userInfo);
+                    if (userInfo.uid === commentData.uid) {
+                        const updateBtn = commentContainer.querySelector(`.userProfileContainer-updateBtnContainer`);
+                        addUpdateEvent(updateBtn, commentData.replyContent, userInfo);
+                        const deleteBtn = commentContainer.querySelector(`.userProfileContainer-deleteBtnContainer`);
+                        addRemoveEvent(deleteBtn, commentData.category, String(commentData.boardId), String(commentData.id), commentData.uid);
+                    }
+                    else {
+                        commentContainer.querySelector(".userProfileContainer-updateBtnContainer").remove();
+                        commentContainer.querySelector(".userProfileContainer-deleteBtnContainer").remove();
+                    }
+                }
+                else {
+                    commentContainer.querySelector(".userProfileContainer-repliesBtnContainer").remove();
+                    commentContainer.querySelector(".userProfileContainer-updateBtnContainer").remove();
+                    commentContainer.querySelector(".userProfileContainer-deleteBtnContainer").remove();
+                }
+            }
+            if (repeat) {
+                commentContainer.querySelector(".userProfileContainer-repliesBtnContainer").remove();
+            }
+            if (Array.isArray(commentData.replies) && commentData.replies.length > 0) {
+                drawComment(commentData.replies, true);
+            }
         }
-        if (!commentData.isDeleted) {
-            const replyBtn = commentContainer.querySelector(".userProfileContainer-repliesBtnContainer");
-            addBtnEvent(replyBtn);
-            const updateBtn = commentContainer.querySelector(`.userProfileContainer-updateBtnContainer`);
-            addUpdateEvent(updateBtn, commentData.replyContent);
-            const deleteBtn = commentContainer.querySelector(`.userProfileContainer-deleteBtnContainer`);
-            addRemoveEvent(deleteBtn, commentData.category, String(commentData.boardId), String(commentData.id), commentData.uid);
-        }
-        if (Array.isArray(commentData.replies) && commentData.replies.length > 0) {
-            drawComment(commentData.replies, true);
-        }
-    }
+    });
 }

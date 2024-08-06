@@ -1,5 +1,6 @@
+import { ICookieUserInfo } from "interface/cookie.interface";
 
-export async function updateExecute (replyId : string, e : SubmitEvent) {
+export async function updateExecute (replyId : string, e : SubmitEvent, userToken : ICookieUserInfo) {
     const params = new URLSearchParams(window.location.search);
     const category = params.get('category');
     const id = params.get('id');
@@ -17,7 +18,7 @@ export async function updateExecute (replyId : string, e : SubmitEvent) {
             method: 'PATCH',
             headers: {
                 'Content-Type' : 'application/json',
-                "userToken" : `testID`,
+                "userToken" : userToken.uid,
             },
             body : JSON.stringify(data),
         })

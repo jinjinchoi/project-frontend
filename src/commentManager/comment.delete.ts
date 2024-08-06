@@ -1,12 +1,12 @@
 
-export async function deleteComment(category : string, boardId : string, replyId : string, userToken? : string) : Promise<void> {
+export async function deleteComment(category : string, boardId : string, replyId : string, userToken : string) : Promise<void> {
 
     try {
         const response = await fetch(`http://localhost:3000/board/${category}/${boardId}/${replyId}/replyDelete`, {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json",
-                "userToken": `testID`,
+                "userToken": userToken,
             },
         });
 
