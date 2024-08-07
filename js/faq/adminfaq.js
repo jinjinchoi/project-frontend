@@ -7,7 +7,7 @@ const modifyParam = searchParams.get('modify')
 function faqModifyView(){
   // 파라미터 값이 있으면 수정페이지 함수 실행
   if(modifyParam){
-    return axios.get('http://localhost:3000/faq/adminfaq',
+    return axios.get('http://localhost:3000/faq/adminfaq/modify',
       {params : {modify : modifyParam}}
     )
     .then((res) => {
@@ -24,11 +24,28 @@ function faqModifyView(){
   }
 }
 
+// submit Event 발생시 빈값 허용 안함
+const faqFrm = document.getElementById("faqFrm");
+const { faqTitle, faqContent } = faqFrm;
+
+faqFrm.onsubmit = (e) => {
+  if(!faqTitle.value){
+    alert("제목을 입력해주세요");
+    e.preventDefault();
+    return;
+  }
+  if(!faqContent.value){
+    alert("본문을 입력해주세요");
+    e.preventDefault();
+    return;
+  }
+  if(!confirm("글을 등록하시겠습니까")){
+    e.preventDefault();
+  }
+}
 
 // 수정페이지로 넘어갈 때 form 숨김
-const faqFrm = document.getElementById("faqFrm");
 const modifyWrap = document.getElementById("modifyWrap");
-
 // 수정할 input 값
 const modifyTitle = document.getElementById("modifyTitle");
 const modifyContent = document.getElementById("modifyContent");
@@ -53,6 +70,15 @@ faqModifyView();
 // 버튼 클릭 시 수정을 해주는 함수
 const modifyBtn = document.getElementById("modifyBtn");
 modifyBtn.onclick = () => {
+  if(!modifyTitle.value){
+    alert("제목을 입력해주세요");
+    return;
+  }
+  if(!modifyContent.value){
+    alert("본문을 입력해주세요");
+    return;
+  }
+  if(!confirm("글을 등록하시겠습니까")) return;
   axios.put(`http://localhost:3000/faq/adminfaq/${modifyParam}`,
     {
       faqTitle: modifyTitle.value,
