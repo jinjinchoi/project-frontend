@@ -7,7 +7,10 @@ export async function logoutExecute(logoutDiv : HTMLDivElement, myPageSpan : HTM
     aTag.href = "../../html/login/login.html";
     // 백엔드에서 쿠키 삭제
     try{
-        const response = await fetch('http://localhost:3000/users/logout/out')
+        const response = await fetch('http://localhost:3000/users/logout/out', {
+            method : 'POST',
+            credentials: 'include',
+        }) 
         if(!response.ok) {
             throw new Error("리스폰스 응답 에러")
         }

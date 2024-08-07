@@ -12,7 +12,6 @@ export function DoYouLike(boardId, category) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const userinfo = yield getUserIdAndNickName();
-            console.log(userinfo);
             if (!userinfo) {
                 return;
             }
