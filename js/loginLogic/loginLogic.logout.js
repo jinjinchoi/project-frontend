@@ -9,9 +9,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 export function logoutExecute(logoutDiv, myPageSpan, aTag) {
     return __awaiter(this, void 0, void 0, function* () {
+        console.log("확인");
         logoutDiv.remove();
         myPageSpan.innerHTML = "Log in";
         aTag.href = "../../html/login/login.html";
+        try {
+            const response = yield fetch('http://localhost:3000/users/logout');
+            if (!response.ok) {
+                throw new Error("리스폰스 응답 에러");
+            }
+            window.location.reload();
+        }
+        catch (err) {
+            console.log("로그아웃 로직 에러: ", err);
+        }
     });
 }
 export function alreadyLogout() {

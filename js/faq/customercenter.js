@@ -1,6 +1,18 @@
+// 검색 url
+const currentURL = window.location.href;
+const faqSearch = new URL(currentURL).searchParams.get("faqSearch");
+
 // 글 전체 목록 페이지 보여주기
 const Data = async () => {
-  const res = await axios.get('http://localhost:3000/faq')
+  if(!faqSearch){
+    const res = await axios.get('http://localhost:3000/faq')
+    return res;
+  }
+  // 검색어가 있는 데이터 가져오기
+  const res = await axios.get(`http://localhost:3000/faq/q`,
+    {params : {q : faqSearch}}
+  )
+
   return res;
 }
 
@@ -26,7 +38,7 @@ async function faqData(res){
     deleteBtn.classList.add("deleteBtn");
 
     h3title.innerHTML = data[i].faqTitle;
-    pcontent.innerHTML = data[i].faqContent;
+    pcontent.innerHTML = `${data[i].faqContent} &nbsp  &nbsp`;
     deleteBtn.innerHTML = "삭제";
     modifyBtn.innerHTML = "수정";
 
@@ -35,7 +47,8 @@ async function faqData(res){
     // dataset.id 에 id값 부여
     deleteBtn.dataset.id = data[i].id;
 
-    listCreate.append(h3title, pcontent, modifyBtn, deleteBtn);
+    pcontent.append(modifyBtn, deleteBtn)
+    listCreate.append(h3title, pcontent);
     faqBoard.append(listCreate);
   }
   // 글 검색기능
@@ -44,60 +57,9 @@ async function faqData(res){
 
   // 검색 요청
   searchFrm.onsubmit = async (e) => {
-    e.preventDefault();
-
-    if(faqSearch.value === ""){alert("검색어를 입력해주세요."); return;}
-    const res = await axios.get(`http://localhost:3000/faq/q`,
-      {params : {q : faqSearch.value}}
-    );
-    const data = res.data;
-    const faqBoard = document.querySelector('.faq-board');
-    faqBoard.innerHTML = "";
-    
-    for (let i = 0; i < data.length; i++) {
-      let { faqTitle, faqContent, id } = data[i];
-  
-      const listCreate = document.createElement("div");
-      const h3title = document.createElement("h3");
-      const pcontent = document.createElement("p");
-      const deleteBtn = document.createElement("button");
-      const modifyBtn = document.createElement('a')
-  
-      listCreate.classList.add("faq-list");
-      h3title.classList.add("faq-title");
-      pcontent.classList.add("faq-content");
-      deleteBtn.classList.add("deleteBtn");
-  
-      h3title.innerHTML = data[i].faqTitle;
-      pcontent.innerHTML = data[i].faqContent;
-      deleteBtn.innerHTML = "삭제";
-      modifyBtn.innerHTML = "수정";
-  
-      modifyBtn.href = `../../html/faq/adminfaq.html?modify=${data[i].id}`
-      
-      // dataset.id 에 id값 부여
-      deleteBtn.dataset.id = data[i].id;
-  
-      listCreate.append(h3title, pcontent, modifyBtn, deleteBtn);
-      faqBoard.append(listCreate);
-    }
-
-    const totalBoardData = data.length;
-
-    const viewListData = 5; // 보여줄 글 개수
-    const totalViewPage = Math.ceil(totalBoardData / viewListData); // 전체 페이지
-
-    let bool = false;
-    pageNationData(bool, res);
-    
-    // 글 배열 반환
-    const faqList = document.querySelectorAll('.faq-board > div');
-    const faqBoardArray = Array.from(faqList);
-    
-    return faqBoardArray;
+    if(faqSearch.value === ""){alert("검색어를 입력해주세요."); e.preventDefault(); return;}
+    if(faqDataFn){alert("찾는 결과가 없습니다."); e.preventDefault(); return;}
   }
-
-
 
   // 삭제 버튼
   const deleteBtn = document.querySelectorAll(".deleteBtn");  
@@ -125,8 +87,20 @@ async function faqData(res){
   }
   
   // 글 배열 반환
-  const faqBoard = document.querySelectorAll('.faq-board > div');
+  const faqBoard = document.querySelectorAll('.faq-board > .faq-list');
+  const faqBoard_h3 = document.querySelectorAll('.faq-board > .faq-list > h3');
   const faqBoardArray = Array.from(faqBoard);
+  
+  for(faq of faqBoard_h3){
+    faq.onclick = (e) => {
+      const div = e.target.parentElement;
+      if(div.offsetHeight == 40){
+        div.style.height = `max-content`
+      } else {
+        div.style.height = "38px"
+      }
+    }
+  }
   
   return faqBoardArray;
 }
@@ -144,44 +118,45 @@ let pageIndex = 0;
 let pageViewIndex = 0;
 
 // 전체 글 수, 전체 보여줄 글 갯수, 보여줄 페이지 갯수
-async function pageNationData(bool, fn){
-    const res = bool ? await Data() : fn;
+async function pageNationData(){
+  const res = await Data();
 
-    const totalBoardData = res.data.length;
+  const totalBoardData = res.data.length;
 
-    const viewListData = 5; // 보여줄 글 개수
-    const totalViewPage = Math.ceil(totalBoardData / viewListData); // 전체 페이지
+  const viewListData = 5; // 보여줄 글 개수
+  const totalViewPage = Math.ceil(totalBoardData / viewListData); // 전체 페이지
 
-    displayRow(0);
+  displayRow(0);
 
-    // 클릭시 보여줄 페이지
-    const page_list = pageNationInit(totalViewPage, pageIndex);
-    // 페이지 처음 체크
-    page_list[0].classList.add('page-checked');
+  // 클릭시 보여줄 페이지
+  const page_list = pageNationInit(totalViewPage, pageIndex);
+  // 페이지 처음 체크
+  page_list[0].classList.add('page-checked');
+  page_list[0].classList.remove('page-not-checked');
 
-    for (const pageBtn of page_list) {
-      // 체크되지 않는 페이지 초기화
-      for (let i = 1; i < page_list.length; i++) {
+  for (const pageBtn of page_list) {
+    // 체크되지 않는 페이지 초기화
+    for (let i = 1; i < page_list.length; i++) {
+      page_list[i].classList.add('page-not-checked');
+    }
+
+    // A태그 클릭시 게시물 이동
+    pageBtn.onclick = (e) => {
+      e.preventDefault();
+
+      // 보여줄 list
+      const pageNum = e.target.innerHTML - 1;
+      displayRow(pageNum);
+
+      // 버튼 클릭시 클래스 추가 삭제
+      for (let i = 0; i < page_list.length; i++) {
+        page_list[i].classList.remove('page-checked');
         page_list[i].classList.add('page-not-checked');
       }
-
-      // A태그 클릭시 게시물 이동
-      pageBtn.onclick = (e) => {
-        e.preventDefault();
-
-        // 보여줄 list
-        const pageNum = e.target.innerHTML - 1;
-        displayRow(pageNum);
-
-        // 버튼 클릭시 클래스 추가 삭제
-        for (let i = 0; i < page_list.length; i++) {
-          page_list[i].classList.remove('page-checked');
-          page_list[i].classList.add('page-not-checked');
-        }
-        e.target.classList.remove('page-not-checked');
-        e.target.classList.add('page-checked');
-      }
+      e.target.classList.remove('page-not-checked');
+      e.target.classList.add('page-checked');
     }
+  }
   return res;
 }
 
@@ -309,5 +284,4 @@ function pageNationInit(totalViewPage, idx){
 }
 
 // 페이지네이션
-let bool = true;
-pageNationData(true, 1);
+pageNationData();
