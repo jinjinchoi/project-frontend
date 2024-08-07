@@ -12,6 +12,7 @@ import { drawPostRegion } from "./detailPage.post.show.js";
 import { drawComment } from "./detailPage.reply.show.js";
 import { DoYouLike } from "../like/like.getIsLike.js";
 import { colorPainting, removePainting } from "../like/like.fillButton.js";
+import { isLogin } from "../loginLogic/loginLogic.isLogin.js";
 document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, void 0, function* () {
     const params = new URLSearchParams(window.location.search);
     const category = params.get('category');
@@ -21,12 +22,14 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
         const detailPageData = yield getData(category, parsedId);
         drawPostRegion(detailPageData.wholeContents.content);
         drawComment(detailPageData.wholeContents.reply, false);
-        const checkIsLike = yield DoYouLike(parsedId, category, "testId");
-        if (checkIsLike) {
-            colorPainting();
-        }
-        else {
-            removePainting();
+        if (yield isLogin()) {
+            const checkIsLike = yield DoYouLike(parsedId, category);
+            if (checkIsLike) {
+                colorPainting();
+            }
+            else {
+                removePainting();
+            }
         }
         const hash = window.location.hash;
         if (hash) {
@@ -41,6 +44,13 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
     }
     const toView = document.querySelector("#topBar-toView");
     toView.href = `../category/${category}.html`;
-    const toWrite = document.querySelector("#toBar-toWrite");
-    toWrite.href = `../write/${category}BoardWrite.html`;
+    document.querySelector("#toBar-toWrite").addEventListener('click', (e) => __awaiter(void 0, void 0, void 0, function* () {
+        e.preventDefault();
+        if (yield isLogin()) {
+            window.location.href = `../write/${category}BoardWrite.html`;
+        }
+        else {
+            alert("로그인을 해주세요");
+        }
+    }));
 }));
