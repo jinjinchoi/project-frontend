@@ -102,7 +102,7 @@ for (const cancel of cancelBtnArray) {
     e.preventDefault();
   
     if(confirm("글 등록을 취소하시겠습니까?")){
-      location.href = "customercenter.html";
+      location.href = "../../html/faq/customercenter.html";
     }
   }
 }
