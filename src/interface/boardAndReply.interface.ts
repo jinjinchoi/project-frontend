@@ -5,6 +5,7 @@ export interface IBoard {
     boardView: number;
     uid:string;
     unickname:string;
+    uprofile:string;
     categories:string;
     boardFile: string | null;
     boardLike:number;
@@ -18,6 +19,7 @@ export interface IReply {
     id:number,
     uid:string,
     unickname:string,
+    uprofile:string,
     boardId:number,
     category:string,
     replyContent:string,

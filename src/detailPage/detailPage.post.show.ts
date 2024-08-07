@@ -3,11 +3,11 @@ import { deleteBoard } from "../delete/detailPage.delete";
 import { IBoard } from "interface/boardAndReply.interface";
 import { ICookieUserInfo } from "interface/cookie.interface";
 import { getUserIdAndNickName } from "../loginLogic/loginLogic.getUserInfo";
-import { isLogin } from "../loginLogic/loginLogic.isLogin";
 
 
 // 본문과 프로필 영역 그린다.
 export async function drawPostRegion(postData : IBoard) : Promise<void> {
+    console.log("postData", postData);
 
     const dateOptions : Intl.DateTimeFormatOptions = {
         year: "numeric",
@@ -124,6 +124,5 @@ export async function drawPostRegion(postData : IBoard) : Promise<void> {
 
         const src : string = `http://localhost:3000/${postData.boardFile}`;
         imgTag.src = src;
-
     }
 }
