@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { isLogin } from "../loginLogic/loginLogic.isLogin.js";
 document.querySelector(".commentInputContainer-form").addEventListener('submit', (e) => __awaiter(void 0, void 0, void 0, function* () {
     e.preventDefault();
-    const whetherBeingLogin = isLogin();
+    const whetherBeingLogin = yield isLogin();
     if (!whetherBeingLogin) {
         alert("로그인을 해주세요");
         return;

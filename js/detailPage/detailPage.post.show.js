@@ -10,7 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { likeImplement } from "../like/like.implement.js";
 import { deleteBoard } from "../delete/detailPage.delete.js";
 import { getUserIdAndNickName } from "../loginLogic/loginLogic.getUserInfo.js";
-import { isLogin } from "../loginLogic/loginLogic.isLogin.js";
 export function drawPostRegion(postData) {
     return __awaiter(this, void 0, void 0, function* () {
         const dateOptions = {
@@ -61,9 +60,9 @@ export function drawPostRegion(postData) {
 `;
         profileDiv.innerHTML = profileHTMLSyntax;
         contentDiv.innerHTML = postHTMLSyntax;
-        if (yield isLogin()) {
-            const userInfo = yield getUserIdAndNickName();
-            if (userInfo.uid === postData.uid) {
+        const userInfo = yield getUserIdAndNickName();
+        if (userInfo) {
+            if (userInfo.uid === postData.uid && userInfo) {
                 const updateDiv = document.createElement("div");
                 updateDiv.classList.add('topProfileContainer-UDContainer');
                 updateDiv.innerHTML =
@@ -81,9 +80,11 @@ export function drawPostRegion(postData) {
                     }
                 });
             }
-            contentDiv.querySelector("#bottomContainer-like").addEventListener("click", () => {
-                likeImplement(postData.categories, postData.id, userInfo);
-            });
+            else if (userInfo) {
+                contentDiv.querySelector("#bottomContainer-like").addEventListener("click", () => {
+                    likeImplement(postData.categories, postData.id, userInfo);
+                });
+            }
         }
         else {
             contentDiv.querySelector("#bottomContainer-like").addEventListener("click", () => {

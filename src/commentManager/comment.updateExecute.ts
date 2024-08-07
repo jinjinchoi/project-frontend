@@ -1,5 +1,3 @@
-import { ICookieUserInfo } from "interface/cookie.interface";
-
 export async function updateExecute (replyId : string, e : SubmitEvent) {
     const params = new URLSearchParams(window.location.search);
     const category = params.get('category');

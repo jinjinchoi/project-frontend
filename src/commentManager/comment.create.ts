@@ -1,13 +1,11 @@
 // 본문 댓글 다는 로직
 
-import { ICookieUserInfo } from "interface/cookie.interface";
-import { getUserIdAndNickName } from "../loginLogic/loginLogic.getUserInfo";
 import { isLogin } from "../loginLogic/loginLogic.isLogin";
 
 document.querySelector(".commentInputContainer-form").addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    const whetherBeingLogin = isLogin();
+    const whetherBeingLogin = await isLogin();
     if(!whetherBeingLogin) {
         alert("로그인을 해주세요")
         return;

@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         drawComment(detailPageData.wholeContents.reply, false);
 
         // 좋아요 색칠하기
+        if(await isLogin()) {
         const checkIsLike : boolean = await DoYouLike(parsedId, category);
         if(checkIsLike) {
             colorPainting();
@@ -26,6 +27,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         else {
             removePainting();
         }
+    }
 
          // 해시값 불러오기
         const hash = window.location.hash;

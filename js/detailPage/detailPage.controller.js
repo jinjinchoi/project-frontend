@@ -22,12 +22,14 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
         const detailPageData = yield getData(category, parsedId);
         drawPostRegion(detailPageData.wholeContents.content);
         drawComment(detailPageData.wholeContents.reply, false);
-        const checkIsLike = yield DoYouLike(parsedId, category);
-        if (checkIsLike) {
-            colorPainting();
-        }
-        else {
-            removePainting();
+        if (yield isLogin()) {
+            const checkIsLike = yield DoYouLike(parsedId, category);
+            if (checkIsLike) {
+                colorPainting();
+            }
+            else {
+                removePainting();
+            }
         }
         const hash = window.location.hash;
         if (hash) {

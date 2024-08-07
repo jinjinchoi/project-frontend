@@ -1,4 +1,4 @@
-import { ICookieUserInfo } from "interface/cookie.interface";
+
 import { deleteComment } from "./comment.delete";
 import { renderReplyInputDOM } from "./comment.inputRender";
 import { updateRender } from "./comment.updateRender";

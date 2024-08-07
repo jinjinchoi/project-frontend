@@ -8,7 +8,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { addBtnEvent, addRemoveEvent, addUpdateEvent } from "../commentManager/comment.eventControll.js";
-import { isLogin } from "../loginLogic/loginLogic.isLogin.js";
 import { getUserIdAndNickName } from "../loginLogic/loginLogic.getUserInfo.js";
 export function drawComment(replyData, repeat) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -60,10 +59,9 @@ export function drawComment(replyData, repeat) {
                 const text = commentContainer.querySelector(".replyContainer-span");
                 text.style.color = "lightgray";
             }
-            const whetherBeingLogin = yield isLogin();
+            const userInfo = yield getUserIdAndNickName();
             if (!commentData.isDeleted) {
-                if (whetherBeingLogin) {
-                    const userInfo = yield getUserIdAndNickName();
+                if (userInfo) {
                     const replyBtn = commentContainer.querySelector(".userProfileContainer-repliesBtnContainer");
                     addBtnEvent(replyBtn);
                     if (userInfo.uid === commentData.uid) {
@@ -83,7 +81,7 @@ export function drawComment(replyData, repeat) {
                     commentContainer.querySelector(".userProfileContainer-deleteBtnContainer").remove();
                 }
             }
-            if (repeat && !commentData.isDeleted && whetherBeingLogin) {
+            if (repeat && !commentData.isDeleted && userInfo) {
                 commentContainer.querySelector(".userProfileContainer-repliesBtnContainer").remove();
             }
             if (Array.isArray(commentData.replies) && commentData.replies.length > 0) {

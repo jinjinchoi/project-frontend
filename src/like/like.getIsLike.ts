@@ -1,11 +1,15 @@
-import { getUserIdAndNickName } from "loginLogic/loginLogic.getUserInfo";
+import { getUserIdAndNickName } from "../loginLogic/loginLogic.getUserInfo";
 import { ILike } from "../interface/like.interface"
 import { ICookieUserInfo } from "interface/cookie.interface";
+import { isLogin } from "../loginLogic/loginLogic.isLogin";
 
 // 좋아요 했는지 알아보자
 export async function DoYouLike(boardId: number, category: string): Promise<boolean> {
     try {
         const userinfo : ICookieUserInfo = await getUserIdAndNickName();
+        if(!userinfo){
+            return;
+        }
         const resonse = await fetch(`http://localhost:3000/like/${category}/${boardId}/whetherLike`, {
             method: 'GET',
             headers: {
@@ -21,6 +25,6 @@ export async function DoYouLike(boardId: number, category: string): Promise<bool
 
         return resonseMessage.isLike;
     } catch (err) {
-        console.log("좋아요 정보 획득 오류 : ", err.mesaage)
+        console.log("좋아요 정보 획득 오류 : ", err) 
     }
 }
