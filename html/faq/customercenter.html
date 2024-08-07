@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="../../css/customercenter.css">
+  <link rel="stylesheet" href="../../css/faq/customercenter.css">
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
   <div id="content">
     <h2>FAQ</h2>
-    <p>무엇이든 물어보세오</p>
+    <p>자주 묻는 질문</p>
     <div class="content-wrap">
       <form id="searchFrm">
         <input type="text" id="faqSearch" name="faqSearch" placeholder="검색어를 입력해주세요">
@@ -19,16 +19,18 @@
       <!-- 댓글 보여지는 부분 -->
       <div class="faq-board">
       </div>
+      <div class="registBtn">
+        <a href="/frontend/html/faq/customercenter.html">전체 보기</a><a href="/frontend/html/faq/adminfaq.html">글 등록</a>
+      </div>
       <!-- 페이지 네이션 -->
       <div class="page-nation">
         <span class="page-arrow prev">이전</span>
-        <span class="page-arrow next">다음</span>
         <ol>
           <!-- 페이지 번호가 들어감 -->
         </ol>
+        <span class="page-arrow next">다음</span>
       </div>
     </div>
   </div>
 </body>
-<script src="../../js/customercenter.js"></script>
-</html>
+</html><script src="../../js/faq/customercenter.js"></script>
