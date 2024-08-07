@@ -35,7 +35,7 @@ document.querySelector(".wright-form").addEventListener("submit", async (e) => {
         });
 
         if (response.ok) {
-            window.location.href = "../category/jwt.html"
+            window.location.href = "../category/jmt.html"
         } else if (response.status === 401) {
             alert("로그인 정보가 유효하지 않습니다. 다시 로그인해주세요.")
             throw new Error("인증 오류 - 토큰이 유효하지 않습니다.");
