@@ -1,21 +1,18 @@
 import { getUserIdAndNickName } from "../loginLogic/loginLogic.getUserInfo";
 import { ILike } from "../interface/like.interface"
 import { ICookieUserInfo } from "interface/cookie.interface";
-import { isLogin } from "../loginLogic/loginLogic.isLogin";
 
 // 좋아요 했는지 알아보자
 export async function DoYouLike(boardId: number, category: string): Promise<boolean> {
     try {
         const userinfo : ICookieUserInfo = await getUserIdAndNickName();
+        console.log(userinfo);
         if(!userinfo){
             return;
         }
-        const resonse = await fetch(`http://localhost:3000/like/${category}/${boardId}/whetherLike`, {
+        const resonse = await fetch(`http://localhost:3000/like/whetherLike/${category}/${boardId}`, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'userToken': userinfo.uid,
-            }
+            credentials : 'include',
         })
 
         if(!resonse.ok)

@@ -73,18 +73,16 @@ export function drawPostRegion(postData) {
                 profileDiv.querySelector(".topProfileContainer").append(updateDiv);
                 profileDiv.querySelector(".UDContainer-deleteContainer").addEventListener("click", () => {
                     if (confirm("정말로 삭제하시겠습니까?")) {
-                        deleteBoard(postData.uid, String(postData.id), postData.categories, postData.uid);
+                        deleteBoard(postData.uid, String(postData.id), postData.categories);
                     }
                     else {
                         return;
                     }
                 });
             }
-            else if (userInfo) {
-                contentDiv.querySelector("#bottomContainer-like").addEventListener("click", () => {
-                    likeImplement(postData.categories, postData.id, userInfo);
-                });
-            }
+            contentDiv.querySelector("#bottomContainer-like").addEventListener("click", () => {
+                likeImplement(postData.categories, postData.id);
+            });
         }
         else {
             contentDiv.querySelector("#bottomContainer-like").addEventListener("click", () => {

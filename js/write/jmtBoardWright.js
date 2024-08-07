@@ -37,7 +37,7 @@ document.querySelector(".wright-form").addEventListener("submit", (e) => __await
             credentials: 'include',
         });
         if (response.ok) {
-            window.location.href = "../category/jwt.html";
+            window.location.href = "../category/jmt.html";
         }
         else if (response.status === 401) {
             alert("로그인 정보가 유효하지 않습니다. 다시 로그인해주세요.");

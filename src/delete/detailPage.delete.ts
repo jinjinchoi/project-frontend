@@ -1,14 +1,11 @@
 // 게시물 삭제 로직
 // 아이디 비교 필요
-export async function deleteBoard(uid : string, boardId : string, category : string, userToken : string) : Promise<void> {
+export async function deleteBoard(uid : string, boardId : string, category : string) : Promise<void> {
 
     try {
         const response = await fetch(`http://localhost:3000/board/${category}/${boardId}/postDelete`, {
             method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json",
-                "userToken": userToken,
-            },
+            credentials : "include",
         });
 
         if (!response.ok) {

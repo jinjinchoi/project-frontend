@@ -12,15 +12,13 @@ export function DoYouLike(boardId, category) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const userinfo = yield getUserIdAndNickName();
+            console.log(userinfo);
             if (!userinfo) {
                 return;
             }
-            const resonse = yield fetch(`http://localhost:3000/like/${category}/${boardId}/whetherLike`, {
+            const resonse = yield fetch(`http://localhost:3000/like/whetherLike/${category}/${boardId}`, {
                 method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'userToken': userinfo.uid,
-                }
+                credentials: 'include',
             });
             if (!resonse.ok)
                 throw new Error("좋아요 GET 로직 오류");
