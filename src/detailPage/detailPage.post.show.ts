@@ -42,7 +42,7 @@ export async function drawPostRegion(postData : IBoard) : Promise<void> {
     const profileHTMLSyntax : string =
 `
 <div class="topProfileContainer">
-    <div class="topProfileContainer-userImgContainer"> <img src="" class="topProfileContainer-userImgContainer-img"> </div> <!-- 프로필 사진 -->
+    <div class="topProfileContainer-userImgContainer"> <img src="http://localhost:3000/${postData.uprofile}" class="topProfileContainer-userImgContainer-img"> </div> <!-- 프로필 사진 -->
     <div class="topProfileContainer-nicknameContainer"><span>${postData.unickname}</span></div>
     <div clasas="topProfileContainer-dateContainer"><span>${formattedDate}</span></div>
     <div class="topProfileContainer-categoryContainer"><span>${postData.categories}</span></div>

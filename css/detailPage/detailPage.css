@@ -30,6 +30,14 @@
     height: 50px;
     border-radius: 50%;
     border: 1px solid lightgray;
+    overflow: hidden;
+}
+
+/* 유사 프사 이미지 태그 */
+.topProfileContainer-userImgContainer-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 /* 유저 닉네임 div */

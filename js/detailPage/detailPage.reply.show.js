@@ -42,9 +42,10 @@ export function drawComment(replyData, repeat) {
             }
             commentContainer.setAttribute('data-set', `${commentData.id}`);
             commentRegion.insertAdjacentElement('afterend', commentContainer);
+            console.log(commentData);
             const commentHTMLSyntax = `
 <!-- 유저 정보 영역 -->
-<div class="userImgContainer"> <img src="" class="userProfileContainer-userImgContainer-img"></div>
+<div class="userImgContainer"> <img src="http://localhost:3000/${commentData.uprofile}" class="userProfileContainer-userImgContainer-img"></div>
 <div class="entireUserInfo">
     <div class="userProfileContainer">
         <div class="userProfileContainer-nicknamecontainer"> <span>${commentData.unickname} </span></div>
