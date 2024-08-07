@@ -11,7 +11,7 @@ import { addBtnEvent, addRemoveEvent, addUpdateEvent } from "../commentManager/c
 import { getUserIdAndNickName } from "../loginLogic/loginLogic.getUserInfo.js";
 export function drawComment(replyData, repeat) {
     return __awaiter(this, void 0, void 0, function* () {
-        const commentRegion = document.querySelector(".commentContainer");
+        let commentRegion;
         const dateOptions = {
             year: "numeric",
             month: 'long',
@@ -23,6 +23,12 @@ export function drawComment(replyData, repeat) {
             hour12: false
         };
         for (const commentData of replyData) {
+            if (repeat) {
+                commentRegion = document.querySelector(`.commentContainer-frofileAndContent[data-set="${commentData.parentId}"]`);
+            }
+            else {
+                commentRegion = document.querySelector(".commentContainer");
+            }
             const storedDate = new Date(commentData.createdAt.replace(' ', 'T'));
             const koreanDate = storedDate.toLocaleDateString('ko-KR', dateOptions);
             const koreanTime = storedDate.toLocaleTimeString('ko-KR', timeOptions);
@@ -35,7 +41,7 @@ export function drawComment(replyData, repeat) {
                 commentContainer.classList.add('commentContainer-frofileAndContent-repeat');
             }
             commentContainer.setAttribute('data-set', `${commentData.id}`);
-            commentRegion.append(commentContainer);
+            commentRegion.insertAdjacentElement('afterend', commentContainer);
             const commentHTMLSyntax = `
 <!-- 유저 정보 영역 -->
 <div class="userImgContainer"> <img src="" class="userProfileContainer-userImgContainer-img"></div>
