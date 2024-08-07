@@ -1,5 +1,5 @@
 import { sendReply } from "./comment.replyCreate.js";
-export function renderReplyInputDOM(replyID, userToken) {
+export function renderReplyInputDOM(replyID) {
     const HTMLSyntx = `
 <form class="replyInputContainer-form" data-set="${replyID}">
     <textarea class="commentInputContainer-textarea" placeholder="Believe Dream" name = "replyContent"></textarea>
@@ -16,6 +16,6 @@ export function renderReplyInputDOM(replyID, userToken) {
     }
     document.querySelector(`.commentContainer-frofileAndContent[data-set="${replyID}"]`).insertAdjacentElement('afterend', inputDiv);
     inputDiv.addEventListener('submit', (e) => {
-        sendReply(e, replyID, userToken);
+        sendReply(e, replyID);
     });
 }

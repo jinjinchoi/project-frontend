@@ -16,17 +16,23 @@ export function deleteComment(category, boardId, replyId, userToken) {
                     "Content-Type": "application/json",
                     "userToken": userToken,
                 },
+                credentials: 'include',
             });
-            if (response.ok) {
-                window.location.reload();
+            if (!response.ok) {
+                if (response.status === 401) {
+                    alert("로그인 정보가 유효하지 않습니다. 다시 로그인해주세요.");
+                    throw new Error("인증 오류 - 토큰이 유효하지 않습니다.");
+                }
+                else {
+                    throw new Error("리스폰스 응답 오류");
+                }
             }
             else {
-                console.log("서버 오류: ", response.status);
-                alert("서버 오류 발생, 다시 시도해주세요.");
+                window.location.reload();
             }
         }
         catch (err) {
-            console.log("patch 오류: ", err);
+            console.log("댓글 삭제 로직 오류: ", err);
         }
     });
 }

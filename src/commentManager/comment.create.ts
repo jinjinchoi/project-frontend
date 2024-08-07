@@ -2,9 +2,16 @@
 
 import { ICookieUserInfo } from "interface/cookie.interface";
 import { getUserIdAndNickName } from "../loginLogic/loginLogic.getUserInfo";
+import { isLogin } from "../loginLogic/loginLogic.isLogin";
 
 document.querySelector(".commentInputContainer-form").addEventListener('submit', async (e) => {
     e.preventDefault();
+    
+    const whetherBeingLogin = isLogin();
+    if(!whetherBeingLogin) {
+        alert("로그인을 해주세요")
+        return;
+    }
 
     const params = new URLSearchParams(window.location.search);
     const category = params.get('category');
@@ -18,7 +25,6 @@ document.querySelector(".commentInputContainer-form").addEventListener('submit',
     }
 
     // 쿠키에서 유저 정보 가져옴
-    const userInfo : ICookieUserInfo = await getUserIdAndNickName();
 
     const data = {};
 
@@ -31,18 +37,23 @@ document.querySelector(".commentInputContainer-form").addEventListener('submit',
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json',
-                "userToken" : userInfo.uid,
-                "unickname" : userInfo.unickname
             },
             body : JSON.stringify(data),
+            credentials : 'include',
         })
 
-        console.log(await response.json())
-        if(!response.ok) {
-            throw new Error("응답 오류" + response);
+
+        if (!response.ok) {
+            if (response.status === 401) {
+                alert("로그인 정보가 유효하지 않습니다. 다시 로그인해주세요.")
+                throw new Error("인증 오류 - 토큰이 유효하지 않습니다.");
+            } else {
+                throw new Error("리스폰스 응답 오류");
+            }
         } else {
             window.location.reload();
         }
+        
     } catch (err) {
         console.log("댓글 생성 로직 오류: ", err);
     }

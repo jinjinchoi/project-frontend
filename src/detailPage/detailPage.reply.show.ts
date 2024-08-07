@@ -68,21 +68,23 @@ export async function drawComment (replyData : IReply[], repeat : boolean) : Pro
             text.style.color = "lightgray"
         }
 
+        const whetherBeingLogin = await isLogin();
+
         if (!commentData.isDeleted) {
             // 로그인 시에만 답글 버튼 보이게
-            if (await isLogin()) {
+            if (whetherBeingLogin) {
                 // 쿠키에서 유저 정보 불러오기
                 const userInfo: ICookieUserInfo = await getUserIdAndNickName();
                 
                 // 답글 버튼 이벤트 리스너 추가
                 const replyBtn = commentContainer.querySelector(".userProfileContainer-repliesBtnContainer") as HTMLDivElement;
-                addBtnEvent(replyBtn, userInfo);
+                addBtnEvent(replyBtn);
 
                 // 쿠키에서 유저 정보 불러오기
                 if(userInfo.uid === commentData.uid) {
                     // 댓글 수정 버튼 이벤트 리스너 추가
                     const updateBtn = commentContainer.querySelector(`.userProfileContainer-updateBtnContainer`) as HTMLDivElement;
-                    addUpdateEvent(updateBtn, commentData.replyContent, userInfo);
+                    addUpdateEvent(updateBtn, commentData.replyContent);
 
                     // 댓글 삭제 버튼 이벤트 리스너 추가
                     const deleteBtn = commentContainer.querySelector(`.userProfileContainer-deleteBtnContainer`) as HTMLDivElement;
@@ -99,7 +101,7 @@ export async function drawComment (replyData : IReply[], repeat : boolean) : Pro
         }
 
         // 대댓글이면 답글버튼 삭제
-        if(repeat) {
+        if(repeat && !commentData.isDeleted && whetherBeingLogin) {
             commentContainer.querySelector(".userProfileContainer-repliesBtnContainer").remove();
         }
 

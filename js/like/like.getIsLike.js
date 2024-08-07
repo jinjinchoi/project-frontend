@@ -7,14 +7,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-export function DoYouLike(boardId, category, uswerToken) {
+import { getUserIdAndNickName } from "loginLogic/loginLogic.getUserInfo";
+export function DoYouLike(boardId, category) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const resonse = yield fetch(`http://localhost:3000/board/${category}/${boardId}/whetherLike`, {
+            const userinfo = yield getUserIdAndNickName();
+            const resonse = yield fetch(`http://localhost:3000/like/${category}/${boardId}/whetherLike`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'userToken': `testID`,
+                    'userToken': userinfo.uid,
                 }
             });
             if (!resonse.ok)

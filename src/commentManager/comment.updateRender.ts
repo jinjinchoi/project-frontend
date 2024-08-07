@@ -1,10 +1,9 @@
 
 // 업데이트창 그리기
 
-import { ICookieUserInfo } from "interface/cookie.interface";
 import { updateExecute } from "./comment.updateExecute";
 
-export async function updateRender(replyId : string, content : string, userToken : ICookieUserInfo) {
+export async function updateRender(replyId : string, content : string) {
 
     // 다른 곳에 업데이트 창이 열려있으면 닫기
     const existingUpdate = document.querySelector(".replyUpdateContainer") as HTMLDivElement;
@@ -42,7 +41,7 @@ const HTMLSyntex : string =
     // 수정 submit 이벤트 추가
     updateDiv.addEventListener("submit", (e : SubmitEvent) => {
         e.preventDefault();
-        updateExecute(replyId, e, userToken);
+        updateExecute(replyId, e);
     })
 
 }

@@ -7,9 +7,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { getUserIdAndNickName } from "../loginLogic/loginLogic.getUserInfo.js";
+import { isLogin } from "../loginLogic/loginLogic.isLogin.js";
 document.querySelector(".commentInputContainer-form").addEventListener('submit', (e) => __awaiter(void 0, void 0, void 0, function* () {
     e.preventDefault();
+    const whetherBeingLogin = isLogin();
+    if (!whetherBeingLogin) {
+        alert("로그인을 해주세요");
+        return;
+    }
     const params = new URLSearchParams(window.location.search);
     const category = params.get('category');
     const id = params.get('id');
@@ -19,7 +24,6 @@ document.querySelector(".commentInputContainer-form").addEventListener('submit',
         alert('댓글 내용을 입력해주세요');
         return;
     }
-    const userInfo = yield getUserIdAndNickName();
     const data = {};
     formData.forEach((value, key) => {
         data[key] = value;
@@ -29,14 +33,18 @@ document.querySelector(".commentInputContainer-form").addEventListener('submit',
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                "userToken": userInfo.uid,
-                "unickname": userInfo.unickname
             },
             body: JSON.stringify(data),
+            credentials: 'include',
         });
-        console.log(yield response.json());
         if (!response.ok) {
-            throw new Error("응답 오류" + response);
+            if (response.status === 401) {
+                alert("로그인 정보가 유효하지 않습니다. 다시 로그인해주세요.");
+                throw new Error("인증 오류 - 토큰이 유효하지 않습니다.");
+            }
+            else {
+                throw new Error("리스폰스 응답 오류");
+            }
         }
         else {
             window.location.reload();

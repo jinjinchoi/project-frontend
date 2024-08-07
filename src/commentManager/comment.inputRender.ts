@@ -1,9 +1,8 @@
-import { ICookieUserInfo } from "interface/cookie.interface";
 import { sendReply } from "./comment.replyCreate";
 
 // 답글 입력창 그리는 부분
 
-export function renderReplyInputDOM (replyID : string, userToken : ICookieUserInfo) : void {
+export function renderReplyInputDOM (replyID : string) : void {
     const HTMLSyntx : string =
 `
 <form class="replyInputContainer-form" data-set="${replyID}">
@@ -25,6 +24,6 @@ export function renderReplyInputDOM (replyID : string, userToken : ICookieUserIn
     document.querySelector(`.commentContainer-frofileAndContent[data-set="${replyID}"]`).insertAdjacentElement('afterend', inputDiv);
 
     inputDiv.addEventListener('submit', (e : SubmitEvent) => {
-        sendReply(e, replyID, userToken);
+        sendReply(e, replyID);
     })
 }

@@ -60,14 +60,15 @@ export function drawComment(replyData, repeat) {
                 const text = commentContainer.querySelector(".replyContainer-span");
                 text.style.color = "lightgray";
             }
+            const whetherBeingLogin = yield isLogin();
             if (!commentData.isDeleted) {
-                if (yield isLogin()) {
+                if (whetherBeingLogin) {
                     const userInfo = yield getUserIdAndNickName();
                     const replyBtn = commentContainer.querySelector(".userProfileContainer-repliesBtnContainer");
-                    addBtnEvent(replyBtn, userInfo);
+                    addBtnEvent(replyBtn);
                     if (userInfo.uid === commentData.uid) {
                         const updateBtn = commentContainer.querySelector(`.userProfileContainer-updateBtnContainer`);
-                        addUpdateEvent(updateBtn, commentData.replyContent, userInfo);
+                        addUpdateEvent(updateBtn, commentData.replyContent);
                         const deleteBtn = commentContainer.querySelector(`.userProfileContainer-deleteBtnContainer`);
                         addRemoveEvent(deleteBtn, commentData.category, String(commentData.boardId), String(commentData.id), commentData.uid);
                     }
@@ -82,7 +83,7 @@ export function drawComment(replyData, repeat) {
                     commentContainer.querySelector(".userProfileContainer-deleteBtnContainer").remove();
                 }
             }
-            if (repeat) {
+            if (repeat && !commentData.isDeleted && whetherBeingLogin) {
                 commentContainer.querySelector(".userProfileContainer-repliesBtnContainer").remove();
             }
             if (Array.isArray(commentData.replies) && commentData.replies.length > 0) {

@@ -7,7 +7,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { getUserIdAndNickName } from "../loginLogic/loginLogic.getUserInfo.js";
 document.querySelector("#bottom-file").addEventListener("change", (e) => {
     const uploadedFile = e.target;
     const file = uploadedFile.files[0];
@@ -18,7 +17,7 @@ document.querySelector("#bottom-file").addEventListener("change", (e) => {
         document.querySelector(".bottom-fileName").textContent = "";
     }
 });
-document.querySelector(".wright-form").addEventListener("submit", (e) => __awaiter(void 0, void 0, void 0, function* () {
+document.querySelector(".wright-form").addEventListener("submit", (e) => __awaiter(this, void 0, void 0, function* () {
     e.preventDefault();
     const formData = new FormData(e.target);
     const textAreaValue = formData.get('boardContent');
@@ -31,18 +30,18 @@ document.querySelector(".wright-form").addEventListener("submit", (e) => __await
         alert("내용을 입력해주세요");
         return;
     }
-    const userInfo = yield getUserIdAndNickName();
     try {
         const response = yield fetch("http://localhost:3000/board/jmt/postCreate", {
             method: 'POST',
-            headers: {
-                "userToken": userInfo.uid,
-                "unickname": userInfo.unickname,
-            },
             body: formData,
+            credentials: 'include',
         });
         if (response.ok) {
-            window.location.href = "../category/jmt.html";
+            window.location.href = "../category/jwt.html";
+        }
+        else if (response.status === 401) {
+            alert("로그인 정보가 유효하지 않습니다. 다시 로그인해주세요.");
+            throw new Error("인증 오류 - 토큰이 유효하지 않습니다.");
         }
         else {
             console.log("서버 오류: ", response.status);
@@ -50,6 +49,6 @@ document.querySelector(".wright-form").addEventListener("submit", (e) => __await
         }
     }
     catch (err) {
-        console.log("patch 전송오류: ", err);
+        console.log("작성페이지 오류 :  ", err);
     }
 }));

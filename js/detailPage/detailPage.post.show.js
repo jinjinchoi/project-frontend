@@ -74,7 +74,7 @@ export function drawPostRegion(postData) {
                 profileDiv.querySelector(".topProfileContainer").append(updateDiv);
                 profileDiv.querySelector(".UDContainer-deleteContainer").addEventListener("click", () => {
                     if (confirm("정말로 삭제하시겠습니까?")) {
-                        deleteBoard(postData.uid, String(postData.id), postData.categories);
+                        deleteBoard(postData.uid, String(postData.id), postData.categories, postData.uid);
                     }
                     else {
                         return;
@@ -83,6 +83,11 @@ export function drawPostRegion(postData) {
             }
             contentDiv.querySelector("#bottomContainer-like").addEventListener("click", () => {
                 likeImplement(postData.categories, postData.id, userInfo);
+            });
+        }
+        else {
+            contentDiv.querySelector("#bottomContainer-like").addEventListener("click", () => {
+                alert("로그인을 해주세요.");
             });
         }
         if (postData.boardFile) {

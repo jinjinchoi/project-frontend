@@ -1,7 +1,7 @@
 import { deleteComment } from "./comment.delete.js";
 import { renderReplyInputDOM } from "./comment.inputRender.js";
 import { updateRender } from "./comment.updateRender.js";
-export function addBtnEvent(replyButton, userToken) {
+export function addBtnEvent(replyButton) {
     replyButton.addEventListener("click", (e) => {
         const target = e.currentTarget;
         const replyId = target.getAttribute('data-set');
@@ -10,11 +10,11 @@ export function addBtnEvent(replyButton, userToken) {
             verifyOpen.remove();
         }
         else {
-            renderReplyInputDOM(replyId, userToken);
+            renderReplyInputDOM(replyId);
         }
     });
 }
-export function addUpdateEvent(updateBtn, content, userToken) {
+export function addUpdateEvent(updateBtn, content) {
     updateBtn.addEventListener("click", (e) => {
         const target = e.currentTarget;
         const replyId = target.getAttribute('data-set');
@@ -25,7 +25,7 @@ export function addUpdateEvent(updateBtn, content, userToken) {
             verifyOpen.remove();
         }
         else {
-            updateRender(replyId, content, userToken);
+            updateRender(replyId, content);
         }
     });
 }

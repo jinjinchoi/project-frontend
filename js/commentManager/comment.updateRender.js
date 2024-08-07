@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { updateExecute } from "./comment.updateExecute.js";
-export function updateRender(replyId, content, userToken) {
+export function updateRender(replyId, content) {
     return __awaiter(this, void 0, void 0, function* () {
         const existingUpdate = document.querySelector(".replyUpdateContainer");
         if (existingUpdate) {
@@ -33,7 +33,7 @@ export function updateRender(replyId, content, userToken) {
         replyContainer.append(updateDiv);
         updateDiv.addEventListener("submit", (e) => {
             e.preventDefault();
-            updateExecute(replyId, e, userToken);
+            updateExecute(replyId, e);
         });
     });
 }

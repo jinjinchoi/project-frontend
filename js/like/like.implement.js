@@ -11,16 +11,20 @@ import { colorPainting, removePainting } from "./like.fillButton.js";
 export function likeImplement(category, boardId, userToken) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const resonse = yield fetch(`http://localhost:3000/board/${category}/${boardId}/LikeUpdate`, {
+            const response = yield fetch(`http://localhost:3000/like/${category}/${boardId}/LikeUpdate`, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "userToken": userToken.uid,
-                }
+                credentials: 'include'
             });
-            if (!resonse.ok)
-                throw new Error("리스폰스 응답 오류");
-            const responseMesaage = yield resonse.json();
+            if (!response.ok) {
+                if (response.status === 401) {
+                    alert("로그인 정보가 유효하지 않습니다. 다시 로그인해주세요.");
+                    throw new Error("인증 오류 - 토큰이 유효하지 않습니다.");
+                }
+                else {
+                    throw new Error("리스폰스 응답 오류");
+                }
+            }
+            const responseMesaage = yield response.json();
             if (responseMesaage.message = "좋아요") {
                 colorPainting();
             }
@@ -30,7 +34,7 @@ export function likeImplement(category, boardId, userToken) {
             window.location.reload();
         }
         catch (err) {
-            console.log("Err : like.implement ::", err.mesaage);
+            console.log("좋아요 로직 오류: ", err);
         }
     });
 }

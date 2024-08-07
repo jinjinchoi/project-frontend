@@ -1,6 +1,3 @@
-import { ICookieUserInfo } from "interface/cookie.interface";
-import { getUserIdAndNickName } from "../loginLogic/loginLogic.getUserInfo";
-
 // 파일 업로드시 파일명 보여주는 함수
 document.querySelector("#bottom-file").addEventListener("change", (e) => {
     const uploadedFile = e.target as HTMLInputElement;
@@ -32,28 +29,27 @@ document.querySelector(".wright-form").addEventListener("submit", async (e) => {
         return;
     }
 
-    const userInfo : ICookieUserInfo = await getUserIdAndNickName();
+    // const userInfo : ICookieUserInfo = await getUserIdAndNickName();
 
     try {
         const response = await fetch("http://localhost:3000/board/free/postCreate", {
             method: 'POST',
-            headers: {
-                "userToken": userInfo.uid,
-                "unickname": userInfo.unickname
-            },
             body: formData,
+            credentials : 'include',
         });
 
         if (response.ok) {
             window.location.href = "../category/free.html"
-            
+        } else if (response.status === 401) {
+            alert("로그인 정보가 유효하지 않습니다. 다시 로그인해주세요.")
+            throw new Error("인증 오류 - 토큰이 유효하지 않습니다.");
         } else {
             console.log("서버 오류: ", response.status);
             alert("서버 오류 발생, 다시 시도해주세요.")
         }
 
     } catch (err) {
-        console.log("patch 전송오류: ", err);
+        console.log("작성페이지 오류 발생 :  ", err);
     }
 });
 

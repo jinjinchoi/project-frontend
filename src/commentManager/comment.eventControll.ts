@@ -3,8 +3,9 @@ import { deleteComment } from "./comment.delete";
 import { renderReplyInputDOM } from "./comment.inputRender";
 import { updateRender } from "./comment.updateRender";
 
+
 // 답글 버튼에 이벤트 리스너 추가
-export function addBtnEvent(replyButton : HTMLDivElement, userToken : ICookieUserInfo) : void {
+export function addBtnEvent(replyButton : HTMLDivElement) : void {
     replyButton.addEventListener("click", (e)=>{
         const target = e.currentTarget as HTMLDivElement;
         const replyId = target.getAttribute('data-set')
@@ -13,14 +14,14 @@ export function addBtnEvent(replyButton : HTMLDivElement, userToken : ICookieUse
         if(verifyOpen) {
             verifyOpen.remove();
         } else {
-            renderReplyInputDOM(replyId, userToken);
+            renderReplyInputDOM(replyId);
         }
 
     })
 }
 
 // 수정 버튼에 이벤트 리스너 추가
-export function addUpdateEvent(updateBtn : HTMLDivElement, content : string, userToken : ICookieUserInfo) : void {
+export function addUpdateEvent(updateBtn : HTMLDivElement, content : string) : void {
     updateBtn.addEventListener("click", (e) => {
         const target = e.currentTarget as HTMLDivElement;
         const replyId = target.getAttribute('data-set');
@@ -32,7 +33,7 @@ export function addUpdateEvent(updateBtn : HTMLDivElement, content : string, use
             text.style.display = "block";
             verifyOpen.remove();
         } else {
-            updateRender(replyId, content, userToken);
+            updateRender(replyId, content);
         }
     })
 }

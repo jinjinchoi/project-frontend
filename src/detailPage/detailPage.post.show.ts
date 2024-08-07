@@ -76,6 +76,7 @@ export async function drawPostRegion(postData : IBoard) : Promise<void> {
     if (await isLogin()) {
         const userInfo: ICookieUserInfo = await getUserIdAndNickName();
 
+        // 게시물 작성자만 되는 기능
         if (userInfo.uid === postData.uid) {
             // 수정 페이지 및 삭제 버튼 생성
             const updateDiv = document.createElement("div") as HTMLDivElement;
@@ -90,16 +91,23 @@ export async function drawPostRegion(postData : IBoard) : Promise<void> {
             // 삭제 구현
             profileDiv.querySelector(".UDContainer-deleteContainer").addEventListener("click", () => {
                 if (confirm("정말로 삭제하시겠습니까?")) {
-                    deleteBoard(postData.uid, String(postData.id), postData.categories);
+                    deleteBoard(postData.uid, String(postData.id), postData.categories, postData.uid);
                 } else {
                     return;
                 }
             })
-        }
+        } // 작성자만 되는 기능 종료
 
         // 좋아요 기능 구현
         contentDiv.querySelector("#bottomContainer-like").addEventListener("click", () => {
             likeImplement(postData.categories, postData.id, userInfo);
+            
+        }) // 로그인시에만 되는 기능 종료
+    } else {
+        
+        // 로그인 하지 않으면 하라고 뜨게
+        contentDiv.querySelector("#bottomContainer-like").addEventListener("click", () => {
+            alert("로그인을 해주세요.")
         })
     }
 
