@@ -27,26 +27,26 @@ document.querySelector(".wright-form").addEventListener("submit", async (e) => {
         return;
     }
 
+
     try {
         const response = await fetch("http://localhost:3000/board/review/postCreate", {
             method: 'POST',
-            headers: {
-                "userToken": `testID`,
-                "unickname": "user"
-            },
+            credentials : 'include',
             body: formData,
         });
 
         if (response.ok) {
             window.location.href = "../category/review.html"
-            
+        } else if (response.status === 401) {
+            alert("로그인 정보가 유효하지 않습니다. 다시 로그인해주세요.")
+            throw new Error("인증 오류 - 토큰이 유효하지 않습니다.");
         } else {
-            console.log("서버 오류: ", response.status);
             alert("서버 오류 발생, 다시 시도해주세요.")
+            console.log("서버 오류: ", response.status);
         }
 
     } catch (err) {
-        console.log("patch 전송오류: ", err);
+        console.log("작성페이지 오류: ", err);
     }
 });
 

@@ -33,6 +33,6 @@ export function addRemoveEvent(removeBtn, category, boardId, replyId, uid) {
     removeBtn.addEventListener("click", () => {
         if (!confirm("정말로 삭제하시겠습니까?"))
             return;
-        deleteComment(category, boardId, replyId);
+        deleteComment(category, boardId, replyId, uid);
     });
 }

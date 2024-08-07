@@ -7,14 +7,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-export function DoYouLike(boardId, category, uswerToken) {
+import { getUserIdAndNickName } from "../loginLogic/loginLogic.getUserInfo.js";
+export function DoYouLike(boardId, category) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const resonse = yield fetch(`http://localhost:3000/board/${category}/${boardId}/whetherLike`, {
+            const userinfo = yield getUserIdAndNickName();
+            if (!userinfo) {
+                return;
+            }
+            const resonse = yield fetch(`http://localhost:3000/like/${category}/${boardId}/whetherLike`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'userToken': `testID`,
+                    'userToken': userinfo.uid,
                 }
             });
             if (!resonse.ok)
@@ -23,7 +28,7 @@ export function DoYouLike(boardId, category, uswerToken) {
             return resonseMessage.isLike;
         }
         catch (err) {
-            console.log("좋아요 정보 획득 오류 : ", err.mesaage);
+            console.log("좋아요 정보 획득 오류 : ", err);
         }
     });
 }

@@ -7,32 +7,34 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-export function deleteComment(category, boardId, replyId, userToken) {
+import { isLogin } from "./loginLogic.isLogin.js";
+let showingAlert = false;
+export function getUserIdAndNickName() {
     return __awaiter(this, void 0, void 0, function* () {
+        const whetherBeingLogin = yield isLogin();
+        if (!whetherBeingLogin)
+            return;
         try {
-            const response = yield fetch(`http://localhost:3000/board/${category}/${boardId}/${replyId}/replyDelete`, {
-                method: 'DELETE',
-                headers: {
-                    "Content-Type": "application/json",
-                    "userToken": userToken,
-                },
+            const response = yield fetch("http://localhost:3000/users/profile", {
+                method: 'GET',
                 credentials: 'include',
             });
             if (!response.ok) {
-                if (response.status === 401) {
-                    alert("로그인 정보가 유효하지 않습니다. 다시 로그인해주세요.");
-                    throw new Error("인증 오류 - 토큰이 유효하지 않습니다.");
-                }
-                else {
-                    throw new Error("리스폰스 응답 오류");
-                }
+                const errorData = yield response.json();
+                throw new Error(`Error ${response.status}: ${errorData.message}`);
             }
-            else {
-                window.location.reload();
-            }
+            const data = yield response.json();
+            return data;
         }
         catch (err) {
-            console.log("댓글 삭제 로직 오류: ", err);
+            if (showingAlert) {
+                return;
+            }
+            else {
+                alert("로그인로직 - 로그인 인증 오류가 발생하였습니다. 다시 로그인 해주세요.");
+                console.error("쿠키 유저 정보 획득 오류: ", err.message);
+                showingAlert = true;
+            }
         }
     });
 }
