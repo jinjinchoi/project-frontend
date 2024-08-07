@@ -12,6 +12,7 @@ import { deleteBoard } from "../delete/detailPage.delete.js";
 import { getUserIdAndNickName } from "../loginLogic/loginLogic.getUserInfo.js";
 export function drawPostRegion(postData) {
     return __awaiter(this, void 0, void 0, function* () {
+        console.log("postData", postData);
         const dateOptions = {
             year: "numeric",
             month: 'long',

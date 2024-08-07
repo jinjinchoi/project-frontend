@@ -6,7 +6,6 @@ import { ICookieUserInfo } from "interface/cookie.interface";
 export async function DoYouLike(boardId: number, category: string): Promise<boolean> {
     try {
         const userinfo : ICookieUserInfo = await getUserIdAndNickName();
-        console.log(userinfo);
         if(!userinfo){
             return;
         }
