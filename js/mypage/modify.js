@@ -75,7 +75,7 @@ class OkBtn{
                     console.log("응답: ",  response);
                     if(response.status === 200) {
                         // alert('로그인 화면으로 돌아갑니다.')
-                        // location.href = '../login/login.html'
+                        location.href = '../login/login.html'
                     }
                 } catch (error) {
                     console.error('Error updating user data:', error);

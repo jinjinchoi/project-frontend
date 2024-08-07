@@ -87,7 +87,7 @@ class SignupCheck{
         this.emailInput = document.querySelector('#uemail')
         this.phoneInput = document.querySelector('#uphone')
 
-        this.nickReg = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,8}$/;
+        this.nickReg = /^(?=.*[a-z0-9])[a-z0-9]{2,8}$/;
         this.emailReg =  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
         this.phoneReg = /^\d{3}-?\d{3,4}-?\d{4}$/;
         this.pwReg = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{8,20}$/;
