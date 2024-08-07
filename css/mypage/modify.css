@@ -63,3 +63,25 @@
     height:30px;
     font-weight: 700;
 }
+
+#user_img{
+    width:200px;
+    height:200px;
+    border-radius:50%;
+}
+
+#uprofile_input{
+    display:none;
+}
+
+#form_img:hover{
+    cursor:pointer;
+}
+
+#okBtn:hover{
+    cursor:pointer;
+}
+
+#cancelBtn:hover{
+    cursor:pointer;
+}
