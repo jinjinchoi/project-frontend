@@ -7,15 +7,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-export function deleteBoard(uid, boardId, category, userToken) {
+export function deleteBoard(uid, boardId, category) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const response = yield fetch(`http://localhost:3000/board/${category}/${boardId}/postDelete`, {
                 method: 'DELETE',
-                headers: {
-                    "Content-Type": "application/json",
-                    "userToken": userToken,
-                },
+                credentials: "include",
             });
             if (!response.ok) {
                 if (response.status === 401) {

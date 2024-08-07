@@ -1,12 +1,11 @@
 import { ICookieUserInfo } from "interface/cookie.interface";
 import { ILikeResponseMessage } from "../interface/like.interface";
 import { colorPainting, removePainting } from "./like.fillButton";
-import { isLogin } from "../loginLogic/loginLogic.isLogin";
 
 // 좋아요 실행 함수
-export async function likeImplement (category : string, boardId : number, userToken : ICookieUserInfo) : Promise<void> {
+export async function likeImplement (category : string, boardId : number) : Promise<void> {
     try {
-        const response = await fetch(`http://localhost:3000/like/${category}/${boardId}/LikeUpdate`, {
+        const response = await fetch(`http://localhost:3000/like/LikeUpdate/${category}/${boardId}/`, {
             method: "POST",
             credentials : 'include'
         })

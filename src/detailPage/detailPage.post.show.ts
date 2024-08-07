@@ -91,18 +91,18 @@ export async function drawPostRegion(postData : IBoard) : Promise<void> {
             // 삭제 구현
             profileDiv.querySelector(".UDContainer-deleteContainer").addEventListener("click", () => {
                 if (confirm("정말로 삭제하시겠습니까?")) {
-                    deleteBoard(postData.uid, String(postData.id), postData.categories, postData.uid);
+                    deleteBoard(postData.uid, String(postData.id), postData.categories);
                 } else {
                     return;
                 }
             })
-        } else if (userInfo) {
-            // 좋아요 버튼 눌렀을때 이벤트 추가
-            contentDiv.querySelector("#bottomContainer-like").addEventListener("click", () => {
-                likeImplement(postData.categories, postData.id, userInfo);
-                
-            })
         }
+        // 좋아요 버튼 눌렀을때 이벤트 추가
+        contentDiv.querySelector("#bottomContainer-like").addEventListener("click", () => {
+            likeImplement(postData.categories, postData.id);
+
+        })
+
     } else {
         // 로그인 하지 않고 버튼 누르면 하라고 뜨게
         contentDiv.querySelector("#bottomContainer-like").addEventListener("click", () => {

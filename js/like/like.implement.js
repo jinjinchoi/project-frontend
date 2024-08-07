@@ -8,10 +8,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { colorPainting, removePainting } from "./like.fillButton.js";
-export function likeImplement(category, boardId, userToken) {
+export function likeImplement(category, boardId) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const response = yield fetch(`http://localhost:3000/like/${category}/${boardId}/LikeUpdate`, {
+            const response = yield fetch(`http://localhost:3000/like/LikeUpdate/${category}/${boardId}/`, {
                 method: "POST",
                 credentials: 'include'
             });
