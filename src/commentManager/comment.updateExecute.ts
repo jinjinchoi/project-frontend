@@ -1,4 +1,3 @@
-
 export async function updateExecute (replyId : string, e : SubmitEvent) {
     const params = new URLSearchParams(window.location.search);
     const category = params.get('category');
@@ -17,12 +16,17 @@ export async function updateExecute (replyId : string, e : SubmitEvent) {
             method: 'PATCH',
             headers: {
                 'Content-Type' : 'application/json',
-                "userToken" : `testID`,
             },
             body : JSON.stringify(data),
+            credentials : 'include',
         })
-        if(!response.ok) {
-            throw new Error("응답 오류" + response);
+        if (!response.ok) {
+            if (response.status === 401) {
+                alert("로그인 정보가 유효하지 않습니다. 다시 로그인해주세요.")
+                throw new Error("인증 오류 - 토큰이 유효하지 않습니다.");
+            } else {
+                throw new Error("리스폰스 응답 오류");
+            }
         } else {
             window.location.reload();
         }

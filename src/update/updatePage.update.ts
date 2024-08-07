@@ -29,36 +29,38 @@ document.querySelector(".wright-form").addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target as HTMLFormElement);
+    const textAreaValue = formData.get('boardContent') as string;
+    const inputValue = formData.get('boardTitle') as string;
+    
+    if(inputValue.trim() === '') {
+        alert("제목을 입력해주세요")
+        return;
+    }
+    if(textAreaValue.trim() === '') {
+        alert("내용을 입력해주세요")
+        return;
+    }
 
-    formData.forEach((value, key) => {
-        if (value instanceof File) {
-          console.log(`Key: ${key}`);
-          console.log(`Name: ${value.name}`);
-          console.log(`Size: ${value.size}`);
-          console.log(`Type: ${value.type}`);
-        } else {
-          console.log(`${key}: ${value}`);
-        }
-      });
 
     try {
         const response = await fetch(`http://localhost:3000/board/free/${id}/postUpdate`, {
             method: 'PATCH',
-            headers: {
-                "userToken": `testID`,
-            },
             body: formData,
+            credentials : 'include',
         });
 
         if (response.ok) {
             window.location.href = `../detailpage/detailpage.html?category=${category}&id=${parsedId}`;
+        } else if (response.status === 401) {
+            alert("로그인 정보가 유효하지 않습니다. 다시 로그인해주세요.")
+            throw new Error("인증 오류 - 토큰이 유효하지 않습니다.");
         } else {
             console.log("서버 오류: ", response.status);
             alert("서버 오류 발생, 다시 시도해주세요.")
         }
 
     } catch (err) {
-        console.log("patch 전송오류: ", err);
+        console.log("업데이트 페이지 로직 오류: ", err);
     }
 });
 

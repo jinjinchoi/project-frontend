@@ -22,8 +22,6 @@
 }
 
 
-
-
 .banner-search-input{
     border: 0px;
     border-radius: 20px;
@@ -38,4 +36,12 @@
 .banner-login-a{
     text-decoration: none;
     color: inherit;
+}
+
+/* 상단바 로그아웃 로그인 */
+.banner-userUI {
+    width: 120px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
