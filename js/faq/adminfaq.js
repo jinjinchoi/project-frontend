@@ -79,7 +79,7 @@ modifyBtn.onclick = () => {
     return;
   }
   if(!confirm("글을 등록하시겠습니까")) return;
-  axios.put(`http://localhost:3000/faq/adminfaq/${modifyParam}`,
+  axios.put(`http://127.0.0.1:3000/faq/adminfaq/${modifyParam}`,
     {
       faqTitle: modifyTitle.value,
       faqContent: modifyContent.value
