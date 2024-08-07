@@ -1,11 +1,10 @@
 import { IReply } from "../interface/boardAndReply.interface";
 import { addBtnEvent, addRemoveEvent, addUpdateEvent } from "../commentManager/comment.eventControll"
-import { isLogin } from "../loginLogic/loginLogic.isLogin";
 import { ICookieUserInfo } from "interface/cookie.interface";
 import { getUserIdAndNickName } from "../loginLogic/loginLogic.getUserInfo";
 
 export async function drawComment (replyData : IReply[], repeat : boolean) : Promise<void> {
-    const commentRegion = document.querySelector(".commentContainer");
+    let commentRegion : HTMLDivElement;
 
     const dateOptions : Intl.DateTimeFormatOptions = {
         year: "numeric",
@@ -21,7 +20,11 @@ export async function drawComment (replyData : IReply[], repeat : boolean) : Pro
 
     // rander 시작
     for(const commentData of replyData) {
-
+        if(repeat) {
+            commentRegion = document.querySelector(`.commentContainer-frofileAndContent[data-set="${commentData.parentId}"]`);
+        }else {
+            commentRegion = document.querySelector(".commentContainer");
+        }
         const storedDate = new Date(commentData.createdAt.replace(' ', 'T'));
         const koreanDate = storedDate.toLocaleDateString('ko-KR', dateOptions);
         const koreanTime = storedDate.toLocaleTimeString('ko-KR', timeOptions);
@@ -36,7 +39,7 @@ export async function drawComment (replyData : IReply[], repeat : boolean) : Pro
         }
         
         commentContainer.setAttribute('data-set', `${commentData.id}`)
-        commentRegion.append(commentContainer);
+        commentRegion.insertAdjacentElement('afterend', commentContainer);
 
 
        const commentHTMLSyntax =
