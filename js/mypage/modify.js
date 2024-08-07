@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        const response = await axios.get('http://localhost:3000/users/modify',{
+        const response = await axios.get('http://localhost:3000/users/modify/get',{
         withCredentials: true});
         
         const user = response.data;
@@ -34,12 +34,14 @@ document.querySelector('#uprofile_input').addEventListener('change', function() 
 class OkBtn{
     constructor(){
         this.okBtn = document.querySelector('#okBtn')
+        this.form = document.querySelector('#form')
 
         this.event()
     }
 
     event(){
-        this.okBtn.addEventListener('click', async () => {
+        this.form.addEventListener('submit', async (e) => {
+            e.preventDefault();
             if(confirm('정말 수정하시겠습니까?')){
                 // FormData 객체 생성
                 const formData = new FormData();
@@ -63,14 +65,18 @@ class OkBtn{
                 }
 
                 try {
-                    const response = await axios.post('http://localhost:3000/users/modify', formData, {
+                    console.log("======================")
+                    const response = await axios.post('http://localhost:3000/users/modify/update', formData, {
                         withCredentials: true,
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }
                     });
-                    alert('로그인 화면으로 돌아갑니다.')
-                    location.href = '../login/login.html'
+                    console.log("응답: ",  response);
+                    if(response.status === 200) {
+                        // alert('로그인 화면으로 돌아갑니다.')
+                        location.href = '../login/login.html'
+                    }
                 } catch (error) {
                     console.error('Error updating user data:', error);
                 }
