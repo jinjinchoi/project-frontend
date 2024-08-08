@@ -1,4 +1,4 @@
-import { IDetailPageResponseData } from "interface/boardAndReply.interface";
+import { IDetailPageResponseData, IReply } from "interface/boardAndReply.interface";
 import { getData } from "./detailPage.getData";
 import { drawPostRegion } from "./detailPage.post.show";
 import { drawComment } from "./detailPage.reply.show";
@@ -58,3 +58,23 @@ document.addEventListener("DOMContentLoaded", async () => {
         
 
 })
+
+
+// 스크롤시 이벤트 추가
+
+// let isLoading = false;
+
+// async function addPost () {
+//     if (isLoading) return; 
+//     const pageBottom = window.innerHeight + window.scrollY >= document.documentElement.offsetHeight
+//     if(pageBottom) {
+//         isLoading = true;
+//         try {
+//             const replyInfo:IReply[]
+            
+//         } finally {
+//             isLoading = false;
+//         }
+//     }
+// }
+// window.addEventListener('scroll', throttle(addPost,200))
