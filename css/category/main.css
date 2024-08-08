@@ -21,7 +21,8 @@
 .main {
     display: flex;
     justify-content: center;
-    width: calc(100vw - 270px);
+    box-sizing: border-box;
+    width: calc(100vw - 271px);
 }
 
 /* 메인 영역 div */
