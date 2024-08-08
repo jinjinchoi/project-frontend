@@ -36,7 +36,6 @@ function getData(category) {
 document.addEventListener('DOMContentLoaded', () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const postInfo = yield getData("free");
-        console.log("postInfo: ", postInfo);
         displayPost(postInfo);
     }
     catch (err) {

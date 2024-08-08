@@ -37,8 +37,15 @@
 .profileRegion-userProfile{
     width: 50px;
     height: 50px;
-    border: 1px solid black;
+    border: 1px solid lightgray;
     border-radius: 50%;
+    overflow: hidden;
+}
+
+.profileRegion-userImg{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 /* 본문 전체 영역 div */

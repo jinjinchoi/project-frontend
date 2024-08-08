@@ -35,7 +35,6 @@ async function getData(category:string): Promise<IBoard[]> {
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         const postInfo:IBoard[] = await getData("free");
-        console.log("postInfo: ", postInfo)
         displayPost(postInfo);
     } catch(err) {
         console.log(err.message);

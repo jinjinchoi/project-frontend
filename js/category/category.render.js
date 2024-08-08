@@ -27,7 +27,7 @@ export function displayPost(postList) {
     <div class = "post-profileRegion">
         <!-- 유저 프로필 사진 -->
         <div class = "profileRegion-userProfile">
-            <img src="">
+            <img src="http://localhost:3000/${postData.uprofile}" class = "profileRegion-userImg">
         </div>
         <div class="profileRegion-userNickname"> <span> ${postData.unickname} </span></div>
         <!-- 게시물 날짜 -->
